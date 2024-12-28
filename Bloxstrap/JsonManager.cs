@@ -27,6 +27,11 @@ public class JsonManager<T> where T : class, new()
 
             Prop = settings;
 
+            if (settings is null)
+                throw new ArgumentNullException("Deserialization returned null");
+
+            Prop = settings;
+
             App.Logger.WriteLine(LOG_IDENT, "Loaded successfully!");
         }
         catch (Exception ex)
@@ -45,6 +50,17 @@ public class JsonManager<T> where T : class, new()
 
                 if (!String.IsNullOrEmpty(message))
                     Frontend.ShowMessageBox($"{message}\n\n{ex.Message}", System.Windows.MessageBoxImage.Warning);
+
+                try
+                {
+                    // Create a backup of loaded file
+                    File.Copy(FileLocation, FileLocation + ".bak", true);
+                }
+                catch (Exception copyEx)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Failed to create backup file: {FileLocation}.bak");
+                    App.Logger.WriteException(LOG_IDENT, copyEx);
+                }
             }
 
             Save();

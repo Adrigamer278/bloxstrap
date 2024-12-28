@@ -1,40 +1,36 @@
-﻿namespace Bloxstrap.AppData;
-
-public class RobloxStudioData : CommonAppData, IAppData
+﻿﻿namespace Bloxstrap.AppData
 {
-    public string ProductName => "Roblox Studio";
-
-    public string BinaryType => "WindowsStudio64";
-
-    public string RegistryName => "RobloxStudio";
-
-    public override string ExecutableName => "RobloxStudioBeta.exe";
-
-    public override string Directory => Path.Combine(Paths.Roblox, "Studio");
-
-    public string OldDirectory => Path.Combine(Paths.Roblox, "Studio.old");
-
-    public AppState State => App.State.Prop.Studio;
-
-    public override IReadOnlyDictionary<string, string> PackageDirectoryMap { get; set; } = new Dictionary<string, string>()
+    public class RobloxStudioData : CommonAppData, IAppData
     {
-        { "RobloxStudio.zip",                @"" },
-        { "redist.zip",                      @"" },
-        { "LibrariesQt5.zip",                @"" },
+        public string ProductName => "Roblox Studio";
 
-        { "content-studio_svg_textures.zip", @"content\studio_svg_textures\"},
-        { "content-qt_translations.zip",     @"content\qt_translations\" },
-        { "content-api-docs.zip",            @"content\api_docs\" },
+        public string BinaryType => "WindowsStudio64";
 
-        { "extracontent-scripts.zip",        @"ExtraContent\scripts\" },
+        public string RegistryName => "RobloxStudio";
 
-        { "BuiltInPlugins.zip",              @"BuiltInPlugins\" },
-        { "BuiltInStandalonePlugins.zip",    @"BuiltInStandalonePlugins\" },
+        public override string ExecutableName => "RobloxStudioBeta.exe";
 
-        { "ApplicationConfig.zip",           @"ApplicationConfig\" },
-        { "Plugins.zip",                     @"Plugins\" },
-        { "Qml.zip",                         @"Qml\" },
-        { "StudioFonts.zip",                 @"StudioFonts\" },
-        { "RibbonConfig.zip",                @"RibbonConfig\" }
-    };
+        public override AppState State => App.State.Prop.Studio;
+
+        public override IReadOnlyDictionary<string, string> PackageDirectoryMap { get; set; } = new Dictionary<string, string>()
+        {
+            { "RobloxStudio.zip",                @"" },
+            { "LibrariesQt5.zip",                @"" },
+
+            { "content-studio_svg_textures.zip", @"content\studio_svg_textures\"},
+            { "content-qt_translations.zip",     @"content\qt_translations\" },
+            { "content-api-docs.zip",            @"content\api_docs\" },
+
+            { "extracontent-scripts.zip",        @"ExtraContent\scripts\" },
+
+            { "BuiltInPlugins.zip",              @"BuiltInPlugins\" },
+            { "BuiltInStandalonePlugins.zip",    @"BuiltInStandalonePlugins\" },
+
+            { "ApplicationConfig.zip",           @"ApplicationConfig\" },
+            { "Plugins.zip",                     @"Plugins\" },
+            { "Qml.zip",                         @"Qml\" },
+            { "StudioFonts.zip",                 @"StudioFonts\" },
+            { "RibbonConfig.zip",                @"RibbonConfig\" }
+        };
+    }
 }

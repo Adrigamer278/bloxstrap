@@ -4,5 +4,6 @@ public enum NextAction
 {
     Terminate,
     LaunchSettings,
-    LaunchRoblox
+    LaunchRoblox,
+    LaunchRobloxStudio
 }

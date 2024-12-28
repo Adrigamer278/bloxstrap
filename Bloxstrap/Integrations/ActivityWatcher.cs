@@ -9,21 +9,21 @@ public class ActivityWatcher : IDisposable
     // they only get printed depending on their configured FLog level, which could change at any time
     // while levels being changed is fairly rare, please limit the number of varying number of FLog types you have to use, if possible
 
-        private const string GameTeleportingEntry            = "[FLog::GameJoinUtil] GameJoinUtil::initiateTeleportToPlace";
-        private const string GameJoiningPrivateServerEntry   = "[FLog::GameJoinUtil] GameJoinUtil::joinGamePostPrivateServer";
-        private const string GameJoiningReservedServerEntry  = "[FLog::GameJoinUtil] GameJoinUtil::initiateTeleportToReservedServer";
-        private const string GameJoiningUniverseEntry        = "[FLog::GameJoinLoadTime] Report game_join_loadtime:";
-        private const string GameJoiningUDMUXEntry           = "[FLog::Network] UDMUX Address = ";
-        private const string GameJoinedEntry                 = "[FLog::Network] serverId:";
-        private const string GameDisconnectedEntry           = "[FLog::Network] Time to disconnect replication data:";
-        private const string GameLeavingEntry                = "[FLog::SingleSurfaceApp] leaveUGCGameInternal";
+    private const string GameTeleportingEntry            = "[FLog::GameJoinUtil] GameJoinUtil::initiateTeleportToPlace";
+    private const string GameJoiningPrivateServerEntry   = "[FLog::GameJoinUtil] GameJoinUtil::joinGamePostPrivateServer";
+    private const string GameJoiningReservedServerEntry  = "[FLog::GameJoinUtil] GameJoinUtil::initiateTeleportToReservedServer";
+    private const string GameJoiningUniverseEntry        = "[FLog::GameJoinLoadTime] Report game_join_loadtime:";
+    private const string GameJoiningUDMUXEntry           = "[FLog::Network] UDMUX Address = ";
+    private const string GameJoinedEntry                 = "[FLog::Network] serverId:";
+    private const string GameDisconnectedEntry           = "[FLog::Network] Time to disconnect replication data:";
+    private const string GameLeavingEntry                = "[FLog::SingleSurfaceApp] leaveUGCGameInternal";
 
-        private const string GameJoiningEntryPattern         = @"! Joining game '([0-9a-f\-]{36})' place ([0-9]+) at ([0-9\.]+)";
-        private const string GameJoiningPrivateServerPattern = @"""accessCode"":""([0-9a-f\-]{36})""";
-        private const string GameJoiningUniversePattern      = @"universeid:([0-9]+).*userid:([0-9]+)";
-        private const string GameJoiningUDMUXPattern         = @"UDMUX Address = ([0-9\.]+), Port = [0-9]+ \| RCC Server Address = ([0-9\.]+), Port = [0-9]+";
-        private const string GameJoinedEntryPattern          = @"serverId: ([0-9\.]+)\|[0-9]+";
-        private const string GameMessageEntryPattern         = @"\[BloxstrapRPC\] (.*)";
+    private const string GameJoiningEntryPattern         = @"! Joining game '([0-9a-f\-]{36})' place ([0-9]+) at ([0-9\.]+)";
+    private const string GameJoiningPrivateServerPattern = @"""accessCode"":""([0-9a-f\-]{36})""";
+    private const string GameJoiningUniversePattern      = @"universeid:([0-9]+).*userid:([0-9]+)";
+    private const string GameJoiningUDMUXPattern         = @"UDMUX Address = ([0-9\.]+), Port = [0-9]+ \| RCC Server Address = ([0-9\.]+), Port = [0-9]+";
+    private const string GameJoinedEntryPattern          = @"serverId: ([0-9\.]+)\|[0-9]+";
+    private const string GameMessageEntryPattern         = @"\[BloxstrapRPC\] (.*)";
 
     private int _logEntriesRead = 0;
     private bool _teleportMarker = false;
@@ -51,14 +51,14 @@ public class ActivityWatcher : IDisposable
 
     public bool IsDisposed = false;
 
-        public int delay = 250;
-        public int windowLogDelay = 250;
+    public int delay = 250;
+    public int windowLogDelay = 250;
 
-        public ActivityWatcher(string? logFile = null)
-        {
-            if (!String.IsNullOrEmpty(logFile))
-                LogLocation = logFile;
-        }
+    public ActivityWatcher(string? logFile = null)
+    {
+        if (!String.IsNullOrEmpty(logFile))
+            LogLocation = logFile;
+    }
 
     public async void Start()
     {
@@ -127,14 +127,14 @@ public class ActivityWatcher : IDisposable
 
             App.Logger.WriteLine(LOG_IDENT, $"Opened {LogLocation}");
 
-        var logUpdatedEvent = new AutoResetEvent(false);
-        var logWatcher = new FileSystemWatcher()
-        {
-            Path = logDirectory,
-            Filter = Path.GetFileName(logFileInfo.FullName),
-            EnableRaisingEvents = true
-        };
-        logWatcher.Changed += (s, e) => logUpdatedEvent.Set();
+            var logUpdatedEvent = new AutoResetEvent(false);
+            var logWatcher = new FileSystemWatcher()
+            {
+                Path = logDirectory,
+                Filter = Path.GetFileName(logFileInfo.FullName),
+                EnableRaisingEvents = true
+            };
+            logWatcher.Changed += (s, e) => logUpdatedEvent.Set();
 
             using var streamReader = new StreamReader(logFileStream);
 

@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
@@ -454,6 +454,7 @@ namespace Bloxstrap.Integrations
         [DllImport("user32.dll")]
         public static extern bool GetWindowRect(IntPtr hwnd, ref Rect rectangle);
         
+
         [DllImport("user32.dll")]
         static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 

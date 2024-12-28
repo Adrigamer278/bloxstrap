@@ -12,10 +12,6 @@ internal interface IAppData
 
     string Directory { get; }
 
-    string OldDirectory { get; }
-
-    string LockFilePath { get; }
-
     string ExecutablePath { get; }
 
     AppState State { get; }

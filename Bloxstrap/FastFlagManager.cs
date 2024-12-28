@@ -43,17 +43,17 @@ namespace Bloxstrap
 
             { "UI.FullscreenTitlebarDelay", "FIntFullscreenTitleBarTriggerDelayMillis" },
             
-            //{ "UI.Menu.Style.V2Rollout", "FIntNewInGameMenuPercentRollout3" },
-            //{ "UI.Menu.Style.EnableV4.1", "FFlagEnableInGameMenuControls" },
-            //{ "UI.Menu.Style.EnableV4.2", "FFlagEnableInGameMenuModernization" },
-            //{ "UI.Menu.Style.EnableV4Chrome", "FFlagEnableInGameMenuChrome" },
-            //{ "UI.Menu.Style.ReportButtonCutOff", "FFlagFixReportButtonCutOff" },
+            ////{ "UI.Menu.Style.V2Rollout", "FIntNewInGameMenuPercentRollout3" },
+            ////{ "UI.Menu.Style.EnableV4.1", "FFlagEnableInGameMenuControls" },
+            ////{ "UI.Menu.Style.EnableV4.2", "FFlagEnableInGameMenuModernization" },
+            ////{ "UI.Menu.Style.EnableV4Chrome", "FFlagEnableInGameMenuChrome" },
+            ////{ "UI.Menu.Style.ReportButtonCutOff", "FFlagFixReportButtonCutOff" },
 
 
-            //{ "UI.Menu.Style.ABTest.1", "FFlagEnableMenuControlsABTest" },
-            //{ "UI.Menu.Style.ABTest.2", "FFlagEnableV3MenuABTest3" },
-            //{ "UI.Menu.Style.ABTest.3", "FFlagEnableInGameMenuChromeABTest3" },
-            //{ "UI.Menu.Style.ABTest.4", "FFlagEnableInGameMenuChromeABTest4" }
+            ////{ "UI.Menu.Style.ABTest.1", "FFlagEnableMenuControlsABTest" },
+            ////{ "UI.Menu.Style.ABTest.2", "FFlagEnableV3MenuABTest3" },
+            ////{ "UI.Menu.Style.ABTest.3", "FFlagEnableInGameMenuChromeABTest3" },
+            ////{ "UI.Menu.Style.ABTest.4", "FFlagEnableInGameMenuChromeABTest4" }
         };
 
         public static IReadOnlyDictionary<RenderingMode, string> RenderingModes => new Dictionary<RenderingMode, string>
@@ -90,68 +90,68 @@ namespace Bloxstrap
 
         // this is one hell of a dictionary definition lmao
         // since these all set the same flags, wouldn't making this use bitwise operators be better?
-        //public static IReadOnlyDictionary<InGameMenuVersion, Dictionary<string, string?>> IGMenuVersions => new Dictionary<InGameMenuVersion, Dictionary<string, string?>>
-        //{
-        //    {
-        //        InGameMenuVersion.Default,
-        //        new Dictionary<string, string?>
-        //        {
-        //            { "V2Rollout", null },
-        //            { "EnableV4", null },
-        //            { "EnableV4Chrome", null },
-        //            { "ABTest", null },
-        //            { "ReportButtonCutOff", null }
-        //        }
-        //    },
+        ////public static IReadOnlyDictionary<InGameMenuVersion, Dictionary<string, string?>> IGMenuVersions => new Dictionary<InGameMenuVersion, Dictionary<string, string?>>
+        ////{
+        ////    {
+        ////        InGameMenuVersion.Default,
+        ////        new Dictionary<string, string?>
+        ////        {
+        ////            { "V2Rollout", null },
+        ////            { "EnableV4", null },
+        ////            { "EnableV4Chrome", null },
+        ////            { "ABTest", null },
+        ////            { "ReportButtonCutOff", null }
+        ////        }
+        ////    },
 
-        //    {
-        //        InGameMenuVersion.V1,
-        //        new Dictionary<string, string?>
-        //        {
-        //            { "V2Rollout", "0" },
-        //            { "EnableV4", "False" },
-        //            { "EnableV4Chrome", "False" },
-        //            { "ABTest", "False" },
-        //            { "ReportButtonCutOff", "False" }
-        //        }
-        //    },
+        ////    {
+        ////        InGameMenuVersion.V1,
+        ////        new Dictionary<string, string?>
+        ////        {
+        ////            { "V2Rollout", "0" },
+        ////            { "EnableV4", "False" },
+        ////            { "EnableV4Chrome", "False" },
+        ////            { "ABTest", "False" },
+        ////            { "ReportButtonCutOff", "False" }
+        ////        }
+        ////    },
 
-        //    {
-        //        InGameMenuVersion.V2,
-        //        new Dictionary<string, string?>
-        //        {
-        //            { "V2Rollout", "100" },
-        //            { "EnableV4", "False" },
-        //            { "EnableV4Chrome", "False" },
-        //            { "ABTest", "False" },
-        //            { "ReportButtonCutOff", null }
-        //        }
-        //    },
+        ////    {
+        ////        InGameMenuVersion.V2,
+        ////        new Dictionary<string, string?>
+        ////        {
+        ////            { "V2Rollout", "100" },
+        ////            { "EnableV4", "False" },
+        ////            { "EnableV4Chrome", "False" },
+        ////            { "ABTest", "False" },
+        ////            { "ReportButtonCutOff", null }
+        ////        }
+        ////    },
 
-        //    {
-        //        InGameMenuVersion.V4,
-        //        new Dictionary<string, string?>
-        //        {
-        //            { "V2Rollout", "0" },
-        //            { "EnableV4", "True" },
-        //            { "EnableV4Chrome", "False" },
-        //            { "ABTest", "False" },
-        //            { "ReportButtonCutOff", null }
-        //        }
-        //    },
+        ////    {
+        ////        InGameMenuVersion.V4,
+        ////        new Dictionary<string, string?>
+        ////        {
+        ////            { "V2Rollout", "0" },
+        ////            { "EnableV4", "True" },
+        ////            { "EnableV4Chrome", "False" },
+        ////            { "ABTest", "False" },
+        ////            { "ReportButtonCutOff", null }
+        ////        }
+        ////    },
 
-        //    {
-        //        InGameMenuVersion.V4Chrome,
-        //        new Dictionary<string, string?>
-        //        {
-        //            { "V2Rollout", "0" },
-        //            { "EnableV4", "True" },
-        //            { "EnableV4Chrome", "True" },
-        //            { "ABTest", "False" },
-        //            { "ReportButtonCutOff", null }
-        //        }
-        //    }
-        //};
+        ////    {
+        ////        InGameMenuVersion.V4Chrome,
+        ////        new Dictionary<string, string?>
+        ////        {
+        ////            { "V2Rollout", "0" },
+        ////            { "EnableV4", "True" },
+        ////            { "EnableV4Chrome", "True" },
+        ////            { "ABTest", "False" },
+        ////            { "ReportButtonCutOff", null }
+        ////        }
+        ////    }
+        ////};
 
         // all fflags are stored as strings
         // to delete a flag, set the value as null
@@ -211,7 +211,17 @@ namespace Bloxstrap
             }
         }
 
-        public string? GetPreset(string name) => GetValue(PresetFlags[name]);
+        public string? GetPreset(string name)
+        {
+            if (!PresetFlags.ContainsKey(name))
+            {
+                App.Logger.WriteLine("FastFlagManager::GetPreset", $"Could not find preset {name}");
+                Debug.Assert(false, $"Could not find preset {name}");
+                return null;
+            }
+
+            return GetValue(PresetFlags[name]);
+        }
 
         public T GetPresetEnum<T>(IReadOnlyDictionary<T, string> mapping, string prefix, string value) where T : Enum
         {
@@ -257,6 +267,9 @@ namespace Bloxstrap
             
             if (GetPreset("Network.Log") != "7")
                 SetPreset("Network.Log", "7");
+
+            if (GetPreset("Rendering.ManualFullscreen") != "False")
+                SetPreset("Rendering.ManualFullscreen", "False");
 
             if (GetPreset("Rendering.ManualFullscreen") != "False")
                 SetPreset("Rendering.ManualFullscreen", "False");
