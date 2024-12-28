@@ -16,19 +16,19 @@ public static class RegistryKeyEx
             Frontend.ShowMessageBox(Strings.Dialog_RegistryWriteError, System.Windows.MessageBoxImage.Error);
             App.Terminate(ErrorCode.ERROR_INSTALL_FAILURE);
         }
+    }
 
-        public static void DeleteValueSafe(this RegistryKey registryKey, string name)
+    public static void DeleteValueSafe(this RegistryKey registryKey, string name)
+    {
+        try
         {
-            try
-            {
-                App.Logger.WriteLine("RegistryKeyEx::DeleteValueSafe", $"Deleting {registryKey}\\{name}");
-                registryKey.DeleteValue(name);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Frontend.ShowMessageBox(Strings.Dialog_RegistryWriteError, System.Windows.MessageBoxImage.Error);
-                App.Terminate(ErrorCode.ERROR_INSTALL_FAILURE);
-            }
+            App.Logger.WriteLine("RegistryKeyEx::DeleteValueSafe", $"Deleting {registryKey}\\{name}");
+            registryKey.DeleteValue(name);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            Frontend.ShowMessageBox(Strings.Dialog_RegistryWriteError, System.Windows.MessageBoxImage.Error);
+            App.Terminate(ErrorCode.ERROR_INSTALL_FAILURE);
         }
     }
 }
