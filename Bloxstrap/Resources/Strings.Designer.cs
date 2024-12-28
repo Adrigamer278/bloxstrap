@@ -3379,5 +3379,14 @@ namespace Bloxstrap.Resources {
                 return ResourceManager.GetString("Uninstaller.Uninstall", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A game is asking permission to control your window
+        /// </summary>
+        public static string WindowController_PermissionPopup_Description {
+            get {
+                return ResourceManager.GetString("WindowController.PermissionPopup.Description", resourceCulture);
+            }
+        }
     }
 }

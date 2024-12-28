@@ -25,6 +25,7 @@ public class Settings
     public bool CanGameChangeColor { get; set; } = true;
     public bool CanGameSetWindowTitle { get; set; } = true;
     public int  WindowLogReadFPS { get; set; } = 60;
+    public ObservableCollection<long> WindowControlAllowedUniverses { get; set; } = new();
     public bool HideRPCButtons { get; set; } = true;
     public bool ShowAccountOnRichPresence { get; set; } = false;
     public bool ShowServerDetails { get; set; } = false;

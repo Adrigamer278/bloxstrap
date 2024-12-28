@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using Message = Bloxstrap.Models.BloxstrapRPC.Message;
+using Bloxstrap.UI.Elements.Dialogs;
 
 public struct Rect {
    public int Left { get; set; }
@@ -216,6 +217,15 @@ namespace Bloxstrap.Integrations
             // NOTE: if a command has multiple aliases, use the first one that shows up, the others are just for compatibility and may be removed in the future
             switch(message.Command)
             {
+                case "RequestPermission": {
+                    // create a thread 
+                    System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate{
+                        var dialog = new WindowControlPermission(_activityWatcher);
+                        dialog.ShowDialog();
+                        dialog.Activate();
+                    });
+                    break;
+                }
                 case "InitWindow": {
                     _activityWatcher.delay = _activityWatcher.windowLogDelay;
                     saveWindow();
@@ -233,6 +243,7 @@ namespace Bloxstrap.Integrations
                     break;
                 case "SetWindow": {
                     if (!App.Settings.Prop.CanGameMoveWindow) { break; }
+                    if (!App.Settings.Prop.WindowControlAllowedUniverses.Contains(_activityWatcher.Data.UniverseId)) { break; }
                     WindowMessage? windowData;
 
                     try
@@ -306,6 +317,7 @@ namespace Bloxstrap.Integrations
                 }
                 case "SetWindowTitle": case "SetTitle": {
                     if (!App.Settings.Prop.CanGameSetWindowTitle) {return;}
+                    if (!App.Settings.Prop.WindowControlAllowedUniverses.Contains(_activityWatcher.Data.UniverseId)) { break; }
 
                     WindowTitle? windowData;
                     try
@@ -334,6 +346,7 @@ namespace Bloxstrap.Integrations
                 }
                 case "SetWindowTransparency": {
                     if (!App.Settings.Prop.CanGameMoveWindow) {return;}
+                    if (!App.Settings.Prop.WindowControlAllowedUniverses.Contains(_activityWatcher.Data.UniverseId)) { break; }
                     WindowTransparency? windowData;
 
                     try
@@ -376,6 +389,7 @@ namespace Bloxstrap.Integrations
                 }
                 case "SetWindowColor": {
                     if (!App.Settings.Prop.CanGameChangeColor) {return;}
+                    if (!App.Settings.Prop.WindowControlAllowedUniverses.Contains(_activityWatcher.Data.UniverseId)) { break; }
                     WindowColor? windowData;
 
                     try

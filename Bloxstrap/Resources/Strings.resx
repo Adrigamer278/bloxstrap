@@ -1298,4 +1298,7 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value>All Bloxstrap logs</value>
     <comment>Label that appears next to a checkbox</comment>
   </data>
+  <data name="WindowController.PermissionPopup.Description">
+    <value>A game is asking permission to control your window</value>
+  </data>
 </root>

@@ -953,6 +953,16 @@ namespace Bloxstrap
                 Directory.Delete(modFontFamiliesFolder, true);
             }
 
+            foreach (long id in App.Settings.Prop.WindowControlAllowedUniverses)
+            {
+                string bloxstrapRobloxFolder = Path.Combine(AppData.Directory, "content\\bloxstrap");
+                string imagePath = Path.Combine(bloxstrapRobloxFolder, id.ToString() + ".png");
+                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(1, 1);
+                bitmap.SetPixel(0, 0, System.Drawing.Color.Transparent);
+                Directory.CreateDirectory(bloxstrapRobloxFolder);
+                bitmap.Save(imagePath, System.Drawing.Imaging.ImageFormat.Png);
+            }
+
             foreach (string file in Directory.GetFiles(Paths.Modifications, "*.*", SearchOption.AllDirectories))
             {
                 if (_cancelTokenSource.IsCancellationRequested)
