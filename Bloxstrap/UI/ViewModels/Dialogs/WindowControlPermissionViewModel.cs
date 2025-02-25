@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 using Bloxstrap.Integrations;
 using CommunityToolkit.Mvvm.Input;
 
@@ -30,9 +31,26 @@ internal class WindowControlPermissionViewModel : NotifyPropertyChangedViewModel
         LoadState = GenericTriState.Unknown;
         OnPropertyChanged(nameof(LoadState));
 
+        var activity = _activityWatcher.Data;
+        if (activity.UniverseDetails is null)
+        {
+            try
+            {
+                await UniverseDetails.FetchSingle(activity.UniverseId);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException("WindowControlPermissionViewModel", ex);
+                Frontend.ShowMessageBox($"{Strings.ActivityWatcher_RichPresenceLoadFailed}\n\n{ex.Message}", MessageBoxImage.Warning);
+                return;
+            }
+
+            activity.UniverseDetails = UniverseDetails.LoadFromCache(activity.UniverseId);
+        }
+
+        UniverseDetails? universe = activity.UniverseDetails!;
+
         List<ActivityData> thingy = new();
-        await UniverseDetails.FetchBulk(_activityWatcher.Data.UniverseDetails.Data.Id.ToString());
-        UniverseDetails? universe = UniverseDetails.LoadFromCache(_activityWatcher.Data.UniverseDetails.Data.Id);
 
         ActivityData data = new ActivityData();
         data.UniverseDetails = universe;
