@@ -74,15 +74,19 @@ namespace Bloxstrap.UI.ViewModels.Settings
                     ShowServerDetailsEnabled = value;
                     DisableAppPatchEnabled = value;
                     DiscordActivityEnabled = value;
-                    GameWindowControlEnabled = value;
-                    GameWindowTitleControlEnabled = value;
+                    WindowControlEnabled = value;
+                    MoveWindowControlEnabled = value;
+                    TitleControlEnabled = value;
+                    TransparencyControlEnabled = value;
                     DiscordActivityJoinEnabled = value;
 
                     OnPropertyChanged(nameof(ShowServerDetailsEnabled));
                     OnPropertyChanged(nameof(DisableAppPatchEnabled));
                     OnPropertyChanged(nameof(DiscordActivityEnabled));
-                    OnPropertyChanged(nameof(GameWindowControlEnabled));
-                    OnPropertyChanged(nameof(GameWindowTitleControlEnabled));
+                    OnPropertyChanged(nameof(WindowControlEnabled));
+                    OnPropertyChanged(nameof(MoveWindowControlEnabled));
+                    OnPropertyChanged(nameof(TitleControlEnabled));
+                    OnPropertyChanged(nameof(TransparencyControlEnabled));
                     OnPropertyChanged(nameof(DiscordActivityJoinEnabled));
                 }
             }
@@ -111,22 +115,34 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        public bool GameWindowControlEnabled
+        public bool WindowControlEnabled
         {
-            get => App.Settings.Prop.CanGameMoveWindow;
-            set => App.Settings.Prop.CanGameMoveWindow = value;
+            get => App.Settings.Prop.UseWindowControl;
+            set => App.Settings.Prop.UseWindowControl = value;
         }
 
-        public int GameWindowLogFPSInterval
+        public bool MoveWindowControlEnabled
         {
-            get => App.Settings.Prop.WindowLogReadFPS;
-            set => App.Settings.Prop.WindowLogReadFPS = value;
+            get => App.Settings.Prop.MoveWindowAllowed;
+            set => App.Settings.Prop.MoveWindowAllowed = value;
         }
 
-        public bool GameWindowTitleControlEnabled
+        public bool TitleControlEnabled
         {
-            get => App.Settings.Prop.CanGameSetWindowTitle;
-            set => App.Settings.Prop.CanGameSetWindowTitle = value;
+            get => App.Settings.Prop.TitleControlAllowed;
+            set => App.Settings.Prop.TitleControlAllowed = value;
+        }
+
+         public bool TransparencyControlEnabled
+        {
+            get => App.Settings.Prop.WindowTransparencyAllowed;
+            set => App.Settings.Prop.WindowTransparencyAllowed = value;
+        }
+
+        public int WindowReadFPSInterval
+        {
+            get => App.Settings.Prop.WindowReadFPS;
+            set => App.Settings.Prop.WindowReadFPS = value;
         }
 
         public bool DiscordActivityJoinEnabled

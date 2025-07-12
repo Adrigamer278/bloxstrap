@@ -12,6 +12,8 @@ namespace Bloxstrap
         
         private readonly NotifyIconWrapper? _notifyIcon;
 
+        public static string? robloxPath;
+
         public readonly ActivityWatcher? ActivityWatcher;
 
         public readonly DiscordRichPresence? RichPresence;
@@ -49,9 +51,11 @@ namespace Bloxstrap
             if (_watcherData is null)
                 throw new Exception("Watcher data is invalid");
 
+            robloxPath = _watcherData.RobloxDirectory;
+
             if (App.Settings.Prop.EnableActivityTracking)
             {
-                ActivityWatcher = new(_watcherData.LogFile);
+                ActivityWatcher = new(this, _watcherData.LogFile);
 
                 if (App.Settings.Prop.UseDisableAppPatch)
                 {
@@ -66,7 +70,7 @@ namespace Bloxstrap
                 if (App.Settings.Prop.UseDiscordRichPresence)
                     RichPresence = new(ActivityWatcher);
 
-                if (App.Settings.Prop.CanGameMoveWindow || App.Settings.Prop.CanGameSetWindowTitle) 
+                if (App.Settings.Prop.UseWindowControl) 
                     WindowController = new(ActivityWatcher);
             }
 

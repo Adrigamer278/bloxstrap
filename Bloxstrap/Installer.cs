@@ -594,6 +594,12 @@ namespace Bloxstrap
                     App.State.Prop.Studio.VersionGuid = "";
                 }
 
+                 if (Utilities.CompareVersions(existingVer, "2.8.6") == VersionComparison.LessThan)
+                {
+                    App.FastFlags.SetValue("FFlagUserIsBloxstrap", null);
+                    App.FastFlags.SetValue("FFlagUserAllowsWindowMovement", null);
+                }
+
                 App.Settings.Save();
                 App.FastFlags.Save();
                 App.State.Save();

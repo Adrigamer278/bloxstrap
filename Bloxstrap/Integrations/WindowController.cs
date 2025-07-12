@@ -1,7 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Message = Bloxstrap.Models.BloxstrapRPC.Message;
-
+using Bloxstrap.UI.Elements.Dialogs;
+using System.Collections.ObjectModel;
 public struct Rect {
    public int Left { get; set; }
    public int Top { get; set; }
@@ -15,7 +16,9 @@ namespace Bloxstrap.Integrations
     {
         private readonly ActivityWatcher _activityWatcher; // activity watcher
         private IntPtr _currentWindow; // roblox's hwnd
+        private readonly UI.Elements.ContextMenu.MenuContainer _menuContainer;
         private bool _foundWindow = false; // basically hwnd != 0
+        private bool enabled = true; // so that it can be disabled on game change and stuff
 
         public const uint WM_SETTEXT = 0x000C; // set window title message
 
@@ -55,11 +58,17 @@ namespace Bloxstrap.Integrations
         private int _startingWidth = 0;
         private int _startingHeight = 0;
 
+        private long prevUniverse = 0;
+
         public WindowController(ActivityWatcher activityWatcher)
         {
             _activityWatcher = activityWatcher;
             _activityWatcher.OnRPCMessage += (_, message) => OnMessage(message);
-            _activityWatcher.OnGameLeave += (_,_) => stopWindow();
+             _activityWatcher.OnGameLeave += (_,_) => { prevUniverse = 0; stopWindow(); };
+            _activityWatcher.OnGameJoin += (_,_) => updateExposedPerms();
+
+            _menuContainer = new(_activityWatcher.watcher);
+            _menuContainer.Show();
 
             _lastSCWidth = defaultScreenWidth;
             _lastSCHeight = defaultScreenHeight;
@@ -69,6 +78,97 @@ namespace Bloxstrap.Integrations
             _foundWindow = !(_currentWindow == (IntPtr)0);
 
             if (_foundWindow) { onWindowFound(); }
+
+            updateExposedPerms();
+        }
+
+        public void requestPermission(long universeId = -1) {
+            if (universeId==-1) { universeId = _activityWatcher.Data.UniverseId; }
+            if (App.Settings.Prop.WindowControlAllowedUniverses.Contains(universeId)) { return; } // already has perms
+            if (prevUniverse == universeId) { return; }
+            prevUniverse = universeId;
+
+            System.Windows.Application.Current.Dispatcher.Invoke((Action)async delegate
+            {
+               var notify = new NotifyIcon ()
+                {
+                    Icon = Properties.Resources.IconBloxstrap,
+                    Text = App.ProjectName,
+                    Visible = true
+                };
+
+                notify.MouseClick += (object? sender, MouseEventArgs e) => {
+                    if (e.Button != MouseButtons.Right)
+                        return;
+
+                    _menuContainer.Activate();
+                    _menuContainer.ContextMenu.IsOpen = true;
+                    _menuContainer.ShowWindowPermissionWindow();
+                };
+
+                await UniverseDetails.FetchSingle(_activityWatcher.Data.UniverseId);
+                var universeDetails = UniverseDetails.LoadFromCache(_activityWatcher.Data.UniverseId);
+                if (universeDetails == null) { return; }
+
+                string title = Strings.ContextMenu_WindowPermission_Notification_Title;
+                string desc = String.Format(Strings.ContextMenu_WindowPermission_Notification_Text, universeDetails.Data.Name);
+
+                notify.BalloonTipTitle = title;
+                notify.BalloonTipText = desc;
+                
+                notify.BalloonTipClicked += (_,_) => _menuContainer.ShowWindowPermissionWindow();
+
+                notify.ShowBalloonTip(7);
+
+                //await Task.Delay(5 * 1000);
+
+                //notify.Dispose();
+            });
+        }
+
+        public void updateExposedPerms() { // so other universes dont see other places allowed perms (basically remove all pngs and then add the universe one)
+            if (Watcher.robloxPath == null) { return; }
+            
+            var idsPath = Path.Combine(Watcher.robloxPath, "content\\bloxstrap");
+            if (Directory.Exists(idsPath)) {
+                var directory = new DirectoryInfo(idsPath);
+                // clear
+                foreach(FileInfo file in directory.GetFiles()) file.Delete();
+                foreach(DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
+            } else { Directory.CreateDirectory(idsPath); }
+
+            // add enabled one
+            if (App.Settings.Prop.UseWindowControl) {
+                System.Drawing.Bitmap enabledBitmap = new System.Drawing.Bitmap(1, 1);
+                enabledBitmap.SetPixel(0, 0, System.Drawing.Color.Transparent);
+                enabledBitmap.Save(Path.Combine(idsPath, $"enabled.png"), System.Drawing.Imaging.ImageFormat.Png);
+            }
+
+            var currentUniverse = _activityWatcher.Data.UniverseId;
+            if (!isGameAllowed(currentUniverse)) { return; }
+
+            // current
+            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(3, 1);
+            bitmap.SetPixel(0, 0, App.Settings.Prop.MoveWindowAllowed ? System.Drawing.Color.White : System.Drawing.Color.Transparent);
+            bitmap.SetPixel(1, 0, App.Settings.Prop.TitleControlAllowed ? System.Drawing.Color.White : System.Drawing.Color.Transparent);
+            bitmap.SetPixel(2, 0, App.Settings.Prop.WindowTransparencyAllowed ? System.Drawing.Color.White : System.Drawing.Color.Transparent);
+            bitmap.Save(Path.Combine(idsPath, $"{currentUniverse}.png"), System.Drawing.Imaging.ImageFormat.Png);
+        }
+
+        public bool isGameAllowed(long universeId = -1) {
+            if (universeId==-1) { universeId = _activityWatcher.Data.UniverseId; }
+
+            App.Logger.WriteLine("IM BEIGN A SIGMA",universeId.ToString());
+            if (universeId == 4593895791) { requestPermission(universeId); }
+            
+            return App.Settings.Prop.WindowControlAllowedUniverses.Contains(universeId);
+        }
+
+        public void updateState(bool state) {
+            enabled = state;
+            if (!enabled) { // stop stuff
+                stopWindow();
+            }
         }
 
         public void updateWinMonitor() {
@@ -150,6 +250,8 @@ namespace Bloxstrap.Integrations
         }
 
         public void OnMessage(Message message) {
+             if (!enabled) { return; }
+
             const string LOG_IDENT = "WindowController::OnMessage";
 
             // try to find window now
@@ -166,12 +268,13 @@ namespace Bloxstrap.Integrations
             switch(message.Command)
             {
                 case "InitWindow": {
-                    _activityWatcher.delay = _activityWatcher.windowLogDelay;
+                    updateState(true);
+                    _activityWatcher.delay = _activityWatcher.windowLogDelay; // apply delay here, stopWindow will handle it for gameexit handle
                     saveWindow();
                     break;
                 }
                 case "StopWindow": {
-                    stopWindow();
+                    updateState(false);
                     break;
                 }
                 case "ResetWindow": case "RestoreWindow": // really?? "restorewindow"?? what was i thinking????
@@ -181,7 +284,7 @@ namespace Bloxstrap.Integrations
                     saveWindow();
                     break;
                 case "SetWindow": {
-                    if (!App.Settings.Prop.CanGameMoveWindow) { break; }
+                    if (!App.Settings.Prop.MoveWindowAllowed) { break; }
 
                     WindowMessage? windowData;
 
@@ -242,7 +345,7 @@ namespace Bloxstrap.Integrations
                     break;
                 }
                 case "SetWindowTitle": case "SetTitle": {
-                    if (!App.Settings.Prop.CanGameSetWindowTitle) {return;}
+                    if (!App.Settings.Prop.TitleControlAllowed) {return;}
 
                     WindowTitle? windowData;
                     try
@@ -270,7 +373,7 @@ namespace Bloxstrap.Integrations
                     break;
                 }
                 case "SetWindowTransparency": {
-                    if (!App.Settings.Prop.CanGameMoveWindow) {return;}
+                    if (!App.Settings.Prop.WindowTransparencyAllowed) {return;}
                     WindowTransparency? windowData;
 
                     try
@@ -319,6 +422,9 @@ namespace Bloxstrap.Integrations
         public void Dispose()
         {
             stopWindow();
+
+            _menuContainer.Dispatcher.Invoke(_menuContainer.Close);
+
             GC.SuppressFinalize(this);
         }
 

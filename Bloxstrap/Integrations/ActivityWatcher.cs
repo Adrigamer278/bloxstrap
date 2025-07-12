@@ -38,6 +38,8 @@
 
         private readonly Dictionary<string, string> GeolocationCache = new();
 
+        public Watcher watcher = null!;
+
         public string LogLocation = null!;
 
         public bool InGame = false;
@@ -54,8 +56,10 @@
         public int delay = 250;
         public int windowLogDelay = 250;
 
-        public ActivityWatcher(string? logFile = null)
+        public ActivityWatcher(Watcher watch, string? logFile = null)
         {
+            watcher = watch;
+
             if (!String.IsNullOrEmpty(logFile))
                 LogLocation = logFile;
         }
@@ -78,10 +82,10 @@
             delay = 250;
 
             windowLogDelay = 1000/Math.Min(
-                App.Settings.Prop.WindowLogReadFPS<1 ? 1 : App.Settings.Prop.WindowLogReadFPS,
+                App.Settings.Prop.WindowReadFPS<1 ? 1 : App.Settings.Prop.WindowReadFPS,
                 int.TryParse(App.FastFlags.GetPreset("Rendering.Framerate"), out int fpsUsed) ? fpsUsed : 60); // maybe remove this one since it can be changed in runtime now
 
-            if (App.Settings.Prop.CanGameMoveWindow) // so window can move each frame
+            if (App.Settings.Prop.UseWindowControl) // so window can move each frame
                 delay = windowLogDelay; //todo: make it not start like this (that's why its a public var)
             
             FileInfo logFileInfo;

@@ -816,6 +816,24 @@ namespace Bloxstrap.Resources {
                 return ResourceManager.GetString("ContextMenu.ServerInformation.Type", resourceCulture);
             }
         }
+
+         public static string WindowController_PermissionPopup_Description {
+            get {
+                return ResourceManager.GetString("WindowController.PermissionPopup.Description", resourceCulture);
+            }
+        }
+
+        public static string ContextMenu_WindowPermission_Notification_Title {
+            get {
+                return ResourceManager.GetString("ContextMenu.WindowPermission.Notification.Title", resourceCulture);
+            }
+        }
+
+        public static string ContextMenu_WindowPermission_Notification_Text {
+            get {
+                return ResourceManager.GetString("ContextMenu.WindowPermission.Notification.Text", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Add Fast Flag.
@@ -2880,6 +2898,12 @@ namespace Bloxstrap.Resources {
                 return ResourceManager.GetString("Menu.Integrations.RequiresActivityTracking", resourceCulture);
             }
         }
+
+         public static string Menu_Integrations_RequiresActivityTrackingNoDiscord {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.RequiresActivityTrackingNoDiscord", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Shows the Roblox account you&apos;re playing with on your Discord profile..
@@ -2917,39 +2941,69 @@ namespace Bloxstrap.Resources {
             }
         }
 
-        public static string Menu_Integrations_GameWindowControl_Title {
+        public static string Menu_Integrations_WindowControl_Title {
             get {
-                return ResourceManager.GetString("Menu.Integrations.GameWindowControl.Title", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.WindowControl.Title", resourceCulture);
             }
         }
 
-        public static string Menu_Integrations_GameWindowControl_Description {
+        public static string Menu_Integrations_WindowControl_Description {
             get {
-                return ResourceManager.GetString("Menu.Integrations.GameWindowControl.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.WindowControl.Description", resourceCulture);
             }
         }
 
-        public static string Menu_Integrations_GameWindowTitleControl_Title {
+        public static string Menu_Integrations_MoveWindowControl_Title {
             get {
-                return ResourceManager.GetString("Menu.Integrations.GameWindowTitleControl.Title", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.MoveWindowControl.Title", resourceCulture);
             }
         }
 
-        public static string Menu_Integrations_GameWindowTitleControl_Description {
+        public static string Menu_Integrations_MoveWindowControl_Description {
             get {
-                return ResourceManager.GetString("Menu.Integrations.GameWindowTitleControl.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.MoveWindowControl.Description", resourceCulture);
             }
         }
 
-        public static string Menu_Integrations_GameWindowLogFPS_Title {
+        public static string Menu_Integrations_TitleWindowControl_Title {
             get {
-                return ResourceManager.GetString("Menu.Integrations.GameWindowLogFPS.Title", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.TitleWindowControl.Title", resourceCulture);
             }
         }
 
-        public static string Menu_Integrations_GameWindowLogFPS_Description {
+        public static string Menu_Integrations_TitleWindowControl_Description {
             get {
-                return ResourceManager.GetString("Menu.Integrations.GameWindowLogFPS.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.TitleWindowControl.Description", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_TransWindowControl_Title {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.TransWindowControl.Title", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_TransWindowControl_Description {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.TransWindowControl.Description", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_CanRequireNoFSOptimization {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.CanRequireNoFSOptimization", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_WindowFPSLogRead_Title {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.WindowFPSLogRead.Title", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_WindowFPSLogRead_Description {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.WindowFPSLogRead.Description", resourceCulture);
             }
         }
         

@@ -272,6 +272,16 @@ Click for more information</value>
   <data name="ContextMenu.ServerInformation.Type" xml:space="preserve">
     <value>Type</value>
   </data>
+   <data name="WindowController.PermissionPopup.Description" xml:space="preserve">
+    <value>A game is asking for permission to control your window</value>
+  </data>
+  <data name="ContextMenu.WindowPermission.Notification.Title" xml:space="preserve">
+    <value>Window Control Permission</value>
+  </data>
+  <data name="ContextMenu.WindowPermission.Notification.Text" xml:space="preserve">
+    <value>{0} wants to use window control
+Click to accept or deny</value>
+  </data>
   <data name="Dialog.AddFastFlag.Title" xml:space="preserve">
     <value>Add Fast Flag</value>
   </data>
@@ -731,29 +741,47 @@ Selecting 'No' will ignore this warning and continue installation.</value>
   <data name="Menu.Integrations.RequiresActivityTracking" xml:space="preserve">
     <value>This feature requires activity tracking to be enabled and the Discord desktop app to be installed and running. [Find out more]({0}).</value>
   </data>
+  <data name="Menu.Integrations.RequiresActivityTrackingNoDiscord" xml:space="preserve">
+    <value>This feature requires activity tracking to be enabled.</value>
+  </data>
   <data name="Menu.Integrations.ShowGameActivity.Description" xml:space="preserve">
     <value>The Roblox game you're playing will be shown on your Discord profile. [Not working?]({0})</value>
   </data>
   <data name="Menu.Integrations.ShowGameActivity.Title" xml:space="preserve">
     <value>Show game activity</value>
   </data>
-  <data name="Menu.Integrations.GameWindowControl.Title" xml:space="preserve">
-    <value>Game window movement</value>
+  <data name="Menu.Integrations.WindowControl.Title" xml:space="preserve">
+    <value>Window Manipulation</value>
   </data>
-  <data name="Menu.Integrations.GameWindowControl.Description" xml:space="preserve">
-    <value>Allows the game to move and resize the window</value>
+  <data name="Menu.Integrations.WindowControl.Description" xml:space="preserve">
+    <value>Allows games that you give permission to control the Roblox window</value>
   </data>
-  <data name="Menu.Integrations.GameWindowTitleControl.Title" xml:space="preserve">
-    <value>Game window title control</value>
+   <data name="Menu.Integrations.MoveWindowControl.Title" xml:space="preserve">
+    <value>Window Movement</value>
   </data>
-  <data name="Menu.Integrations.GameWindowTitleControl.Description" xml:space="preserve">
-    <value>Allows the game to set window title</value>
+  <data name="Menu.Integrations.MoveWindowControl.Description" xml:space="preserve">
+    <value>Allows the window to be moved around the screen</value>
   </data>
-  <data name="Menu.Integrations.GameWindowLogFPS.Title" xml:space="preserve">
-    <value>Window movement FPS</value>
+  <data name="Menu.Integrations.TitleWindowControl.Title" xml:space="preserve">
+    <value>Window Title Control</value>
   </data>
-  <data name="Menu.Integrations.GameWindowLogFPS.Description" xml:space="preserve">
-    <value>Using a high number will cause lag! Use your monitor framerate or a lower value!</value>
+  <data name="Menu.Integrations.TitleWindowControl.Description" xml:space="preserve">
+    <value>Allows the window title to be changed</value>
+  </data>
+  <data name="Menu.Integrations.TransWindowControl.Title" xml:space="preserve">
+    <value>Window Transparency Control</value>
+  </data>
+  <data name="Menu.Integrations.TransWindowControl.Description" xml:space="preserve">
+    <value>Allows the window to make itself transparent and show the content behind it NOTE: May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab</value>
+  </data>
+  <data name="Menu.Integrations.CanRequireNoFSOptimization" xml:space="preserve">
+    <value>May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab</value>
+  </data>
+  <data name="Menu.Integrations.WindowFPSLogRead.Title" xml:space="preserve">
+    <value>Window Control FPS</value>
+  </data>
+  <data name="Menu.Integrations.WindowFPSLogRead.Description" xml:space="preserve">
+    <value>[Not window FPS] The FPS bloxstrap will check for window control updates sent from the game, it's recommended to be set to your monitor's refresh rate (Bigger Number = Bigger Lag)</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Description" xml:space="preserve">
     <value>When in-game, you'll be able to see where your server is located via [ipinfo.io]({0}).</value>

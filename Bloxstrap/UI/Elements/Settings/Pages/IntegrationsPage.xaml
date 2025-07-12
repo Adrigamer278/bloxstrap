@@ -67,28 +67,46 @@
         </controls:OptionControl>
 
         <TextBlock Text="{x:Static resources:Strings.Common_WindowMovement}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
-        <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_RequiresActivityTracking}" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        <controls:MarkdownTextBlock MarkdownText="{Binding Source={x:Static resources:Strings.Menu_Integrations_RequiresActivityTrackingNoDiscord}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F#discord-rich-presence'}" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
         <controls:OptionControl 
-            Header="{x:Static resources:Strings.Menu_Integrations_GameWindowControl_Title}" 
-            Description="{x:Static resources:Strings.Menu_Integrations_GameWindowControl_Description}"
+            Header="{x:Static resources:Strings.Menu_Integrations_WindowControl_Title}" 
+            Description="{x:Static resources:Strings.Menu_Integrations_WindowControl_Description}"
             IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}"
-            x:Name="GameWindowControlOption">
-            <ui:ToggleSwitch IsChecked="{Binding GameWindowControlEnabled, Mode=TwoWay}" />
+            x:Name="WindowControlOption">
+            <ui:ToggleSwitch IsChecked="{Binding WindowControlEnabled, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <controls:OptionControl 
-            Header="{x:Static resources:Strings.Menu_Integrations_GameWindowTitleControl_Title}" 
-            Description="{x:Static resources:Strings.Menu_Integrations_GameWindowTitleControl_Description}"
-            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}"
-            x:Name="GameWindowTitleControlOption">
-            <ui:ToggleSwitch IsChecked="{Binding GameWindowTitleControlEnabled, Mode=TwoWay}" />
+            Header="{x:Static resources:Strings.Menu_Integrations_MoveWindowControl_Title}" 
+            Description="{x:Static resources:Strings.Menu_Integrations_MoveWindowControl_Description}"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=WindowControlOption, Mode=OneWay}">
+            <ui:ToggleSwitch IsChecked="{Binding MoveWindowControlEnabled, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <controls:OptionControl 
-            Header="{x:Static resources:Strings.Menu_Integrations_GameWindowLogFPS_Title}" 
-            Description="{x:Static resources:Strings.Menu_Integrations_GameWindowLogFPS_Description}">
-            <ui:TextBox Margin="5,0,0,0" Padding="10,5,10,5" Width="150" Text="{Binding GameWindowLogFPSInterval, Mode=TwoWay}" PreviewTextInput="ValidateInt32" />
+            Header="{x:Static resources:Strings.Menu_Integrations_TitleWindowControl_Title}" 
+            Description="{x:Static resources:Strings.Menu_Integrations_TitleWindowControl_Description}"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=WindowControlOption, Mode=OneWay}">
+            <ui:ToggleSwitch IsChecked="{Binding TitleControlEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Integrations_TransWindowControl_Title}" 
+            Description="{x:Static resources:Strings.Menu_Integrations_TransWindowControl_Description}"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=WindowControlOption, Mode=OneWay}">
+            <ui:ToggleSwitch IsChecked="{Binding TransparencyControlEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <!-- Integrated now in the description because it looks off -->
+        <!-- <controls:MarkdownTextBlock MarkdownText="{Binding Source={x:Static resources:Strings.Menu_Integrations_CanRequireNoFSOptimization}}" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        -->
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Integrations_WindowFPSLogRead_Title}" 
+            Description="{x:Static resources:Strings.Menu_Integrations_WindowFPSLogRead_Description}"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=WindowControlOption, Mode=OneWay}">
+            <ui:TextBox Margin="5,0,0,0" Padding="10,5,10,5" Width="150" Text="{Binding WindowReadFPSInterval, Mode=TwoWay}" PreviewTextInput="ValidateInt32" />
         </controls:OptionControl>
 
         <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_Custom_Title}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />

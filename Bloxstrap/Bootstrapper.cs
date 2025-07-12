@@ -454,7 +454,8 @@ namespace Bloxstrap
                 { 
                     ProcessId = _appPid, 
                     LogFile = logFileName, 
-                    AutoclosePids = autoclosePids
+                    AutoclosePids = autoclosePids,
+                    RobloxDirectory = _latestVersionDirectory
                 };
 
                 string watcherDataArg = Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(watcherData)));
@@ -1036,6 +1037,22 @@ namespace Bloxstrap
                 Filesystem.AssertReadOnly(fileVersionFolder);
 
                 App.Logger.WriteLine(LOG_IDENT, $"{relativeFile} has been copied to the version folder");
+            }
+
+            var idsPath = Path.Combine(_latestVersionDirectory, "content\\bloxstrap");
+
+            // make sure it exists
+            Directory.CreateDirectory(idsPath);
+
+            var directory = new DirectoryInfo(idsPath);
+            // clear
+            foreach(FileInfo file in directory.GetFiles()) file.Delete();
+            foreach(DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
+
+            if (App.Settings.Prop.UseWindowControl) {
+                System.Drawing.Bitmap enabledBitmap = new System.Drawing.Bitmap(1, 1);
+                enabledBitmap.SetPixel(0, 0, System.Drawing.Color.Transparent);
+                enabledBitmap.Save(Path.Combine(idsPath, $"enabled.png"), System.Drawing.Imaging.ImageFormat.Png);
             }
 
             // the manifest is primarily here to keep track of what files have been
