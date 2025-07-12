@@ -754,34 +754,34 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Window Manipulation</value>
   </data>
   <data name="Menu.Integrations.WindowControl.Description" xml:space="preserve">
-    <value>Allows games that you give permission to control the Roblox window</value>
+    <value>Allows games that you give permission to control the Roblox window. Note: Makes them aware you are using Bloxstrap.</value>
   </data>
    <data name="Menu.Integrations.MoveWindowControl.Title" xml:space="preserve">
     <value>Window Movement</value>
   </data>
   <data name="Menu.Integrations.MoveWindowControl.Description" xml:space="preserve">
-    <value>Allows the window to be moved around the screen</value>
+    <value>Allows the window to be moved around the screen.</value>
   </data>
   <data name="Menu.Integrations.TitleWindowControl.Title" xml:space="preserve">
     <value>Window Title Control</value>
   </data>
   <data name="Menu.Integrations.TitleWindowControl.Description" xml:space="preserve">
-    <value>Allows the window title to be changed</value>
+    <value>Allows the window title to be changed.</value>
   </data>
   <data name="Menu.Integrations.TransWindowControl.Title" xml:space="preserve">
     <value>Window Transparency Control</value>
   </data>
   <data name="Menu.Integrations.TransWindowControl.Description" xml:space="preserve">
-    <value>Allows the window to make itself transparent and show the content behind it NOTE: May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab</value>
+    <value>Allows the window to make itself transparent and show the content behind it Note: May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab.</value>
   </data>
   <data name="Menu.Integrations.CanRequireNoFSOptimization" xml:space="preserve">
-    <value>May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab</value>
+    <value>May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab.</value>
   </data>
   <data name="Menu.Integrations.WindowFPSLogRead.Title" xml:space="preserve">
     <value>Window Control FPS</value>
   </data>
   <data name="Menu.Integrations.WindowFPSLogRead.Description" xml:space="preserve">
-    <value>[Not window FPS] The FPS bloxstrap will check for window control updates sent from the game, it's recommended to be set to your monitor's refresh rate (Bigger Number = Bigger Lag)</value>
+    <value>[Not window FPS] The FPS bloxstrap will check for window control updates sent from the game, it's recommended to be set to your monitor's refresh rate (Bigger Number = Bigger Lag).</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Description" xml:space="preserve">
     <value>When in-game, you'll be able to see where your server is located via [ipinfo.io]({0}).</value>

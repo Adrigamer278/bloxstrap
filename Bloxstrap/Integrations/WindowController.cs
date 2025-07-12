@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using Message = Bloxstrap.Models.BloxstrapRPC.Message;
 using Bloxstrap.UI.Elements.Dialogs;
 using System.Collections.ObjectModel;
-public struct Rect {
+public struct WindowRect {
    public int Left { get; set; }
    public int Top { get; set; }
    public int Right { get; set; }
@@ -212,7 +212,7 @@ namespace Bloxstrap.Integrations
 
         // not recommended to be used as a save point for in-game movement, just as a save point between manipulation start and end
         public void saveWindow() {
-            Rect winRect = new Rect();
+            WindowRect winRect = new WindowRect();
             GetWindowRect(_currentWindow, ref winRect);   
 
             // these positions are in virtualscreen space (returns pos in whole screen not in the monitor they are in) 
@@ -449,7 +449,7 @@ namespace Bloxstrap.Integrations
         internal static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, string lParam);
 
         [DllImport("user32.dll")]
-        public static extern bool GetWindowRect(IntPtr hwnd, ref Rect rectangle);
+        public static extern bool GetWindowRect(IntPtr hwnd, ref WindowRect rectangle);
 
         [DllImport("user32.dll")]
         static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
