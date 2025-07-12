@@ -8,17 +8,12 @@ namespace Bloxstrap
 
         public override string LOG_IDENT_CLASS => ClassName;
         
-        public bool allowDetection = true;
         public override string FileLocation => Path.Combine(Paths.Modifications, "ClientSettings\\ClientAppSettings.json");
 
         public bool Changed => !OriginalProp.SequenceEqual(Prop);
 
         public static IReadOnlyDictionary<string, string> PresetFlags = new Dictionary<string, string>
         {
-            //getting replaced with an individual game perms system
-            { "Bloxstrap", "FFlagUserIsBloxstrap"},
-            { "WindowMovement", "FFlagUserAllowsWindowMovement"},
-
             { "Network.Log", "FLogNetwork" },
 
             { "Rendering.Framerate", "DFIntTaskSchedulerTargetFps" },
@@ -257,14 +252,6 @@ namespace Bloxstrap
 
             // clone the dictionary
             OriginalProp = new(Prop);
-
-            // todo: tracking settings?
-
-            // fflag for detecting if bloxstrap is being used (may remove later)
-            SetPreset("Bloxstrap", null);
-
-            // fflag for detecting if window movement is allowed in order to prevent log bloat when disabled
-            SetPreset("WindowMovement", null);
 
             if (GetPreset("Network.Log") != "7")
                 SetPreset("Network.Log", "7");

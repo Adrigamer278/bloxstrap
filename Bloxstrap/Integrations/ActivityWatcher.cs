@@ -79,7 +79,7 @@
             //
             // we'll tail the log file continuously, monitoring for any log entries that we need to determine the current game activity
 
-            delay = 250;
+            delay = 1000;
 
             windowLogDelay = 1000/Math.Min(
                 App.Settings.Prop.WindowReadFPS<1 ? 1 : App.Settings.Prop.WindowReadFPS,
