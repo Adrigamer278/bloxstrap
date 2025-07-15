@@ -125,7 +125,7 @@ local function GetFFlag(flag) : boolean
 	local suc,result:boolean = pcall(function()
 		return UserSettings():IsUserFeatureEnabled(flag);
 	end)
-	
+
 	return suc and result or false;
 end
 
@@ -150,7 +150,9 @@ ContentProvider:PreloadAsync({bloxstrapEnabledContent,gameAllowedContent});
 BloxstrapRPC.UsesBloxstrap = GetFFlag("UserIsBloxstrap") or ContentProvider:GetAssetFetchStatus(bloxstrapEnabledContent) == Enum.AssetFetchStatus.Success;
 BloxstrapRPC.AllowsWindowControl = BloxstrapRPC.UsesBloxstrap and (GetFFlag("UserAllowsWindowMovement") or ContentProvider:GetAssetFetchStatus(gameAllowedContent) == Enum.AssetFetchStatus.Success);
 BloxstrapRPC.UsesLegacyDetection = GetFFlag("UserAllowsWindowMovement");
+BloxstrapRPC.UsesNewDetection = ContentProvider:GetAssetFetchStatus(bloxstrapEnabledContent) == Enum.AssetFetchStatus.Success;
 BloxstrapRPC.WindowStarted = false; -- Replicates the method whitelist on window control methods when StartWindow is not called (only allows SetTitle)
+
 
 if game:GetService("RunService"):IsStudio() then -- Change these values when you test your stuff in-studio
 	BloxstrapRPC.UsesBloxstrap = true;
@@ -160,17 +162,17 @@ end
 -- Enabled is applied as a modification, meaning we only have to check if the whitelisted one loads
 if not BloxstrapRPC.AllowsWindowControl and BloxstrapRPC.UsesBloxstrap then
 	--print("[RPC] Listening for status changed")
-	
+
 	local fetchStatusChanged : RBXScriptConnection; fetchStatusChanged = ContentProvider:GetAssetFetchStatusChangedSignal(gameAllowedContent):Connect(function(status : Enum.AssetFetchStatus)
 		if status == Enum.AssetFetchStatus.Success then
 			BloxstrapRPC.AllowsWindowControl = true;
 			--print("[RPC] Allowed window control");
-			
+
 			fetchStatusChanged:Disconnect(); 
 			fetchStatusChanged = nil; 
 		end
 	end)
-	
+
 	task.spawn(function() -- This has a ~0.3 MS overhead, you are free to increase the wait timer (or find another method) whatever works best
 		while task.wait(1.5) and not BloxstrapRPC.AllowsWindowControl do
 			ContentProvider:Preload(gameAllowedContent); -- Preload is the only method that forces a re-check and doesn't cache the result
@@ -186,7 +188,7 @@ end
 ]=]
 function BloxstrapRPC.RequestWindowPermission()
 	if not BloxstrapRPC.UsesBloxstrap or BloxstrapRPC.AllowsWindowControl then return end;
-	BloxstrapRPC.SendMessage("RequestWindowPermission", {})
+	BloxstrapRPC.SendMessage("RequestWindowPermission", nil)
 end
 
 --[=[
@@ -198,7 +200,7 @@ end
 ]=]
 function BloxstrapRPC.StartWindow()
 	BloxstrapRPC.WindowStarted = true;
-	BloxstrapRPC.SendMessage("StartWindow", {})
+	BloxstrapRPC.SendMessage("StartWindow", nil)
 end
 
 --[=[
@@ -207,7 +209,7 @@ end
 ]=]
 function BloxstrapRPC.StopWindow()
 	BloxstrapRPC.WindowStarted = false;
-	BloxstrapRPC.SendMessage("StopWindow", {})
+	BloxstrapRPC.SendMessage("StopWindow", nil)
 end
 
 --[=[
@@ -248,27 +250,48 @@ end
 ]=]
 function BloxstrapRPC.ResetWindow()
 	if not BloxstrapRPC.WindowStarted or not BloxstrapRPC.AllowsWindowControl then return end;
-	
+
 	BloxstrapRPC.SendMessage("ResetWindow");
 	prevWinData = {};
 end
 
---[=[
-	Sets the window title if the user has the window control and the title control settings enabled
-]=]
-function BloxstrapRPC.SetTitle(data: string?)
-	if not BloxstrapRPC.AllowsWindowControl then return end;
-	
-	BloxstrapRPC.SendMessage("SetWindowTitle", data);
-end
+-- Remove later after FFlags are removed
+if BloxstrapRPC.UsesNewDetection then
+	--[=[
+		Sets the window title if the user has the window control and the title control settings enabled
+	]=]
+	function BloxstrapRPC.SetTitle(data: string?)
+		if not BloxstrapRPC.AllowsWindowControl then return end;
 
---[=[
-	Same as calling .SetTitle with nil, bloxstrap will reset the title to 'Roblox' when no name argument is passed
-]=]
-function BloxstrapRPC.ResetTitle()
-	if not BloxstrapRPC.AllowsWindowControl then return end;
-	
-	BloxstrapRPC.SendMessage("SetWindowTitle", nil)
+		BloxstrapRPC.SendMessage("SetWindowTitle", data);
+	end
+
+	--[=[
+		Same as calling .SetTitle with nil, bloxstrap will reset the title to 'Roblox' when no name argument is passed
+	]=]
+	function BloxstrapRPC.ResetTitle()
+		if not BloxstrapRPC.AllowsWindowControl then return end;
+
+		BloxstrapRPC.SendMessage("SetWindowTitle", nil)
+	end
+else
+	--[=[
+		Sets the window title if the user has the window control and the title control settings enabled
+	]=]
+	function BloxstrapRPC.SetTitle(data: string?)
+		if not BloxstrapRPC.AllowsWindowControl then return end;
+
+		BloxstrapRPC.SendMessage("SetWindowTitle", {name = data});
+	end
+
+	--[=[
+		Same as calling .SetTitle with nil, bloxstrap will reset the title to 'Roblox' when no name argument is passed
+	]=]
+	function BloxstrapRPC.ResetTitle()
+		if not BloxstrapRPC.AllowsWindowControl then return end;
+
+		BloxstrapRPC.SendMessage("SetWindowTitle", {name = nil})
+	end
 end
 
 --[=[
@@ -282,18 +305,18 @@ end
 ]=]
 function BloxstrapRPC.SetTransparency(data:WindowTransparencyData)
 	if not BloxstrapRPC.WindowStarted or not BloxstrapRPC.AllowsWindowControl then return end;
-	
+
 	local diff = makeDiff(prevTransWinData,data)
 	if not next(diff) then return end;
-	
+
 	for i,v in diff do
 		prevWinData[i] = v;
 	end
-	
+
 	if typeof(diff.color) == "Color3" then
 		diff.color = "0x"..diff.color:ToHex();
 	end
-	
+
 	BloxstrapRPC.SendMessage("SetWindowTransparency",diff)
 end
 
@@ -303,11 +326,11 @@ end
 ]=]
 function BloxstrapRPC.ResetTransparency()
 	if not BloxstrapRPC.WindowStarted or not BloxstrapRPC.AllowsWindowControl then return end;
-	
+
 	BloxstrapRPC.SendMessage("SetWindowTransparency", {
 		transparency = 1;
 	})
-	
+
 	prevTransWinData.transparency = 1;
 end
 

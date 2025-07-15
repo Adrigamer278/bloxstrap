@@ -78,7 +78,7 @@
         <Border Grid.Row="4" Margin="0,0,0,0" Padding="15" Background="{ui:ThemeResource SolidBackgroundFillColorSecondaryBrush}">
             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Right">
                 <Button MinWidth="100" Content="{x:Static resources:Strings.WindowController_PermissionPopup_Allow}" Click="OKButton_Click" />
-                <Button MinWidth="100" Margin="12,0,0,0" Content="{x:Static resources:Strings.WindowController_PermissionPopup_Deny}" Click="CancelButton_Click" IsCancel="True" />
+                <Button MinWidth="100" Margin="12,0,0,0" Content="{x:Static resources:Strings.WindowController_PermissionPopup_Deny}" Click="CancelButton_Click" />
             </StackPanel>
         </Border>
     </Grid>

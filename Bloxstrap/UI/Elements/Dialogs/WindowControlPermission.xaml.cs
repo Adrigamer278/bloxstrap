@@ -14,12 +14,12 @@ public partial class WindowControlPermission
 
     public ActivityWatcher _activityWatcher;
 
-    public bool BlacklistFromAsking = false;
+    private WindowControlPermissionViewModel viewModel;
 
     public WindowControlPermission(ActivityWatcher activityWatcher)
     {
         _activityWatcher = activityWatcher;
-        var viewModel = new WindowControlPermissionViewModel(activityWatcher);
+        viewModel = new WindowControlPermissionViewModel(activityWatcher);
 
         viewModel.RequestCloseEvent += (_, _) => Close();
 
@@ -45,7 +45,7 @@ public partial class WindowControlPermission
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
-        if (BlacklistFromAsking)
+        if (viewModel.BlacklistFromAsking)
         {
             if ((!WindowAllowedUniverses.Contains(_activityWatcher.Data.UniverseId)) && (!WindowBlacklistedUniverses.Contains(_activityWatcher.Data.UniverseId)))
             {

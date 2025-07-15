@@ -23,11 +23,11 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             viewModel.OnPropertyChanged(nameof(viewModel.SelectedCustomIntegration));
         }
 
-        public void AllowedUniverseSelection(object sender, SelectionChangedEventArgs e)
+        public void DisplayedUniverseSelection(object sender, SelectionChangedEventArgs e)
         {
             IntegrationsViewModel viewModel = (IntegrationsViewModel)DataContext;
-            viewModel.SelectedAllowedUniverse = (long?)((ListBox)sender).SelectedItem;
-            viewModel.OnPropertyChanged(nameof(viewModel.SelectedAllowedUniverse));
+            viewModel.SelectedUniverse = (long?)((ListBox)sender).SelectedItem;
+            viewModel.OnPropertyChanged(nameof(viewModel.SelectedUniverse));
         }
 
         private void ValidateInt32(object sender, TextCompositionEventArgs e) => e.Handled = !Int32.TryParse(e.Text, out int _);

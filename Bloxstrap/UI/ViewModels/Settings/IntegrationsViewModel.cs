@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Microsoft.Win32;
 
 using CommunityToolkit.Mvvm.Input;
+using System.Windows;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
@@ -190,28 +191,69 @@ namespace Bloxstrap.UI.ViewModels.Settings
         }
         
         // universe stuff
-        public ICommand DeleteAllowedUniverseCommand => new RelayCommand(DeleteUniverse);
+        public ICommand DeleteUniverseCommand => new RelayCommand(DeleteUniverse);
+        public ICommand SwapDisplayedUniversesCommand => new RelayCommand(SwapDisplayedUniverses);
 
         private void DeleteUniverse()
         {
-            if (SelectedAllowedUniverse is null)
+            if (SelectedUniverse is null)
                 return;
 
-            WindowAllowedUniverses.Remove((long) SelectedAllowedUniverse);
+            CurrentDisplayedUniverses.Remove((long)SelectedUniverse);
 
-            if (WindowAllowedUniverses.Count > 0)
+            if (CurrentDisplayedUniverses.Count > 0)
             {
-                SelectedAllowedUniverseIndex = WindowAllowedUniverses.Count - 1;
-                OnPropertyChanged(nameof(SelectedAllowedUniverseIndex));
+                SelectedUniverseIndex = CurrentDisplayedUniverses.Count - 1;
+                OnPropertyChanged(nameof(SelectedUniverseIndex));
             }
 
-            OnPropertyChanged(nameof(IsAllowedUniverseSelected));
+            OnPropertyChanged(nameof(IsUniverseSelected));
+        }
+
+        private void SwapDisplayedUniverses()
+        {
+            displayBlacklist = !displayBlacklist;
+            SelectedUniverseIndex = 0;
+            SelectedUniverse = CurrentDisplayedUniverses.Count > 0 ? CurrentDisplayedUniverses[SelectedUniverseIndex] : null;
+
+            SelectedUniverseListName = displayBlacklist ? Strings.Menu_Integrations_WindowUniversesList_Blacklisted : Strings.Menu_Integrations_WindowUniversesList_Allowed;
+
+            OnPropertyChanged(nameof(SelectedUniverseListName));
+            OnPropertyChanged(nameof(SelectedUniverse));
+            OnPropertyChanged(nameof(SelectedUniverseIndex));
+            OnPropertyChanged(nameof(IsUniverseSelected));
+            OnPropertyChanged(nameof(CurrentDisplayedUniverses));
+        }
+
+        public bool displayBlacklist = false;
+
+        public string SelectedUniverseListName { get; set; } = Strings.Menu_Integrations_WindowUniversesList_Allowed;
+
+        public ObservableCollection<long> CurrentDisplayedUniverses
+        {
+            get
+            {
+                return displayBlacklist ? WindowBlacklistedUniverses : WindowAllowedUniverses;
+            }
+            set
+            {
+                if (displayBlacklist)
+                    WindowBlacklistedUniverses = value;
+                else
+                    WindowAllowedUniverses = value;
+            }
         }
 
         public ObservableCollection<long> WindowAllowedUniverses
         {
             get => App.Settings.Prop.WindowAllowedUniverses;
             set => App.Settings.Prop.WindowAllowedUniverses = value;
+        }
+        
+        public ObservableCollection<long> WindowBlacklistedUniverses
+        {
+            get => App.Settings.Prop.WindowBlacklistedUniverses;
+            set => App.Settings.Prop.WindowBlacklistedUniverses = value;
         }
 
         private UniverseDetails PlaceholderUniverseDetails = new()
@@ -220,7 +262,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 ImageUrl = "Resources/Bloxstrap.ico" // bloxstrap logo lol
             },
-            Data = new() {
+            Data = new()
+            {
                 Name = "Loading...",
                 Id = -1,
                 Creator = new GameCreator()
@@ -246,39 +289,39 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         };
 
-        public UniverseDetails? SelectedAllowedUniverseDetails { get; set; }
+        public UniverseDetails? SelectedUniverseDetails { get; set; }
 
-        private long? _selectedAllowedUniverse;
-        public long? SelectedAllowedUniverse
+        private long? _selectedUniverse;
+        public long? SelectedUniverse
         {
-            get => _selectedAllowedUniverse;
+            get => _selectedUniverse;
             set
             {
-                _selectedAllowedUniverse = value;
+                _selectedUniverse = value;
 
                 if (value is null)
                     return;
 
-                SelectedAllowedUniverseDetails = PlaceholderUniverseDetails;
-                OnPropertyChanged(nameof(SelectedAllowedUniverseDetails));
+                SelectedUniverseDetails = PlaceholderUniverseDetails;
+                OnPropertyChanged(nameof(SelectedUniverseDetails));
 
                 Task.Run(async () =>
                 {
                     await UniverseDetails.FetchSingle((long)value);
-                    if (value == _selectedAllowedUniverse)
+                    if (value == _selectedUniverse)
                     {
-                        SelectedAllowedUniverseDetails = UniverseDetails.LoadFromCache((long)value);
+                        SelectedUniverseDetails = UniverseDetails.LoadFromCache((long)value);
                     }
                     else
                     {
-                        SelectedAllowedUniverseDetails = FailedUniverseDetails;
+                        SelectedUniverseDetails = FailedUniverseDetails;
                     }
 
-                    OnPropertyChanged(nameof(SelectedAllowedUniverseDetails));
+                    OnPropertyChanged(nameof(SelectedUniverseDetails));
                 });
             }
         }
-        public int SelectedAllowedUniverseIndex { get; set; }
-        public bool IsAllowedUniverseSelected => _selectedAllowedUniverse is not null;
+        public int SelectedUniverseIndex { get; set; }
+        public bool IsUniverseSelected => _selectedUniverse is not null;
     }
 }

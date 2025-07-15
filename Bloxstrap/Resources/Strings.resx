@@ -810,14 +810,20 @@ Selecting 'No' will ignore this warning and continue installation.</value>
   <data name="Menu.Integrations.WindowFPSLogRead.Description" xml:space="preserve">
     <value>[Not window FPS] The FPS rate bloxstrap will check for window control updates sent from the game, it's recommended to be set to your monitor's refresh rate (Higher = More lag).</value>
   </data>
-  <data name="Menu.Integrations.AllowedUniversesList.Title" xml:space="preserve">
-    <value>Allowed Universes</value>
+  <data name="Menu.Integrations.WindowUniversesList.Title" xml:space="preserve">
+    <value>Manage Universes</value>
   </data>
-  <data name="Menu.Integrations.AllowedUniversesList.Description" xml:space="preserve">
-    <value>Manage which universes can manipulate the window, click on one to know more info.</value>
+  <data name="Menu.Integrations.WindowUniversesList.Description" xml:space="preserve">
+    <value>Manage between which universes can manipulate the window and which ones are blacklisted from doing so.</value>
   </data>
-  <data name="Menu.Integrations.AllowedUniversesList.NoneSelected" xml:space="preserve">
+  <data name="Menu.Integrations.WindowUniversesList.NoneSelected" xml:space="preserve">
     <value>No universe selected, please select one to delete or view info about it.</value>
+  </data>
+  <data name="Menu.Integrations.WindowUniversesList.Allowed" xml:space="preserve">
+    <value>Allowed</value>
+  </data>
+  <data name="Menu.Integrations.WindowUniversesList.Blacklisted" xml:space="preserve">
+    <value>Blacklisted</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Description" xml:space="preserve">
     <value>When in-game, you'll be able to see where your server is located via [ipinfo.io]({0}).</value>

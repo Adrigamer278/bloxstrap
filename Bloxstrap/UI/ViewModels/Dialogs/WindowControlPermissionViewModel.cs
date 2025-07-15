@@ -15,6 +15,8 @@ internal class WindowControlPermissionViewModel : NotifyPropertyChangedViewModel
     public string Error { get; private set; } = String.Empty;
 
     public ICommand CloseWindowCommand => new RelayCommand(RequestClose);
+    
+    public bool BlacklistFromAsking { get; set; } = false;
         
     public EventHandler? RequestCloseEvent;
 

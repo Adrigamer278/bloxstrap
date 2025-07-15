@@ -136,8 +136,8 @@
             <ui:TextBox Margin="5,0,0,0" Padding="10,5,10,5" Width="150" Text="{Binding WindowReadFPSInterval, Mode=TwoWay}" PreviewTextInput="ValidateInt32" />
         </controls:OptionControl>
 
-        <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_AllowedUniversesList_Title}" FontSize="16" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontWeight="Medium" Margin="0,16,0,0" />
-        <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_AllowedUniversesList_Description}" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_WindowUniversesList_Title}" FontSize="16" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontWeight="Medium" Margin="0,16,0,0" />
+        <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_WindowUniversesList_Description}" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
         <Grid Margin="0,8,0,0" MinHeight="200">
             <Grid.RowDefinitions>
@@ -148,19 +148,20 @@
                 <ColumnDefinition Width="250" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="AllowedUniversesListBox" Grid.Row="0" Grid.Column="0" Margin="0,0,4,0" ItemsSource="{Binding WindowAllowedUniverses, Mode=OneWay}" SelectionChanged="AllowedUniverseSelection" SelectedIndex="{Binding SelectedAllowedUniverseIndex, Mode=TwoWay}" />
+            <ListBox x:Name="WindowUniversesListBox" Grid.Row="0" Grid.Column="0" Margin="0,0,4,0" ItemsSource="{Binding CurrentDisplayedUniverses, Mode=OneWay}" SelectionChanged="DisplayedUniverseSelection" SelectedIndex="{Binding SelectedUniverseIndex, Mode=TwoWay}" />
             <Grid Grid.Row="1" Grid.Column="0" Margin="0,8,4,0" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <!-- <ui:Button Grid.Column="0" Margin="0,0,4,0" Icon="Add28" Content="{x:Static resources:Strings.Common_New}" HorizontalAlignment="Stretch" Command="{Binding AddIntegrationCommand, Mode=OneTime}" /> -->
-                <ui:Button Margin="0,0,0,0" Icon="Delete28" Content="{x:Static resources:Strings.Common_Delete}" HorizontalAlignment="Stretch" Appearance="Danger" IsEnabled="{Binding IsAllowedUniverseSelected, Mode=OneWay}" Command="{Binding DeleteAllowedUniverseCommand, Mode=OneTime}" />
+                <ui:Button Grid.Column="0" Margin="0,0,4,0" Icon="ArrowSwap24" Content="{Binding SelectedUniverseListName}" HorizontalAlignment="Stretch" Command="{Binding SwapDisplayedUniversesCommand, Mode=OneTime}" />
+                <ui:Button Grid.Column="1" Margin="4,0,0,0" Icon="Delete28" Content="{x:Static resources:Strings.Common_Delete}" HorizontalAlignment="Stretch" Appearance="Danger" IsEnabled="{Binding IsUniverseSelected, Mode=OneWay}" Command="{Binding DeleteUniverseCommand, Mode=OneTime}" />
             </Grid>
             <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Margin="4,0,0,0" VerticalAlignment="Top" >
                 <StackPanel.Style>
                     <Style>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsAllowedUniverseSelected}" Value="False">
+                            <DataTrigger Binding="{Binding IsUniverseSelected}" Value="False">
                                 <Setter Property="StackPanel.Visibility" Value="Hidden"></Setter>
                             </DataTrigger>
                         </Style.Triggers>
@@ -173,7 +174,7 @@
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" Width="125" Height="125" CornerRadius="4" VerticalAlignment="Center">
                         <Border.Background> 
-                            <ImageBrush ImageSource="{Binding SelectedAllowedUniverseDetails.Thumbnail.ImageUrl, UpdateSourceTrigger=PropertyChanged}" />
+                            <ImageBrush ImageSource="{Binding SelectedUniverseDetails.Thumbnail.ImageUrl, UpdateSourceTrigger=PropertyChanged}" />
                         </Border.Background>
                     </Border>
                     <Grid Grid.Column="1" Margin="12,0,0,8" VerticalAlignment="Top">
@@ -182,16 +183,16 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Text="{Binding SelectedAllowedUniverseDetails.Data.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="24" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontWeight="Medium" HorizontalAlignment="Left" Margin="0,0,0,0" />
-                        <TextBlock Grid.Row="1" Text="{Binding SelectedAllowedUniverseDetails.Data.Creator.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Foreground="{DynamicResource TextFillColorSecondaryBrush}" HorizontalAlignment="Left" Margin="0,2,0,0" />
+                        <TextBlock Grid.Row="0" Text="{Binding SelectedUniverseDetails.Data.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="24" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontWeight="Medium" HorizontalAlignment="Left" Margin="0,0,0,0" />
+                        <TextBlock Grid.Row="1" Text="{Binding SelectedUniverseDetails.Data.Creator.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Foreground="{DynamicResource TextFillColorSecondaryBrush}" HorizontalAlignment="Left" Margin="0,2,0,0" />
                     </Grid>
                 </Grid>
             </StackPanel>
-            <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Text="{x:Static resources:Strings.Menu_Integrations_AllowedUniversesList_NoneSelected}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Text="{x:Static resources:Strings.Menu_Integrations_WindowUniversesList_NoneSelected}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock.Style>
                     <Style>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsAllowedUniverseSelected}" Value="True">
+                            <DataTrigger Binding="{Binding IsUniverseSelected}" Value="True">
                                 <Setter Property="TextBlock.Visibility" Value="Hidden"></Setter>
                             </DataTrigger>
                         </Style.Triggers>

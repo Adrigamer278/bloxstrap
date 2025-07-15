@@ -3681,29 +3681,43 @@ namespace Bloxstrap.Resources {
             }
         }
         
-        public static string Menu_Integrations_AllowedUniversesList_Title {
+        public static string Menu_Integrations_WindowUniversesList_Title {
             get {
-                return ResourceManager.GetString("Menu.Integrations.AllowedUniversesList.Title", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.WindowUniversesList.Title", resourceCulture);
             }
         }
 
-        public static string Menu_Integrations_AllowedUniversesList_Description {
+        public static string Menu_Integrations_WindowUniversesList_Description {
             get {
-                return ResourceManager.GetString("Menu.Integrations.AllowedUniversesList.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.WindowUniversesList.Description", resourceCulture);
             }
         }
 
-        public static string Menu_Integrations_AllowedUniversesList_NoneSelected {
+        public static string Menu_Integrations_WindowUniversesList_NoneSelected {
             get {
-                return ResourceManager.GetString("Menu.Integrations.AllowedUniversesList.NoneSelected", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.WindowUniversesList.NoneSelected", resourceCulture);
+            }
+        }
+        
+        public static string Menu_Integrations_WindowUniversesList_Allowed {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.WindowUniversesList.Allowed", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_WindowUniversesList_Blacklisted {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.WindowUniversesList.Blacklisted", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Integrations.
         /// </summary>
-        public static string Menu_Integrations_Title {
-            get {
+        public static string Menu_Integrations_Title
+        {
+            get
+            {
                 return ResourceManager.GetString("Menu.Integrations.Title", resourceCulture);
             }
         }
