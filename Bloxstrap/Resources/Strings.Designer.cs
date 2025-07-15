@@ -898,14 +898,34 @@ namespace Bloxstrap.Resources {
             }
         }
 
-         public static string WindowController_PermissionPopup_Description {
+        public static string WindowController_PermissionPopup_Description {
             get {
                 return ResourceManager.GetString("WindowController.PermissionPopup.Description", resourceCulture);
             }
         }
-
-        public static string ContextMenu_WindowPermission_Notification_Title {
+        
+        public static string WindowController_PermissionPopup_Blacklist {
             get {
+                return ResourceManager.GetString("WindowController.PermissionPopup.Blacklist", resourceCulture);
+            }
+        }
+
+        public static string WindowController_PermissionPopup_Allow {
+            get {
+                return ResourceManager.GetString("WindowController.PermissionPopup.Allow", resourceCulture);
+            }
+        }
+
+        public static string WindowController_PermissionPopup_Deny {
+            get {
+                return ResourceManager.GetString("WindowController.PermissionPopup.Deny", resourceCulture);
+            }
+        }
+
+        public static string ContextMenu_WindowPermission_Notification_Title
+        {
+            get
+            {
                 return ResourceManager.GetString("ContextMenu.WindowPermission.Notification.Title", resourceCulture);
             }
         }
@@ -1951,11 +1971,25 @@ namespace Bloxstrap.Resources {
             }
         }
         
+        public static string Enums_WindowMonitorStyle_Single {
+            get {
+                return ResourceManager.GetString("Enums.WindowMonitorStyle.Single", resourceCulture);
+            }
+        }
+
+        public static string Enums_WindowMonitorStyle_All {
+            get {
+                return ResourceManager.GetString("Enums.WindowMonitorStyle.All", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to JSON files.
         /// </summary>
-        public static string FileTypes_JSONFiles {
-            get {
+        public static string FileTypes_JSONFiles
+        {
+            get
+            {
                 return ResourceManager.GetString("FileTypes.JSONFiles", resourceCulture);
             }
         }
@@ -3601,9 +3635,36 @@ namespace Bloxstrap.Resources {
                 return ResourceManager.GetString("Menu.Integrations.TransWindowControl.Description", resourceCulture);
             }
         }
-
-        public static string Menu_Integrations_CanRequireNoFSOptimization {
+        
+        public static string Menu_Integrations_WindowMonitorStyle_Title {
             get {
+                return ResourceManager.GetString("Menu.Integrations.WindowMonitorStyle.Title", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_WindowMonitorStyle_Description {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.WindowMonitorStyle.Description", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_LegacyWindowFFlag_Title {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.LegacyWindowFFlag.Title", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_LegacyWindowFFlag_Description {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.LegacyWindowFFlag.Description", resourceCulture);
+            }
+        }
+
+        // might remove
+        public static string Menu_Integrations_CanRequireNoFSOptimization
+        {
+            get
+            {
                 return ResourceManager.GetString("Menu.Integrations.CanRequireNoFSOptimization", resourceCulture);
             }
         }
@@ -3617,6 +3678,24 @@ namespace Bloxstrap.Resources {
         public static string Menu_Integrations_WindowFPSLogRead_Description {
             get {
                 return ResourceManager.GetString("Menu.Integrations.WindowFPSLogRead.Description", resourceCulture);
+            }
+        }
+        
+        public static string Menu_Integrations_AllowedUniversesList_Title {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.AllowedUniversesList.Title", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_AllowedUniversesList_Description {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.AllowedUniversesList.Description", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_AllowedUniversesList_NoneSelected {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.AllowedUniversesList.NoneSelected", resourceCulture);
             }
         }
         

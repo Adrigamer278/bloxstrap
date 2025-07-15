@@ -72,8 +72,13 @@ namespace Bloxstrap.UI.Elements.ContextMenu
                 _windowPermissionWindow.Closed += (_, _) => _windowPermissionWindow = null;
             }
 
-            if (!_windowPermissionWindow.IsVisible)
-                _windowPermissionWindow.ShowDialog();
+            if (!_windowPermissionWindow.IsVisible) {
+                _windowPermissionWindow.Show();
+                _windowPermissionWindow.Topmost = true;
+                _windowPermissionWindow.Activate();
+                _windowPermissionWindow.Topmost = false;
+                _windowPermissionWindow.Focus();
+            }
             else
                 _windowPermissionWindow.Activate();
         }
@@ -96,11 +101,13 @@ namespace Bloxstrap.UI.Elements.ContextMenu
 
         public void ActivityWatcher_OnGameLeave(object? sender, EventArgs e)
         {
-            Dispatcher.Invoke(() => {
+            Dispatcher.Invoke(() =>
+            {
                 InviteDeeplinkMenuItem.Visibility = Visibility.Collapsed;
                 ServerDetailsMenuItem.Visibility = Visibility.Collapsed;
 
                 _serverInformationWindow?.Close();
+                _windowPermissionWindow?.Close();
             });
         }
 

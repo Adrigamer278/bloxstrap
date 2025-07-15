@@ -1,8 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Message = Bloxstrap.Models.BloxstrapRPC.Message;
-using Bloxstrap.UI.Elements.Dialogs;
-using System.Collections.ObjectModel;
 public struct WindowRect {
    public int Left { get; set; }
    public int Top { get; set; }
@@ -15,19 +13,22 @@ namespace Bloxstrap.Integrations
     public class WindowController : IDisposable
     {
         private readonly ActivityWatcher _activityWatcher; // activity watcher
+        private UI.Elements.ContextMenu.MenuContainer? _menuContainer;
         private IntPtr _currentWindow; // roblox's hwnd
-        private readonly UI.Elements.ContextMenu.MenuContainer _menuContainer;
+        private long _windowLong = 0x00000000; // roblox's default windowlong
         private bool _foundWindow = false; // basically hwnd != 0
-        private bool enabled = true; // so that it can be disabled on game change and stuff
+        private bool enabled = true; // its true if legacy mode is enabled or if startwindow is called
 
         public const uint WM_SETTEXT = 0x000C; // set window title message
+        public const int GWL_EXSTYLE = -20; // set new extended window style
+        public const long WS_EX_LAYERED = 0x00080000L; // window is a layered window
+        public const long WS_EX_TRANSPARENT = 0x00000020L; // window is considered fully transparent
+        public const uint LWA_COLORKEY = 0x00000001; // window uses chroma key for transparency
+        public const uint LWA_ALPHA = 0x00000002; // window uses alpha for transparency
 
         // 1280x720 as default (prob tweak later)
         private const int defaultScreenWidth = 1280;
         private const int defaultScreenHeight = 720;
-
-        // as a test :P
-        private const bool useAllMonitors = false;
 
         // extra monitors offsets
         public int monitorX = 0;
@@ -52,23 +53,22 @@ namespace Bloxstrap.Integrations
         private int _lastSCHeight = 0;
         private byte _lastTransparency = 1;
         private uint _lastWindowColor = 0x000000;
+        private uint _lastTransparencyMode = 0x00000001;
 
         private int _startingX = 0;
         private int _startingY = 0;
         private int _startingWidth = 0;
         private int _startingHeight = 0;
 
+        private bool curUniverseAllowed = false;
         private long prevUniverse = 0;
 
         public WindowController(ActivityWatcher activityWatcher)
         {
             _activityWatcher = activityWatcher;
             _activityWatcher.OnRPCMessage += (_, message) => OnMessage(message);
-             _activityWatcher.OnGameLeave += (_,_) => { prevUniverse = 0; stopWindow(); };
+            _activityWatcher.OnGameLeave += (_,_) => { prevUniverse = 0; stopWindow(); };
             _activityWatcher.OnGameJoin += (_,_) => updateExposedPerms();
-
-            _menuContainer = new(_activityWatcher.watcher);
-            _menuContainer.Show();
 
             _lastSCWidth = defaultScreenWidth;
             _lastSCHeight = defaultScreenHeight;
@@ -83,47 +83,23 @@ namespace Bloxstrap.Integrations
         }
 
         public void requestPermission(long universeId = -1) {
-            if (universeId==-1) { universeId = _activityWatcher.Data.UniverseId; }
-            if (App.Settings.Prop.WindowControlAllowedUniverses.Contains(universeId)) { return; } // already has perms
+            if (universeId == -1) { universeId = _activityWatcher.Data.UniverseId; }
+            if (App.Settings.Prop.WindowAllowedUniverses.Contains(universeId)) { return; } // already has perms
+            if (App.Settings.Prop.WindowBlacklistedUniverses.Contains(universeId)) { return; } // already has been denied perms
             if (prevUniverse == universeId) { return; }
             prevUniverse = universeId;
+            
+            if (_menuContainer == null)
+                _menuContainer = _activityWatcher.watcher._notifyIcon?._menuContainer;
 
-            System.Windows.Application.Current.Dispatcher.Invoke((Action)async delegate
+            if (_menuContainer != null)
             {
-               var notify = new NotifyIcon ()
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
                 {
-                    Icon = Properties.Resources.IconBloxstrap,
-                    Text = App.ProjectName,
-                    Visible = true
-                };
-
-                notify.MouseClick += (object? sender, MouseEventArgs e) => {
-                    if (e.Button != MouseButtons.Right)
-                        return;
-
-                    _menuContainer.Activate();
-                    _menuContainer.ContextMenu.IsOpen = true;
                     _menuContainer.ShowWindowPermissionWindow();
-                };
-
-                await UniverseDetails.FetchSingle(_activityWatcher.Data.UniverseId);
-                var universeDetails = UniverseDetails.LoadFromCache(_activityWatcher.Data.UniverseId);
-                if (universeDetails == null) { return; }
-
-                string title = Strings.ContextMenu_WindowPermission_Notification_Title;
-                string desc = String.Format(Strings.ContextMenu_WindowPermission_Notification_Text, universeDetails.Data.Name);
-
-                notify.BalloonTipTitle = title;
-                notify.BalloonTipText = desc;
-                
-                notify.BalloonTipClicked += (_,_) => _menuContainer.ShowWindowPermissionWindow();
-
-                notify.ShowBalloonTip(7);
-
-                //await Task.Delay(5 * 1000);
-
-                //notify.Dispose();
-            });
+                });
+            }
+            
         }
 
         public void updateExposedPerms() { // so other universes dont see other places allowed perms (basically remove all pngs and then add the universe one)
@@ -133,19 +109,13 @@ namespace Bloxstrap.Integrations
             if (Directory.Exists(idsPath)) {
                 var directory = new DirectoryInfo(idsPath);
                 // clear
-                foreach(FileInfo file in directory.GetFiles()) file.Delete();
-                foreach(DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
+                foreach(FileInfo file in directory.GetFiles()) if (file.Name!="enabled.png") file.Delete();
             } else { Directory.CreateDirectory(idsPath); }
-
-            // add enabled one
-            if (App.Settings.Prop.UseWindowControl) {
-                System.Drawing.Bitmap enabledBitmap = new System.Drawing.Bitmap(1, 1);
-                enabledBitmap.SetPixel(0, 0, System.Drawing.Color.Transparent);
-                enabledBitmap.Save(Path.Combine(idsPath, $"enabled.png"), System.Drawing.Imaging.ImageFormat.Png);
-            }
-
+            
             var currentUniverse = _activityWatcher.Data.UniverseId;
-            if (!isGameAllowed(currentUniverse)) { return; }
+
+            curUniverseAllowed = App.Settings.Prop.LegacyFFlagWindowDetect || isGameAllowed(currentUniverse);
+            if (!curUniverseAllowed) { return; }
 
             // current
             System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(3, 1);
@@ -158,10 +128,7 @@ namespace Bloxstrap.Integrations
         public bool isGameAllowed(long universeId = -1) {
             if (universeId==-1) { universeId = _activityWatcher.Data.UniverseId; }
 
-            App.Logger.WriteLine("IM BEIGN A SIGMA",universeId.ToString());
-            if (universeId == 4593895791) { requestPermission(universeId); }
-            
-            return App.Settings.Prop.WindowControlAllowedUniverses.Contains(universeId);
+            return App.Settings.Prop.WindowAllowedUniverses.Contains(universeId);
         }
 
         public void updateState(bool state) {
@@ -172,8 +139,7 @@ namespace Bloxstrap.Integrations
         }
 
         public void updateWinMonitor() {
-            #pragma warning disable CS0162 // Unreachable code detected
-            if (useAllMonitors) {
+            if (App.Settings.Prop.WindowMonitorStyle == WindowMonitorStyle.All) {
                 screenWidth = SystemInformation.VirtualScreen.Width;
                 screenHeight = SystemInformation.VirtualScreen.Height;
 
@@ -186,7 +152,7 @@ namespace Bloxstrap.Integrations
                 heightMult = primaryScreen.Bounds.Height/((float)screenHeight);
                 return;
             }
-            #pragma warning restore CS0162 // Unreachable code detected
+
             var curScreen = Screen.FromHandle(_currentWindow);
 
             screenWidth = curScreen.Bounds.Width;
@@ -201,12 +167,14 @@ namespace Bloxstrap.Integrations
 
             saveWindow();
 
+            _windowLong = GetWindowLong(_currentWindow, GWL_EXSTYLE);
+
             App.Logger.WriteLine(LOG_IDENT, $"Monitor X:{monitorX} Y:{monitorY} W:{screenWidth} H:{screenHeight}");
             App.Logger.WriteLine(LOG_IDENT, $"Window X:{_lastX} Y:{_lastY} W:{_lastWidth} H:{_lastHeight}");
         }
 
         public void stopWindow() {
-            _activityWatcher.delay = 250; // reset delay
+            _activityWatcher.delay = App.Settings.Prop.LegacyFFlagWindowDetect ? _activityWatcher.windowLogDelay : 250; // reset delay
             resetWindow();
         }
 
@@ -238,10 +206,11 @@ namespace Bloxstrap.Integrations
 
                 _lastTransparency = 1;
                 _lastWindowColor = 0x000000;
+                _lastTransparencyMode = LWA_COLORKEY;
 
                 // reset sets to defaults on the monitor it was found at the start
                 MoveWindow(_currentWindow,_startingX,_startingY,_startingWidth,_startingHeight,false);
-                SetWindowLong(_currentWindow, -20, 0x00000000);
+                SetWindowLong(_currentWindow, GWL_EXSTYLE, _windowLong);
 
                 changedWindow = false;
             }
@@ -250,8 +219,6 @@ namespace Bloxstrap.Integrations
         }
 
         public void OnMessage(Message message) {
-             if (!enabled) { return; }
-
             const string LOG_IDENT = "WindowController::OnMessage";
 
             // try to find window now
@@ -264,166 +231,206 @@ namespace Bloxstrap.Integrations
 
             if (_currentWindow == (IntPtr)0) {return;}
 
+            if (!curUniverseAllowed && (message.Command != "RequestWindowPermission" || prevUniverse == _activityWatcher.Data.UniverseId) && message.Command != "SetWindowTitle") { return; }
+            
+            // to avoid people saving the windows position or size to another place when startwindow is called later
+            if (!enabled && message.Command != "RequestWindowPermission" && message.Command != "SetWindowTitle" && message.Command != "StartWindow") { return; }
+            
             // NOTE: if a command has multiple aliases, use the first one that shows up, the others are just for compatibility and may be removed in the future
-            switch(message.Command)
+            switch (message.Command)
             {
-                case "InitWindow": {
-                    updateState(true);
-                    _activityWatcher.delay = _activityWatcher.windowLogDelay; // apply delay here, stopWindow will handle it for gameexit handle
+                case "RequestWindowPermission":
+                    {
+                        requestPermission();
+                        break;
+                    }
+                case "StartWindow":
+                    {
+                        if (enabled) { return; }
+
+                        updateState(true);
+                        _activityWatcher.delay = _activityWatcher.windowLogDelay; // apply delay here, stopWindow will handle it for gameexit handle
+                        saveWindow();
+                        break;
+                    }
+                case "StopWindow":
+                    {
+                        if (!enabled) { return; }
+
+                        updateState(false);
+                        break;
+                    }
+                case "ResetWindow":
+                case "RestoreWindow": // really?? "restorewindow"?? what was i thinking????
+                    _lastX = _startingX;
+                    _lastY = _startingY;
+                    _lastWidth = _startingWidth;
+                    _lastHeight = _startingHeight;
+
+                    MoveWindow(_currentWindow, _startingX, _startingY, _startingWidth, _startingHeight, false);
+                    break;
+                /*case "SaveWindow":
+                case "SetWindowDefault": // just like RestoreWindow, this one is getting removed soon
                     saveWindow();
-                    break;
-                }
-                case "StopWindow": {
-                    updateState(false);
-                    break;
-                }
-                case "ResetWindow": case "RestoreWindow": // really?? "restorewindow"?? what was i thinking????
-                    resetWindow();
-                    break;
-                case "SaveWindow": case "SetWindowDefault":
-                    saveWindow();
-                    break;
-                case "SetWindow": {
-                    if (!App.Settings.Prop.MoveWindowAllowed) { break; }
-
-                    WindowMessage? windowData;
-
-                    try
+                    break;*/
+                case "SetWindow":
                     {
-                        windowData = message.Data.Deserialize<WindowMessage>();
+                        if (!App.Settings.Prop.MoveWindowAllowed) { break; }
+
+                        WindowMessage? windowData;
+
+                        try
+                        {
+                            windowData = message.Data.Deserialize<WindowMessage>();
+                        }
+                        catch (Exception)
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization threw an exception)");
+                            return;
+                        }
+
+                        if (windowData is null)
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization returned null)");
+                            return;
+                        }
+
+                        if (windowData.Reset == true)
+                        {
+                            resetWindow();
+                            return;
+                        }
+
+                        if (windowData.ScaleWidth != null)
+                        {
+                            _lastSCWidth = (int)windowData.ScaleWidth;
+                        }
+
+                        if (windowData.ScaleHeight != null)
+                        {
+                            _lastSCHeight = (int)windowData.ScaleHeight;
+                        }
+
+                        // scaling (float casting to fix integer division, might change screenWidth to float or something idk)
+                        float scaleX = ((float)screenWidth) / _lastSCWidth;
+                        float scaleY = ((float)screenHeight) / _lastSCHeight;
+
+                        if (windowData.Width != null)
+                        {
+                            _lastWidth = (int)(windowData.Width * scaleX);
+                        }
+
+                        if (windowData.Height != null)
+                        {
+                            _lastHeight = (int)(windowData.Height * scaleY);
+                        }
+
+                        if (windowData.X != null)
+                        {
+                            var fakeWidthFix = (_lastWidth - _lastWidth * widthMult) / 2;
+                            _lastX = (int)(windowData.X * scaleX + fakeWidthFix);
+                        }
+
+                        if (windowData.Y != null)
+                        {
+                            var fakeHeightFix = (_lastHeight - _lastHeight * heightMult) / 2;
+                            _lastY = (int)(windowData.Y * scaleY + fakeHeightFix);
+                        }
+
+                        changedWindow = true;
+                        MoveWindow(_currentWindow, _lastX + monitorX, _lastY + monitorY, (int)(_lastWidth * widthMult), (int)(_lastHeight * heightMult), false);
+                        //App.Logger.WriteLine(LOG_IDENT, $"Updated Window Properties");
+                        break;
                     }
-                    catch (Exception)
+                case "SetWindowTitle":
                     {
-                        App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization threw an exception)");
+                        if (!App.Settings.Prop.TitleControlAllowed) { return; }
+
+                        string? title = null;
+                        try
+                        {
+                            title = message.Data.Deserialize<string>();
+                        }
+                        catch (Exception)
+                        {
+                            // legacy data type just for support new sdk doesnt use it so like, dont try to
+                            try
+                            {
+                                WindowTitle? legacyTitleData = message.Data.Deserialize<WindowTitle>();
+
+                                if (legacyTitleData != null && legacyTitleData.Name != null)
+                                    title = legacyTitleData.Name;
+                            }
+                            catch (Exception) { }
+                        }
+
+                        if (title == null)
+                            title = "Roblox";
+
+                        SendMessage(_currentWindow, WM_SETTEXT, IntPtr.Zero, title);
+                        break;
+                    }
+                case "SetWindowTransparency":
+                    {
+                        if (!App.Settings.Prop.WindowTransparencyAllowed) { return; }
+                        WindowTransparency? windowData;
+
+                        try
+                        {
+                            windowData = message.Data.Deserialize<WindowTransparency>();
+                        }
+                        catch (Exception)
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization threw an exception)");
+                            return;
+                        }
+
+                        if (windowData is null)
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization returned null)");
+                            return;
+                        }
+
+                        if (windowData.Transparency != null)
+                        {
+                            _lastTransparency = (byte)(windowData.Transparency * 255);
+                        }
+
+                        if (windowData.Color != null)
+                        {
+                            _lastWindowColor = Convert.ToUInt32(windowData.Color, 16);
+                        }
+
+                        if (windowData.UseAlpha != null)
+                        {
+                            _lastTransparencyMode = (windowData.UseAlpha == true) ? LWA_COLORKEY : LWA_COLORKEY;
+                        }
+
+                        changedWindow = true;
+
+                        if (_lastTransparency == 255)
+                        {
+                            SetWindowLong(_currentWindow, GWL_EXSTYLE, _windowLong);
+                        }
+                        else
+                        {
+                            SetWindowLong(_currentWindow, GWL_EXSTYLE, (_windowLong | WS_EX_LAYERED) & ~WS_EX_TRANSPARENT);
+                            SetLayeredWindowAttributes(_currentWindow, _lastWindowColor, _lastTransparency, _lastTransparencyMode);
+                        }
+
+                        break;
+                    }
+                default:
+                    {
                         return;
                     }
-
-                    if (windowData is null)
-                    {
-                        App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization returned null)");
-                        return;
-                    }
-
-                    if (windowData.Reset == true) {
-                        resetWindow();
-                        return;
-                    }
-
-                    if (windowData.ScaleWidth is not null) {
-                        _lastSCWidth = (int) windowData.ScaleWidth;
-                    }
-
-                    if (windowData.ScaleHeight is not null) {
-                        _lastSCHeight = (int) windowData.ScaleHeight;
-                    }
-
-                    // scaling (float casting to fix integer division, might change screenWidth to float or something idk)
-                    float scaleX = ((float) screenWidth) / _lastSCWidth;
-                    float scaleY = ((float) screenHeight) / _lastSCHeight;
-
-                    if (windowData.Width is not null) {
-                        _lastWidth = (int) (windowData.Width * scaleX);
-                    }
-
-                    if (windowData.Height is not null) {
-                        _lastHeight = (int) (windowData.Height * scaleY);
-                    }
-
-                    if (windowData.X is not null) {
-                        var fakeWidthFix = (_lastWidth - _lastWidth*widthMult)/2;
-                        _lastX = (int) (windowData.X * scaleX + fakeWidthFix);
-                    }
-
-                    if (windowData.Y is not null) {
-                        var fakeHeightFix = (_lastHeight - _lastHeight*heightMult)/2;
-                        _lastY = (int) (windowData.Y * scaleY + fakeHeightFix);
-                    }
-
-                    changedWindow = true;
-                    MoveWindow(_currentWindow,_lastX+monitorX,_lastY+monitorY,(int) (_lastWidth*widthMult),(int) (_lastHeight*heightMult),false);
-                    //App.Logger.WriteLine(LOG_IDENT, $"Updated Window Properties");
-                    break;
-                }
-                case "SetWindowTitle": case "SetTitle": {
-                    if (!App.Settings.Prop.TitleControlAllowed) {return;}
-
-                    WindowTitle? windowData;
-                    try
-                    {
-                        windowData = message.Data.Deserialize<WindowTitle>();
-                    }
-                    catch (Exception)
-                    {
-                        App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization threw an exception)");
-                        return;
-                    }
-
-                    if (windowData is null)
-                    {
-                        App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization returned null)");
-                        return;
-                    }
-
-                    string title = "Roblox";
-                    if (windowData.Name is not null) {
-                        title = windowData.Name;
-                    }
-
-                    SendMessage(_currentWindow, WM_SETTEXT, IntPtr.Zero, title);
-                    break;
-                }
-                case "SetWindowTransparency": {
-                    if (!App.Settings.Prop.WindowTransparencyAllowed) {return;}
-                    WindowTransparency? windowData;
-
-                    try
-                    {
-                        windowData = message.Data.Deserialize<WindowTransparency>();
-                    }
-                    catch (Exception)
-                    {
-                        App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization threw an exception)");
-                        return;
-                    }
-
-                    if (windowData is null)
-                    {
-                        App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization returned null)");
-                        return;
-                    }
-
-                    if (windowData.Transparency is not null) {
-                        _lastTransparency = (byte) windowData.Transparency;
-                    }
-
-                    if (windowData.Color is not null) {
-                        _lastWindowColor = Convert.ToUInt32(windowData.Color, 16);
-                    }
-
-                    changedWindow = true;
-
-                    if (_lastTransparency == 1)
-                    {
-                        SetWindowLong(_currentWindow, -20, 0x00000000);
-                    }
-                    else
-                    {
-                        SetWindowLong(_currentWindow, -20, 0x00FF0000);
-                        SetLayeredWindowAttributes(_currentWindow, _lastWindowColor, _lastTransparency, 0x00000001);
-                    }
-
-                    break;
-                }
-                default: {
-                    return;
-                }
             }
         }
         public void Dispose()
         {
             stopWindow();
 
-            _menuContainer.Dispatcher.Invoke(_menuContainer.Close);
+            _menuContainer?.Dispatcher.Invoke(_menuContainer.Close);
 
             GC.SuppressFinalize(this);
         }
@@ -452,7 +459,10 @@ namespace Bloxstrap.Integrations
         public static extern bool GetWindowRect(IntPtr hwnd, ref WindowRect rectangle);
 
         [DllImport("user32.dll")]
-        static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, long dwNewLong);
+
+        [DllImport("user32.dll")]
+        static extern long GetWindowLong(IntPtr hWnd, int nIndex);
 
         [DllImport("user32.dll")]
         static extern bool SetLayeredWindowAttributes(IntPtr hwnd, uint crKey, byte bAlpha, uint dwFlags);

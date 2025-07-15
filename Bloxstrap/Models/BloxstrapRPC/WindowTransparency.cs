@@ -7,4 +7,7 @@ public class WindowTransparency
 
     [JsonPropertyName("color")]
     public string? Color { get; set; }
+
+    [JsonPropertyName("useAlpha")]
+    public bool? UseAlpha { get; set; }
 }

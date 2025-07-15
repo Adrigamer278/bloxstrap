@@ -23,15 +23,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ui:TitleBar Grid.Row="0" Grid.ColumnSpan="2" Padding="8" x:Name="RootTitleBar" Title="Window Controller" ShowMinimize="False" ShowMaximize="False" CanMaximize="False" KeyboardNavigation.TabNavigation="None" Icon="pack://application:,,,/Bloxstrap.ico" />
 
-        <TextBlock Grid.Row="1" Margin="16,8,16,0" Text="{x:Static resources:Strings.WindowController_PermissionPopup_Description}" TextWrapping="Wrap" />
+        <TextBlock Grid.Row="1" Margin="16,8,16,0" Text="{x:Static resources:Strings.WindowController_PermissionPopup_Description}" TextWrapping="Wrap"/>
        
-       <ListView Grid.Row="2" ItemsSource="{Binding GameHistory, Mode=OneWay}" Margin="8">
+        <ListView Grid.Row="2" ItemsSource="{Binding GameHistory, Mode=OneWay}" Margin="8">
             <ListView.Style>
                 <Style TargetType="ListView" BasedOn="{StaticResource {x:Type ListView}}">
                     <Style.Triggers>
@@ -72,10 +73,12 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Border Grid.Row="3" Margin="0,0,0,0" Padding="15" Background="{ui:ThemeResource SolidBackgroundFillColorSecondaryBrush}">
+        <CheckBox Grid.Row="3" Margin="16,0,0,0" Content="{x:Static resources:Strings.WindowController_PermissionPopup_Blacklist}" IsChecked="{Binding BlacklistFromAsking}" VerticalAlignment = "Center" />
+
+        <Border Grid.Row="4" Margin="0,0,0,0" Padding="15" Background="{ui:ThemeResource SolidBackgroundFillColorSecondaryBrush}">
             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Right">
-                <Button MinWidth="100" Content="Allow" Click="OKButton_Click" />
-                <Button MinWidth="100" Margin="12,0,0,0" Content="Don't Allow" IsCancel="True" />
+                <Button MinWidth="100" Content="{x:Static resources:Strings.WindowController_PermissionPopup_Allow}" Click="OKButton_Click" />
+                <Button MinWidth="100" Margin="12,0,0,0" Content="{x:Static resources:Strings.WindowController_PermissionPopup_Deny}" Click="CancelButton_Click" IsCancel="True" />
             </StackPanel>
         </Border>
     </Grid>

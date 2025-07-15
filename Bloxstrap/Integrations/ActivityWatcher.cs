@@ -53,8 +53,10 @@
 
         public bool IsDisposed = false;
 
-        public int delay = 250;
+        public int defaultDelay = 1000;
         public int windowLogDelay = 250;
+        public int delay = 1000;
+       
 
         public ActivityWatcher(Watcher watch, string? logFile = null)
         {
@@ -79,14 +81,12 @@
             //
             // we'll tail the log file continuously, monitoring for any log entries that we need to determine the current game activity
 
-            delay = 1000;
+            delay = defaultDelay;
 
-            windowLogDelay = 1000/Math.Min(
-                App.Settings.Prop.WindowReadFPS<1 ? 1 : App.Settings.Prop.WindowReadFPS,
-                int.TryParse(App.FastFlags.GetPreset("Rendering.Framerate"), out int fpsUsed) ? fpsUsed : 60); // maybe remove this one since it can be changed in runtime now
+            windowLogDelay = 1000/(App.Settings.Prop.WindowReadFPS<1 ? 1 : App.Settings.Prop.WindowReadFPS); // maybe remove this one since it can be changed in runtime now
 
-            if (App.Settings.Prop.UseWindowControl) // so window can move each frame
-                delay = windowLogDelay; //todo: make it not start like this (that's why its a public var)
+            if (App.Settings.Prop.UseWindowControl && App.Settings.Prop.LegacyFFlagWindowDetect) // so window can move each frame
+                delay = windowLogDelay; //todo: remove the legacy detect
             
             FileInfo logFileInfo;
 

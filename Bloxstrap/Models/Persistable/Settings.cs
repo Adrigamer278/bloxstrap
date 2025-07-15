@@ -33,8 +33,11 @@ namespace Bloxstrap.Models.Persistable
         public bool MoveWindowAllowed { get; set; } = true;
         public bool TitleControlAllowed { get; set; } = true;
         public bool WindowTransparencyAllowed { get; set; } = true;
+        public WindowMonitorStyle WindowMonitorStyle { get; set; } = WindowMonitorStyle.Single;
+        public bool LegacyFFlagWindowDetect { get; set; } = true; // Remove after FFlags stop working
         public int WindowReadFPS { get; set; } = 60;
-        public ObservableCollection<long> WindowControlAllowedUniverses { get; set; } = new();
+        public ObservableCollection<long> WindowAllowedUniverses { get; set; } = new();
+        public ObservableCollection<long> WindowBlacklistedUniverses { get; set; } = new();
 
         public bool HideRPCButtons { get; set; } = true;
         public bool ShowAccountOnRichPresence { get; set; } = false;

@@ -10,7 +10,7 @@ namespace Bloxstrap
 
         private readonly WatcherData? _watcherData;
         
-        private readonly NotifyIconWrapper? _notifyIcon;
+        public readonly NotifyIconWrapper? _notifyIcon;
 
         public static string? robloxPath;
 

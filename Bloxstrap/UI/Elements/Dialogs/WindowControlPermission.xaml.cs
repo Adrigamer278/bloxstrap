@@ -1,5 +1,5 @@
 using System.Windows;
-using Bloxstrap.AppData;
+using System.Collections.ObjectModel;
 using Bloxstrap.Integrations;
 using Bloxstrap.UI.ViewModels.Dialogs;
 
@@ -14,10 +14,12 @@ public partial class WindowControlPermission
 
     public ActivityWatcher _activityWatcher;
 
-    public WindowControlPermission(ActivityWatcher watcher)
+    public bool BlacklistFromAsking = false;
+
+    public WindowControlPermission(ActivityWatcher activityWatcher)
     {
-        _activityWatcher = watcher;
-        var viewModel = new WindowControlPermissionViewModel(watcher);
+        _activityWatcher = activityWatcher;
+        var viewModel = new WindowControlPermissionViewModel(activityWatcher);
 
         viewModel.RequestCloseEvent += (_, _) => Close();
 
@@ -28,15 +30,41 @@ public partial class WindowControlPermission
     private void OKButton_Click(object sender, RoutedEventArgs e)
     {
         Result = MessageBoxResult.OK;
-        if (!App.Settings.Prop.WindowControlAllowedUniverses.Contains(_activityWatcher.Data.UniverseId)) {
-            App.Settings.Prop.WindowControlAllowedUniverses.Add(_activityWatcher.Data.UniverseId);
+        if (!WindowAllowedUniverses.Contains(_activityWatcher.Data.UniverseId))
+        {
+            WindowAllowedUniverses.Add(_activityWatcher.Data.UniverseId);
             App.Settings.Save();
 
-            if (_activityWatcher.watcher.WindowController != null)  {
+            if (_activityWatcher.watcher.WindowController != null)
+            {
                 _activityWatcher.watcher.WindowController.updateExposedPerms();
             }
         }
-        App.Logger.WriteLine("AskPerms", "bro visited his yes");
         Close();
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (BlacklistFromAsking)
+        {
+            if ((!WindowAllowedUniverses.Contains(_activityWatcher.Data.UniverseId)) && (!WindowBlacklistedUniverses.Contains(_activityWatcher.Data.UniverseId)))
+            {
+                WindowBlacklistedUniverses.Add(_activityWatcher.Data.UniverseId);
+                App.Settings.Save();
+            }
+        }
+        Close();
+    }
+
+    public ObservableCollection<long> WindowAllowedUniverses
+    {
+        get => App.Settings.Prop.WindowAllowedUniverses;
+        set => App.Settings.Prop.WindowAllowedUniverses = value;
+    }
+        
+     public ObservableCollection<long> WindowBlacklistedUniverses
+    {
+        get => App.Settings.Prop.WindowBlacklistedUniverses;
+        set => App.Settings.Prop.WindowBlacklistedUniverses = value;
     }
 }

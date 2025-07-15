@@ -75,18 +75,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
                     DisableAppPatchEnabled = value;
                     DiscordActivityEnabled = value;
                     WindowControlEnabled = value;
-                    MoveWindowControlEnabled = value;
-                    TitleControlEnabled = value;
-                    TransparencyControlEnabled = value;
                     DiscordActivityJoinEnabled = value;
 
                     OnPropertyChanged(nameof(ShowServerDetailsEnabled));
                     OnPropertyChanged(nameof(DisableAppPatchEnabled));
                     OnPropertyChanged(nameof(DiscordActivityEnabled));
                     OnPropertyChanged(nameof(WindowControlEnabled));
-                    OnPropertyChanged(nameof(MoveWindowControlEnabled));
-                    OnPropertyChanged(nameof(TitleControlEnabled));
-                    OnPropertyChanged(nameof(TransparencyControlEnabled));
                     OnPropertyChanged(nameof(DiscordActivityJoinEnabled));
                 }
             }
@@ -133,10 +127,16 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.TitleControlAllowed = value;
         }
 
-         public bool TransparencyControlEnabled
+        public bool TransparencyControlEnabled
         {
             get => App.Settings.Prop.WindowTransparencyAllowed;
             set => App.Settings.Prop.WindowTransparencyAllowed = value;
+        }
+
+        public bool LegacyFFlagWindowEnabled
+        {
+            get => App.Settings.Prop.LegacyFFlagWindowDetect;
+            set => App.Settings.Prop.LegacyFFlagWindowDetect = value;
         }
 
         public int WindowReadFPSInterval
@@ -178,5 +178,107 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public CustomIntegration? SelectedCustomIntegration { get; set; }
         public int SelectedCustomIntegrationIndex { get; set; }
         public bool IsCustomIntegrationSelected => SelectedCustomIntegration is not null;
+
+        // window stuff
+
+        public IEnumerable<WindowMonitorStyle> WindowMonitorStyles { get; } = Enum.GetValues(typeof(WindowMonitorStyle)).Cast<WindowMonitorStyle>();
+
+        public WindowMonitorStyle MonitorStyle
+        {
+            get => App.Settings.Prop.WindowMonitorStyle;
+            set => App.Settings.Prop.WindowMonitorStyle = value;
+        }
+        
+        // universe stuff
+        public ICommand DeleteAllowedUniverseCommand => new RelayCommand(DeleteUniverse);
+
+        private void DeleteUniverse()
+        {
+            if (SelectedAllowedUniverse is null)
+                return;
+
+            WindowAllowedUniverses.Remove((long) SelectedAllowedUniverse);
+
+            if (WindowAllowedUniverses.Count > 0)
+            {
+                SelectedAllowedUniverseIndex = WindowAllowedUniverses.Count - 1;
+                OnPropertyChanged(nameof(SelectedAllowedUniverseIndex));
+            }
+
+            OnPropertyChanged(nameof(IsAllowedUniverseSelected));
+        }
+
+        public ObservableCollection<long> WindowAllowedUniverses
+        {
+            get => App.Settings.Prop.WindowAllowedUniverses;
+            set => App.Settings.Prop.WindowAllowedUniverses = value;
+        }
+
+        private UniverseDetails PlaceholderUniverseDetails = new()
+        {
+            Thumbnail = new()
+            {
+                ImageUrl = "Resources/Bloxstrap.ico" // bloxstrap logo lol
+            },
+            Data = new() {
+                Name = "Loading...",
+                Id = -1,
+                Creator = new GameCreator()
+                {
+                    Name = ""
+                }
+            }
+        };
+
+        private UniverseDetails FailedUniverseDetails = new()
+        {
+            Thumbnail = new()
+            {
+                ImageUrl = "Resources/Bloxstrap.ico" // bloxstrap logo lol
+            },
+            Data = new() {
+                Name = "❌ Couldn't get universe data",
+                Id = -1,
+                Creator = new GameCreator()
+                {
+                    Name = ""
+                }
+            }
+        };
+
+        public UniverseDetails? SelectedAllowedUniverseDetails { get; set; }
+
+        private long? _selectedAllowedUniverse;
+        public long? SelectedAllowedUniverse
+        {
+            get => _selectedAllowedUniverse;
+            set
+            {
+                _selectedAllowedUniverse = value;
+
+                if (value is null)
+                    return;
+
+                SelectedAllowedUniverseDetails = PlaceholderUniverseDetails;
+                OnPropertyChanged(nameof(SelectedAllowedUniverseDetails));
+
+                Task.Run(async () =>
+                {
+                    await UniverseDetails.FetchSingle((long)value);
+                    if (value == _selectedAllowedUniverse)
+                    {
+                        SelectedAllowedUniverseDetails = UniverseDetails.LoadFromCache((long)value);
+                    }
+                    else
+                    {
+                        SelectedAllowedUniverseDetails = FailedUniverseDetails;
+                    }
+
+                    OnPropertyChanged(nameof(SelectedAllowedUniverseDetails));
+                });
+            }
+        }
+        public int SelectedAllowedUniverseIndex { get; set; }
+        public bool IsAllowedUniverseSelected => _selectedAllowedUniverse is not null;
     }
 }

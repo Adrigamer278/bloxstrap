@@ -25,8 +25,8 @@
 [Latest Commit [aka a Dev Build] (compiled by github automatically) (use .exe from latest workflow artifact that requires you to have a github account)](https://github.com/Adrigamer278/bloxstrap/actions/workflows/ci-release.yml?query=is%3Asuccess+branch%3Amain)
 
 ## How to install
-Running the exe or replacing it with bloxstap's exe should install/update the fork  
-If it doesnt work try installing normal bloxstrap and then repeating the step before should work  
+Running the exe or replacing it with bloxstap's exe should install/update the fork
+If it doesnt work, try installing normal bloxstrap and then repeating the step before should work  
 Bloxstrap installation path (where bloxstrap's exe file is) is <i>%localappdata%/Bloxstrap</i> (use Win+R or the file explorer address path to go there)
 
 # <b>[Project: AE](https://www.roblox.com/groups/17371285/Project-AE)'s Fork</b>  
@@ -36,74 +36,7 @@ Features:
 
 Note: On smaller screens (includes DPI zoomed screens), roblox may force a minimum size for the window, to remove it you can enable fullscreen, which also removes the window border but everytime you click the window it will fullscreen until the game sends a window update (we can't do anything about it afaik)
 
-EXAMPLE CODE (FOR BLOXSTRAPRPC SDK)
-
-```luau
--- scaleWidth and scaleHeight are the screen size used for window data, so it can be scaled in other screens
--- might change naming to baseWidth and baseHeight in the future
-local next = next;
-local round = math.round;
-
-export type Window = {
-    x:				number?,
-    y: 				number?,
-    width:			number?,
-    height: 			number?,
-
-    scaleWidth: 		number?,
-    scaleHeight: 		number?,
-
-    reset:			boolean?,
-}
-
--- note: since fflags are getting whitelisted, this method may not work in the future, an alternative way for detection is in the works
-function GetFFlag(flag)
-	local suc,result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled(flag);
-	end)
-
-	return suc and result or false;
-end
-
-local winMovementAllowed = GetFFlag("UserAllowsWindowMovement");
-
-local prevWinData = {}
-
-function makeDiff(a, b)
-    local new = {};
-    for k,v in b do
-        new[k] = v;
-    end
-
-    for k,v in a do 
-        if new[k]==v then   new[k] = nil   end
-    end
-    return new
-end
-
-function BloxstrapRPC.SetWindow(data:Window)
-    if not winMovementAllowed then return end;
-
-    if data.reset then
-        BloxstrapRPC.SendMessage("SetWindow", {reset=true});
-        prevWinData = {};
-        return;
-    end
-
-    data.reset = nil;
-
-    for i,v in data do
-        data[i] = round(v)
-    end
-
-    local diff = makeDiff(prevWinData,data)
-    if not next(diff) then return end;
-
-    prevWinData = data;
-
-    BloxstrapRPC.SendMessage("SetWindow", diff)
-end
-```
+[BLOXSTRAP SDK](https://github.com/Adrigamer278/bloxstrap/blob/main/BloxstrapSDK.luau)
 
 ----
 

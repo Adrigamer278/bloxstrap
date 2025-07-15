@@ -272,15 +272,24 @@ Click for more information</value>
   <data name="ContextMenu.ServerInformation.Type" xml:space="preserve">
     <value>Type</value>
   </data>
-   <data name="WindowController.PermissionPopup.Description" xml:space="preserve">
-    <value>A game is asking for permission to control your window</value>
+  <data name="WindowController.PermissionPopup.Description" xml:space="preserve">
+    <value>Grant permission to this universe to control your window?</value>
+  </data>
+  <data name="WindowController.PermissionPopup.Blacklist" xml:space="preserve">
+    <value>Don't ask again</value>
+  </data>
+  <data name="WindowController.PermissionPopup.Allow" xml:space="preserve">
+    <value>Allow</value>
+  </data>
+  <data name="WindowController.PermissionPopup.Deny" xml:space="preserve">
+    <value>Deny</value>
   </data>
   <data name="ContextMenu.WindowPermission.Notification.Title" xml:space="preserve">
     <value>Window Control Permission</value>
   </data>
   <data name="ContextMenu.WindowPermission.Notification.Text" xml:space="preserve">
     <value>{0} wants to use window control
-Click to accept or deny</value>
+Click to Accept or Deny</value>
   </data>
   <data name="Dialog.AddFastFlag.Title" xml:space="preserve">
     <value>Add Fast Flag</value>
@@ -401,6 +410,12 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
   </data>
   <data name="Enums.Theme.Light" xml:space="preserve">
     <value>Light</value>
+  </data>
+   <data name="Enums.WindowMonitorStyle.Single" xml:space="preserve">
+    <value>Single</value>
+  </data>
+   <data name="Enums.WindowMonitorStyle.All" xml:space="preserve">
+    <value>All</value>
   </data>
   <data name="InstallChecker.Updated" xml:space="preserve">
     <value>Bloxstrap has been upgraded to v{0}</value>
@@ -751,37 +766,58 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Show game activity</value>
   </data>
   <data name="Menu.Integrations.WindowControl.Title" xml:space="preserve">
-    <value>Window Manipulation</value>
+    <value>Allow window control</value>
   </data>
   <data name="Menu.Integrations.WindowControl.Description" xml:space="preserve">
-    <value>Allows games that you give permission to control the Roblox window. Note: Makes them aware you are using Bloxstrap.</value>
+    <value>Allows games that you give permission to control the Roblox window. Note: Makes the game aware that you are using Bloxstrap.</value>
   </data>
    <data name="Menu.Integrations.MoveWindowControl.Title" xml:space="preserve">
-    <value>Window Movement</value>
+    <value>Window movement</value>
   </data>
   <data name="Menu.Integrations.MoveWindowControl.Description" xml:space="preserve">
     <value>Allows the window to be moved around the screen.</value>
   </data>
   <data name="Menu.Integrations.TitleWindowControl.Title" xml:space="preserve">
-    <value>Window Title Control</value>
+    <value>Window title control</value>
   </data>
   <data name="Menu.Integrations.TitleWindowControl.Description" xml:space="preserve">
-    <value>Allows the window title to be changed.</value>
+    <value>Allows the window title to be changed. All games can change it regardless of the permission you give, just like how RPC works</value>
   </data>
   <data name="Menu.Integrations.TransWindowControl.Title" xml:space="preserve">
-    <value>Window Transparency Control</value>
+    <value>Window transparency control</value>
   </data>
   <data name="Menu.Integrations.TransWindowControl.Description" xml:space="preserve">
-    <value>Allows the window to make itself transparent and show the content behind it Note: May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab.</value>
+    <value>Allows the window to make itself transparent and show the content behind it. Note: May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab.</value>
   </data>
   <data name="Menu.Integrations.CanRequireNoFSOptimization" xml:space="preserve">
     <value>May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab.</value>
+  </data>
+  <data name="Menu.Integrations.WindowMonitorStyle.Title" xml:space="preserve">
+    <value>Monitor style</value>
+  </data>
+  <data name="Menu.Integrations.WindowMonitorStyle.Description" xml:space="preserve">
+    <value>Choose if the window should move in a single monitor or through all of them.</value>
+  </data>
+  <data name="Menu.Integrations.LegacyWindowFFlag.Title" xml:space="preserve">
+    <value>Use FFlags for window detection</value>
+  </data>
+  <data name="Menu.Integrations.LegacyWindowFFlag.Description" xml:space="preserve">
+    <value>[LEGACY] Only use it for games that still use FFlags for detection, this will give every game window control permission. Will be removed in the future.</value>
   </data>
   <data name="Menu.Integrations.WindowFPSLogRead.Title" xml:space="preserve">
     <value>Window Control FPS</value>
   </data>
   <data name="Menu.Integrations.WindowFPSLogRead.Description" xml:space="preserve">
-    <value>[Not window FPS] The FPS bloxstrap will check for window control updates sent from the game, it's recommended to be set to your monitor's refresh rate (Bigger Number = Bigger Lag).</value>
+    <value>[Not window FPS] The FPS rate bloxstrap will check for window control updates sent from the game, it's recommended to be set to your monitor's refresh rate (Higher = More lag).</value>
+  </data>
+  <data name="Menu.Integrations.AllowedUniversesList.Title" xml:space="preserve">
+    <value>Allowed Universes</value>
+  </data>
+  <data name="Menu.Integrations.AllowedUniversesList.Description" xml:space="preserve">
+    <value>Manage which universes can manipulate the window, click on one to know more info.</value>
+  </data>
+  <data name="Menu.Integrations.AllowedUniversesList.NoneSelected" xml:space="preserve">
+    <value>No universe selected, please select one to delete or view info about it.</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Description" xml:space="preserve">
     <value>When in-game, you'll be able to see where your server is located via [ipinfo.io]({0}).</value>
