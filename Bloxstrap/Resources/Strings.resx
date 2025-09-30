@@ -798,26 +798,26 @@ Selecting 'No' will ignore this warning and continue installation.</value>
   <data name="Menu.Integrations.WindowMonitorStyle.Description" xml:space="preserve">
     <value>Choose if the window should move in a single monitor or through all of them.</value>
   </data>
-  <data name="Menu.Integrations.LegacyWindowFFlag.Title" xml:space="preserve">
-    <value>Use FFlags for window detection</value>
-  </data>
-  <data name="Menu.Integrations.LegacyWindowFFlag.Description" xml:space="preserve">
-    <value>[LEGACY] Only use it for games that still use FFlags for detection, this will give every game window control permission. Will be removed in the future.</value>
-  </data>
   <data name="Menu.Integrations.WindowFPSLogRead.Title" xml:space="preserve">
     <value>Window Control FPS</value>
   </data>
   <data name="Menu.Integrations.WindowFPSLogRead.Description" xml:space="preserve">
     <value>[Not window FPS] The FPS rate bloxstrap will check for window control updates sent from the game, it's recommended to be set to your monitor's refresh rate (Higher = More lag).</value>
   </data>
+  <data name="Menu.Integrations.WindowAllowAll.Title" xml:space="preserve">
+    <value>Allow All Games</value>
+  </data>
+  <data name="Menu.Integrations.WindowAllowAll.Description" xml:space="preserve">
+    <value>Will allow every game to use window control features</value>
+  </data>
   <data name="Menu.Integrations.WindowUniversesList.Title" xml:space="preserve">
-    <value>Manage Universes</value>
+    <value>Manage Games</value>
   </data>
   <data name="Menu.Integrations.WindowUniversesList.Description" xml:space="preserve">
-    <value>Manage between which universes can manipulate the window and which ones are blacklisted from doing so.</value>
+    <value>Manage between which games can manipulate the window and which ones are blacklisted from doing so.</value>
   </data>
   <data name="Menu.Integrations.WindowUniversesList.NoneSelected" xml:space="preserve">
-    <value>No universe selected, please select one to delete or view info about it.</value>
+    <value>No game selected, please select one to delete or view info about it.</value>
   </data>
   <data name="Menu.Integrations.WindowUniversesList.Allowed" xml:space="preserve">
     <value>Allowed</value>

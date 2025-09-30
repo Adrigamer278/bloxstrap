@@ -123,13 +123,6 @@
         </controls:OptionControl>
 
         <controls:OptionControl 
-            Header="{x:Static resources:Strings.Menu_Integrations_LegacyWindowFFlag_Title}" 
-            Description="{x:Static resources:Strings.Menu_Integrations_LegacyWindowFFlag_Description}"
-            IsEnabled="{Binding InnerContent.IsChecked, ElementName=WindowControlOption, Mode=OneWay}">
-            <ui:ToggleSwitch IsChecked="{Binding LegacyFFlagWindowEnabled, Mode=TwoWay}" />
-        </controls:OptionControl>
-
-        <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Integrations_WindowFPSLogRead_Title}" 
             Description="{x:Static resources:Strings.Menu_Integrations_WindowFPSLogRead_Description}"
             IsEnabled="{Binding InnerContent.IsChecked, ElementName=WindowControlOption, Mode=OneWay}">
@@ -138,6 +131,13 @@
 
         <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_WindowUniversesList_Title}" FontSize="16" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontWeight="Medium" Margin="0,16,0,0" />
         <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_WindowUniversesList_Description}" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Integrations_WindowAllowAll_Title}" 
+            Description="{x:Static resources:Strings.Menu_Integrations_WindowAllowAll_Description}"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=WindowControlOption, Mode=OneWay}">
+            <ui:ToggleSwitch IsChecked="{Binding WindowAllowAllOption, Mode=TwoWay}" />
+        </controls:OptionControl>
 
         <Grid Margin="0,8,0,0" MinHeight="200">
             <Grid.RowDefinitions>

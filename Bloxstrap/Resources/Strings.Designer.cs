@@ -3648,18 +3648,6 @@ namespace Bloxstrap.Resources {
             }
         }
 
-        public static string Menu_Integrations_LegacyWindowFFlag_Title {
-            get {
-                return ResourceManager.GetString("Menu.Integrations.LegacyWindowFFlag.Title", resourceCulture);
-            }
-        }
-
-        public static string Menu_Integrations_LegacyWindowFFlag_Description {
-            get {
-                return ResourceManager.GetString("Menu.Integrations.LegacyWindowFFlag.Description", resourceCulture);
-            }
-        }
-
         // might remove
         public static string Menu_Integrations_CanRequireNoFSOptimization
         {
@@ -3681,8 +3669,22 @@ namespace Bloxstrap.Resources {
             }
         }
         
-        public static string Menu_Integrations_WindowUniversesList_Title {
+        public static string Menu_Integrations_WindowAllowAll_Title {
             get {
+                return ResourceManager.GetString("Menu.Integrations.WindowAllowAll.Title", resourceCulture);
+            }
+        }
+
+        public static string Menu_Integrations_WindowAllowAll_Description {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.WindowAllowAll.Description", resourceCulture);
+            }
+        }
+        
+        public static string Menu_Integrations_WindowUniversesList_Title
+        {
+            get
+            {
                 return ResourceManager.GetString("Menu.Integrations.WindowUniversesList.Title", resourceCulture);
             }
         }

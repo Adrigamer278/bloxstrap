@@ -134,10 +134,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.WindowTransparencyAllowed = value;
         }
 
-        public bool LegacyFFlagWindowEnabled
+        public bool WindowAllowAllOption
         {
-            get => App.Settings.Prop.LegacyFFlagWindowDetect;
-            set => App.Settings.Prop.LegacyFFlagWindowDetect = value;
+            get => App.Settings.Prop.WindowAllowAll;
+            set => App.Settings.Prop.WindowAllowAll = value;
         }
 
         public int WindowReadFPSInterval

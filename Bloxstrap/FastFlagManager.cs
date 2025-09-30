@@ -14,9 +14,6 @@ namespace Bloxstrap
 
         public static IReadOnlyDictionary<string, string> PresetFlags = new Dictionary<string, string>
         {
-            { "Bloxstrap", "FFlagUserIsBloxstrap"},
-            { "WindowMovement", "FFlagUserAllowsWindowMovement"},
-
             { "Network.Log", "FLogNetwork" },
 
             { "Rendering.Framerate", "DFIntTaskSchedulerTargetFps" },
@@ -255,16 +252,6 @@ namespace Bloxstrap
 
             // clone the dictionary
             OriginalProp = new(Prop);
-
-            if (App.Settings.Prop.LegacyFFlagWindowDetect)
-            {
-                SetPreset("Bloxstrap", true);
-                SetPreset("WindowMovement", App.Settings.Prop.MoveWindowAllowed ? true : null);
-            }
-            else {
-                SetPreset("Bloxstrap", null);
-                SetPreset("WindowMovement", null);
-            }
 
             if (GetPreset("Network.Log") != "7")
                 SetPreset("Network.Log", "7");

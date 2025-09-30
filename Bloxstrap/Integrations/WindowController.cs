@@ -114,7 +114,7 @@ namespace Bloxstrap.Integrations
             
             var currentUniverse = _activityWatcher.Data.UniverseId;
 
-            curUniverseAllowed = App.Settings.Prop.LegacyFFlagWindowDetect || isGameAllowed(currentUniverse);
+            curUniverseAllowed = isGameAllowed(currentUniverse);
             if (!curUniverseAllowed) { return; }
 
             // current
@@ -174,7 +174,7 @@ namespace Bloxstrap.Integrations
         }
 
         public void stopWindow() {
-            _activityWatcher.delay = App.Settings.Prop.LegacyFFlagWindowDetect ? _activityWatcher.windowLogDelay : 250; // reset delay
+            _activityWatcher.delay = 250; // reset delay
             resetWindow();
         }
 
@@ -346,22 +346,16 @@ namespace Bloxstrap.Integrations
                     {
                         if (!App.Settings.Prop.TitleControlAllowed) { return; }
 
-                        string? title = null;
+                        string? title;
+                        
                         try
                         {
                             title = message.Data.Deserialize<string>();
                         }
                         catch (Exception)
                         {
-                            // legacy data type just for support new sdk doesnt use it so like, dont try to
-                            try
-                            {
-                                WindowTitle? legacyTitleData = message.Data.Deserialize<WindowTitle>();
-
-                                if (legacyTitleData != null && legacyTitleData.Name != null)
-                                    title = legacyTitleData.Name;
-                            }
-                            catch (Exception) { }
+                            App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (Not a valid string)");
+                            return;
                         }
 
                         if (title == null)

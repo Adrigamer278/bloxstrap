@@ -82,12 +82,8 @@
             // we'll tail the log file continuously, monitoring for any log entries that we need to determine the current game activity
 
             delay = defaultDelay;
-
             windowLogDelay = 1000/(App.Settings.Prop.WindowReadFPS<1 ? 1 : App.Settings.Prop.WindowReadFPS); // maybe remove this one since it can be changed in runtime now
 
-            if (App.Settings.Prop.UseWindowControl && App.Settings.Prop.LegacyFFlagWindowDetect) // so window can move each frame
-                delay = windowLogDelay; //todo: remove the legacy detect
-            
             FileInfo logFileInfo;
 
             if (String.IsNullOrEmpty(LogLocation))
