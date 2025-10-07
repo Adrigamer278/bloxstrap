@@ -1,5 +1,5 @@
 > [!CAUTION]
-> The only official places to download Bloxstrap are [the Offical GitHub](https://github.com/bloxstraplabs/bloxstrap) repository and [bloxstraplabs.com](https://bloxstraplabs.com). This fork are not controlled by the official Bloxstrap Devs.
+> The only official places to download Bloxstrap are [the Offical GitHub](https://github.com/bloxstraplabs/bloxstrap) repository and [bloxstraplabs.com](https://bloxstraplabs.com). This fork is not controlled by the official Bloxstrap Devs.
 
 <p align="center">
     <img src="https://github.com/bloxstraplabs/bloxstrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="420">
@@ -29,7 +29,7 @@ Running the exe or replacing it with bloxstap's exe should install/update the fo
 If it doesnt work, try installing normal bloxstrap and then repeating the step before should work  
 Bloxstrap installation path (where bloxstrap's exe file is) is <i>%localappdata%/Bloxstrap</i> (use Win+R or the file explorer address path to go there)
 
-# <b>[Dawndreamee Studios](https://www.roblox.com/communities/17371285/Dawndreamer-Studios)'s Fork</b>  
+# <b>[Dawndreamer Studios](https://www.roblox.com/communities/17371285/Dawndreamer-Studios)'s Fork</b>  
 Features:  
     - [Window Movement](https://youtu.be/MgWMiGAx68g?si=1SOBrE3CMPgg8lhC&t=96)  
     - [Changing Window's Title and Chroma color](https://youtu.be/i03Aiic6DbI?si=XzGEkdJkqdEbOu-C&t=112)
