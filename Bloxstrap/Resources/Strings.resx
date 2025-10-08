@@ -799,16 +799,16 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Choose if the window should move in a single monitor or through all of them.</value>
   </data>
   <data name="Menu.Integrations.WindowFPSLogRead.Title" xml:space="preserve">
-    <value>Window Control FPS</value>
+    <value>FPS check rate</value>
   </data>
   <data name="Menu.Integrations.WindowFPSLogRead.Description" xml:space="preserve">
     <value>[Not window FPS] The FPS rate bloxstrap will check for window control updates sent from the game, it's recommended to be set to your monitor's refresh rate (Higher = More lag).</value>
   </data>
   <data name="Menu.Integrations.WindowAllowAll.Title" xml:space="preserve">
-    <value>Allow All Games</value>
+    <value>Allow all games</value>
   </data>
   <data name="Menu.Integrations.WindowAllowAll.Description" xml:space="preserve">
-    <value>Will allow every game to use window control features</value>
+    <value>Allows every game to use window control features, even if it's not in the whitelist</value>
   </data>
   <data name="Menu.Integrations.WindowUniversesList.Title" xml:space="preserve">
     <value>Manage Games</value>

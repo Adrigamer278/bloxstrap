@@ -134,14 +134,13 @@ end
 
 ContentProvider:PreloadAsync({bloxstrapEnabledContent,gameAllowedContent});
 
+-- Just in case
+ContentProvider:Preload(bloxstrapEnabledContent)
+ContentProvider:Preload(gameAllowedContent)
+
 BloxstrapRPC.UsesBloxstrap = ContentProvider:GetAssetFetchStatus(bloxstrapEnabledContent) == Enum.AssetFetchStatus.Success;
 BloxstrapRPC.AllowsWindowControl = BloxstrapRPC.UsesBloxstrap and (ContentProvider:GetAssetFetchStatus(gameAllowedContent) == Enum.AssetFetchStatus.Success);
 BloxstrapRPC.WindowStarted = false; -- Replicates the method whitelist on window control methods when StartWindow is not called (only allows SetTitle)
-
-if game:GetService("RunService"):IsStudio() then -- Change these values when you test your stuff in-studio
-	BloxstrapRPC.UsesBloxstrap = true;
-	BloxstrapRPC.AllowsWindowControl = true;
-end
 
 -- Enabled is applied as a modification on load, meaning we only have to check if the whitelisted one loads
 if not BloxstrapRPC.AllowsWindowControl and BloxstrapRPC.UsesBloxstrap then
@@ -157,7 +156,7 @@ if not BloxstrapRPC.AllowsWindowControl and BloxstrapRPC.UsesBloxstrap then
 		end
 	end)
 
-	-- NOTE: IT'S RECOMMENDED YOU REMOVE THIS AND ADD A 'Bloxstrap Check' BUTTON THAT TRIGGERS `:Preload`
+	-- NOTE: IT'S RECOMMENDED YOU REMOVE THIS AND ADD A 'Bloxstrap Check' BUTTON THAT CALLS `:Preload`
 	task.spawn(function() -- This has a ~0.3 MS overhead, you are free to increase the wait timer (or find another method) whatever works best
 		while task.wait(1.5) and not BloxstrapRPC.AllowsWindowControl do
 			ContentProvider:Preload(gameAllowedContent); -- Preload is the only method that forces a re-check and doesn't cache the result
@@ -186,6 +185,7 @@ end
 function BloxstrapRPC.StartWindow()
 	BloxstrapRPC.WindowStarted = true;
 	BloxstrapRPC.SendMessage("StartWindow", nil)
+	prevWinData = {};
 end
 
 --[=[
@@ -195,6 +195,7 @@ end
 function BloxstrapRPC.StopWindow()
 	BloxstrapRPC.WindowStarted = false;
 	BloxstrapRPC.SendMessage("StopWindow", nil)
+	prevWinData = {};
 end
 
 --[=[
@@ -278,7 +279,10 @@ function BloxstrapRPC.SetTransparency(data:WindowTransparencyData)
 	end
 
 	if typeof(diff.color) == "Color3" then
-		diff.color = "0x"..diff.color:ToHex();
+		local hexColor = diff.color:ToHex();
+		
+		-- 0xbbggrr
+		diff.color = "0x"..(string.sub(hexColor,5,6)..string.sub(hexColor,3,4)..string.sub(hexColor,1,2));
 	end
 
 	BloxstrapRPC.SendMessage("SetWindowTransparency",diff)

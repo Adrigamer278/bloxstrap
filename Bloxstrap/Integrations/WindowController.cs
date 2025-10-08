@@ -17,7 +17,7 @@ namespace Bloxstrap.Integrations
         private IntPtr _currentWindow; // roblox's hwnd
         private long _windowLong = 0x00000000; // roblox's default windowlong
         private bool _foundWindow = false; // basically hwnd != 0
-        private bool enabled = true; // its true if legacy mode is enabled or if startwindow is called
+        private bool enabled = false; // its true if legacy mode is enabled or if startwindow is called
 
         public const uint WM_SETTEXT = 0x000C; // set window title message
         public const int GWL_EXSTYLE = -20; // set new extended window style
@@ -114,7 +114,7 @@ namespace Bloxstrap.Integrations
             
             var currentUniverse = _activityWatcher.Data.UniverseId;
 
-            curUniverseAllowed = isGameAllowed(currentUniverse);
+            curUniverseAllowed = App.Settings.Prop.WindowAllowAll || isGameAllowed(currentUniverse);
             if (!curUniverseAllowed) { return; }
 
             // current
