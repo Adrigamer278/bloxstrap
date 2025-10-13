@@ -775,22 +775,19 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Window movement</value>
   </data>
   <data name="Menu.Integrations.MoveWindowControl.Description" xml:space="preserve">
-    <value>Allows the window to be moved around the screen.</value>
+    <value>Allows the window to be moved and resized across the screen.</value>
   </data>
   <data name="Menu.Integrations.TitleWindowControl.Title" xml:space="preserve">
     <value>Window title control</value>
   </data>
   <data name="Menu.Integrations.TitleWindowControl.Description" xml:space="preserve">
-    <value>Allows the window title to be changed. All games can change it regardless of the permission you give, just like how RPC works</value>
+    <value>Allows the window title to be changed. Games can change it even if they don't have permission, just like how RPC works (May change)</value>
   </data>
   <data name="Menu.Integrations.TransWindowControl.Title" xml:space="preserve">
     <value>Window transparency control</value>
   </data>
   <data name="Menu.Integrations.TransWindowControl.Description" xml:space="preserve">
     <value>Allows the window to make itself transparent and show the content behind it. Note: May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab.</value>
-  </data>
-  <data name="Menu.Integrations.CanRequireNoFSOptimization" xml:space="preserve">
-    <value>May require to disable Fullscreen Optimizations on some PCs, change it in the mods tab.</value>
   </data>
   <data name="Menu.Integrations.WindowMonitorStyle.Title" xml:space="preserve">
     <value>Monitor style</value>
@@ -802,7 +799,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>FPS check rate</value>
   </data>
   <data name="Menu.Integrations.WindowFPSLogRead.Description" xml:space="preserve">
-    <value>[Not window FPS] The FPS rate bloxstrap will check for window control updates sent from the game, it's recommended to be set to your monitor's refresh rate (Higher = More lag).</value>
+    <value>[Not window FPS] The FPS rate bloxstrap will check for window updates sent from the game, it's recommended to be set to your monitor's refresh rate (Higher = More lag).</value>
   </data>
   <data name="Menu.Integrations.WindowAllowAll.Title" xml:space="preserve">
     <value>Allow all games</value>
@@ -818,6 +815,12 @@ Selecting 'No' will ignore this warning and continue installation.</value>
   </data>
   <data name="Menu.Integrations.WindowUniversesList.NoneSelected" xml:space="preserve">
     <value>No game selected, please select one to delete or view info about it.</value>
+  </data>
+  <data name="Menu.Integrations.WindowUniversesList.LoadingUniverse" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Menu.Integrations.WindowUniversesList.FailedUniverseLoad" xml:space="preserve">
+    <value>❌ Couldn't get universe data</value>
   </data>
   <data name="Menu.Integrations.WindowUniversesList.Allowed" xml:space="preserve">
     <value>Allowed</value>

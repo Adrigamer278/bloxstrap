@@ -219,9 +219,9 @@ namespace Bloxstrap.UI.ViewModels.Settings
             SelectedUniverseListName = displayBlacklist ? Strings.Menu_Integrations_WindowUniversesList_Blacklisted : Strings.Menu_Integrations_WindowUniversesList_Allowed;
 
             OnPropertyChanged(nameof(SelectedUniverseListName));
+            OnPropertyChanged(nameof(IsUniverseSelected));
             OnPropertyChanged(nameof(SelectedUniverse));
             OnPropertyChanged(nameof(SelectedUniverseIndex));
-            OnPropertyChanged(nameof(IsUniverseSelected));
             OnPropertyChanged(nameof(CurrentDisplayedUniverses));
         }
 
@@ -260,11 +260,11 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             Thumbnail = new()
             {
-                ImageUrl = "Resources/Bloxstrap.ico" // bloxstrap logo lol
+                ImageUrl = "/Bloxstrap.ico" // bloxstrap logo lol
             },
             Data = new()
             {
-                Name = "Loading...",
+                Name = Strings.Menu_Integrations_WindowUniversesList_LoadingUniverse,
                 Id = -1,
                 Creator = new GameCreator()
                 {
@@ -277,10 +277,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             Thumbnail = new()
             {
-                ImageUrl = "Resources/Bloxstrap.ico" // bloxstrap logo lol
+                ImageUrl = "/Bloxstrap.ico" // bloxstrap logo lol
             },
             Data = new() {
-                Name = "❌ Couldn't get universe data",
+                Name = Strings.Menu_Integrations_WindowUniversesList_FailedUniverseLoad,
                 Id = -1,
                 Creator = new GameCreator()
                 {

@@ -3695,9 +3695,25 @@ namespace Bloxstrap.Resources {
             }
         }
 
-        public static string Menu_Integrations_WindowUniversesList_NoneSelected {
-            get {
+        public static string Menu_Integrations_WindowUniversesList_NoneSelected
+        {
+            get
+            {
                 return ResourceManager.GetString("Menu.Integrations.WindowUniversesList.NoneSelected", resourceCulture);
+            }
+        }
+        
+        public static string Menu_Integrations_WindowUniversesList_LoadingUniverse
+        {
+            get
+            {
+                return ResourceManager.GetString("Menu.Integrations.WindowUniversesList.LoadingUniverse", resourceCulture);
+            }
+        }
+        
+        public static string Menu_Integrations_WindowUniversesList_FailedUniverseLoad {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.WindowUniversesList.FailedUniverseLoad", resourceCulture);
             }
         }
         
