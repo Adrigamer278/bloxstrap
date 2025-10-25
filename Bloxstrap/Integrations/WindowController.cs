@@ -261,7 +261,6 @@ namespace Bloxstrap.Integrations
                         break;
                     }
                 case "ResetWindow":
-                case "RestoreWindow": // really?? "restorewindow"?? what was i thinking????
                     _lastX = _startingX;
                     _lastY = _startingY;
                     _lastWidth = _startingWidth;
@@ -397,7 +396,7 @@ namespace Bloxstrap.Integrations
 
                         if (windowData.UseAlpha != null)
                         {
-                            _lastTransparencyMode = (windowData.UseAlpha == true) ? LWA_COLORKEY : LWA_COLORKEY;
+                            _lastTransparencyMode = (windowData.UseAlpha == true) ? LWA_ALPHA : LWA_COLORKEY;
                         }
 
                         changedWindow = true;
@@ -424,8 +423,13 @@ namespace Bloxstrap.Integrations
         {
             stopWindow();
 
-            _menuContainer?.Dispatcher.Invoke(_menuContainer.Close);
-
+            if (Watcher.robloxPath != null) {
+                var idsPath = Path.Combine(Watcher.robloxPath, "content\\bloxstrap");
+                if (Directory.Exists(idsPath)) {
+                    Directory.Delete(idsPath, true);
+                }
+            }
+            
             GC.SuppressFinalize(this);
         }
 

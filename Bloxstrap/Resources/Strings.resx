@@ -805,7 +805,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Allow all games</value>
   </data>
   <data name="Menu.Integrations.WindowAllowAll.Description" xml:space="preserve">
-    <value>Allows every game to use window control features, even if it's not in the whitelist</value>
+    <value>Allows every game to use window control features, even if it's not in the whitelist or it's blacklisted</value>
   </data>
   <data name="Menu.Integrations.WindowUniversesList.Title" xml:space="preserve">
     <value>Manage Games</value>

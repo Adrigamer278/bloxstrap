@@ -231,7 +231,7 @@ function BloxstrapRPC.SetWindow(data:WindowData)
 end
 
 --[=[
-	Restores the window to the position and size it was before StartWindow was called,
+	Restores the window to the position and size it was before StartWindow was called, doesn't reset transparency data
 	also called on bloxstrap on StopWindow
 ]=]
 function BloxstrapRPC.ResetWindow()

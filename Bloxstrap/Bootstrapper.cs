@@ -1296,19 +1296,20 @@ namespace Bloxstrap
                 }
             }
 
-            var idsPath = Path.Combine(_latestVersionDirectory, "content\\bloxstrap");
+            if (App.Settings.Prop.EnableActivityTracking && App.Settings.Prop.UseWindowControl) {
+                var idsPath = Path.Combine(_latestVersionDirectory, "content\\bloxstrap");
 
-            // make sure it exists
-            Directory.CreateDirectory(idsPath);
+                // make sure it exists
+                Directory.CreateDirectory(idsPath);
 
-            var directory = new DirectoryInfo(idsPath);
-            // clear
-            foreach(FileInfo file in directory.GetFiles()) file.Delete();
-            foreach(DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
-
-            if (App.Settings.Prop.UseWindowControl) {
+                var directory = new DirectoryInfo(idsPath);
+                
+                // clear
+                foreach(FileInfo file in directory.GetFiles()) file.Delete();
+                foreach (DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
+            
                 System.Drawing.Bitmap enabledBitmap = new System.Drawing.Bitmap(1, 1);
-                enabledBitmap.SetPixel(0, 0, System.Drawing.Color.Transparent);
+                enabledBitmap.SetPixel(0, 0, System.Drawing.Color.White);
                 enabledBitmap.Save(Path.Combine(idsPath, $"enabled.png"), System.Drawing.Imaging.ImageFormat.Png);
             }
 
