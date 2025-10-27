@@ -1,9 +1,9 @@
 > [!CAUTION]
-> The only official places to download Bloxstrap are [the Offical GitHub](https://github.com/bloxstraplabs/bloxstrap) repository and [bloxstraplabs.com](https://bloxstraplabs.com). This fork is not controlled by the official Bloxstrap Devs.
+> The only official places to download base Bloxstrap are [the official GitHub repository](https://github.com/bloxstraplabs/bloxstrap) and [bloxstraplabs.com](https://bloxstraplabs.com), the only place to download this fork is this GitHub repository. This fork is not controlled by the Bloxstrap Devs.
 
 <p align="center">
-    <img src="https://github.com/bloxstraplabs/bloxstrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="420">
-    <img src="https://github.com/bloxstraplabs/bloxstrap/raw/main/Images/Bloxstrap-full-light.png#gh-light-mode-only" width="420">
+    <img src="https://github.com/bloxstraplabs/bloxstrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="380">
+    <img src="https://github.com/bloxstraplabs/bloxstrap/raw/main/Images/Bloxstrap-full-light.png#gh-light-mode-only" width="380">
 </p>
 
 <div align="center">
