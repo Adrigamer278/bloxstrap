@@ -34,27 +34,27 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         protected override bool _cancelEnabled
         {
-            get => this.buttonCancel.Enabled;
-            set => this.buttonCancel.Enabled = this.buttonCancel.Visible = value;
+            get => buttonCancel.Enabled;
+            set => buttonCancel.Enabled = buttonCancel.Visible = value;
         }
 
         public LegacyDialog2011()
         {
             InitializeComponent();
 
-            this.IconBox.BackgroundImage = App.Settings.Prop.BootstrapperIcon.GetIcon().ToBitmap();
-            this.buttonCancel.Text = Strings.Common_Cancel;
+            IconBox.BackgroundImage = App.Settings.Prop.BootstrapperIcon.GetIcon().ToBitmap();
+            buttonCancel.Text = Strings.Common_Cancel;
 
             ScaleWindow();
             SetupDialog();
 
-            this.ProgressBar.RightToLeft = this.RightToLeft;
-            this.ProgressBar.RightToLeftLayout = this.RightToLeftLayout;
+            ProgressBar.RightToLeft = RightToLeft;
+            ProgressBar.RightToLeftLayout = RightToLeftLayout;
         }
 
         private void LegacyDialog2011_Load(object sender, EventArgs e)
         {
-            this.Activate();
+            Activate();
         }
     }
 }

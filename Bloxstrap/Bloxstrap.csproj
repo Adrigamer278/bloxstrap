@@ -9,6 +9,7 @@
     <ApplicationIcon>Bloxstrap.ico</ApplicationIcon>
     <Version>2.11.0</Version>
     <FileVersion>2.11.0</FileVersion>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>

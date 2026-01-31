@@ -26,6 +26,17 @@ namespace Bloxstrap.Models.Persistable
         // integration configuration
         public bool EnableActivityTracking { get; set; } = true;
         public bool UseDiscordRichPresence { get; set; } = true;
+        // new settings (#better naming)
+        public bool UseWindowControl { get; set; } = false;
+        public bool MoveWindowAllowed { get; set; } = true;
+        public bool TitleControlAllowed { get; set; } = true;
+        public bool WindowTransparencyAllowed { get; set; } = true;
+        public WindowMonitorStyle WindowMonitorStyle { get; set; } = WindowMonitorStyle.Single;
+        public int WindowReadFPS { get; set; } = 60;
+        public bool WindowAllowAll { get; set; } = false;
+        public ObservableCollection<long> WindowAllowedUniverses { get; set; } = new();
+        public ObservableCollection<long> WindowBlacklistedUniverses { get; set; } = new();
+
         public bool HideRPCButtons { get; set; } = true;
         public bool ShowAccountOnRichPresence { get; set; } = false;
         public bool ShowServerDetails { get; set; } = false;

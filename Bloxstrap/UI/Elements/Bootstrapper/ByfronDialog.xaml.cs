@@ -131,12 +131,12 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         #region IBootstrapperDialog Methods
         // Referencing FluentDialog
-        public void ShowBootstrapper() => this.ShowDialog();
+        public void ShowBootstrapper() => ShowDialog();
 
         public void CloseBootstrapper()
         {
             _isClosing = true;
-            Dispatcher.BeginInvoke(this.Close);
+            Dispatcher.BeginInvoke(Close);
         }
 
         public void ShowSuccess(string message, Action? callback) => BaseFunctions.ShowSuccess(message, callback);

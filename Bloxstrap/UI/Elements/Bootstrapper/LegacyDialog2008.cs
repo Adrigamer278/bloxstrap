@@ -35,26 +35,26 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         protected override bool _cancelEnabled
         {
-            get => this.buttonCancel.Enabled;
-            set => this.buttonCancel.Enabled = value;
+            get => buttonCancel.Enabled;
+            set => buttonCancel.Enabled = value;
         }
 
         public LegacyDialog2008()
         {
             InitializeComponent();
 
-            this.buttonCancel.Text = Strings.Common_Cancel;
+            buttonCancel.Text = Strings.Common_Cancel;
 
             ScaleWindow();
             SetupDialog();
 
-            this.ProgressBar.RightToLeft = this.RightToLeft;
-            this.ProgressBar.RightToLeftLayout = this.RightToLeftLayout;
+            ProgressBar.RightToLeft = RightToLeft;
+            ProgressBar.RightToLeftLayout = RightToLeftLayout;
         }
 
         private void LegacyDialog2008_Load(object sender, EventArgs e)
         {
-            this.Activate();
+            Activate();
         }
     }
 }

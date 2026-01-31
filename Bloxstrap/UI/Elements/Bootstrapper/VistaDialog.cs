@@ -94,9 +94,9 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         public override void ShowSuccess(string message, Action? callback)
         {
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                this.Invoke(ShowSuccess, message, callback);
+                Invoke(ShowSuccess, message, callback);
             }
             else
             {
@@ -123,9 +123,9 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         public override void CloseBootstrapper()
         {
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                this.Invoke(CloseBootstrapper);
+                Invoke(CloseBootstrapper);
             }
             else
             {

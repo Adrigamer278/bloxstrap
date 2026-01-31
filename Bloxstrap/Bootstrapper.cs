@@ -190,8 +190,8 @@ namespace Bloxstrap
 
             if (connectionResult is not null)
                 HandleConnectionError(connectionResult);
-            
-#if (!DEBUG || DEBUG_UPDATER) && !QA_BUILD
+
+#if (!DEBUG || DEBUG_UPDATER) && !QA_BUILD && false
             if (App.Settings.Prop.CheckForUpdates && !App.LaunchSettings.UpgradeFlag.Active)
             {
                 bool updatePresent = await CheckForUpdates();
@@ -681,7 +681,8 @@ namespace Bloxstrap
                 { 
                     ProcessId = _appPid, 
                     LogFile = logFileName, 
-                    AutoclosePids = autoclosePids
+                    AutoclosePids = autoclosePids,
+                    RobloxDirectory = _latestVersionDirectory
                 };
 
                 string watcherDataArg = Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(watcherData)));
@@ -1379,6 +1380,23 @@ namespace Bloxstrap
                     App.Logger.WriteException(LOG_IDENT, ex);
                     success = false;
                 }
+            }
+
+            if (App.Settings.Prop.EnableActivityTracking && App.Settings.Prop.UseWindowControl) {
+                var idsPath = Path.Combine(_latestVersionDirectory, "content\\bloxstrap");
+
+                // make sure it exists
+                Directory.CreateDirectory(idsPath);
+
+                var directory = new DirectoryInfo(idsPath);
+                
+                // clear
+                foreach(FileInfo file in directory.GetFiles()) file.Delete();
+                foreach (DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
+            
+                System.Drawing.Bitmap enabledBitmap = new System.Drawing.Bitmap(1, 1);
+                enabledBitmap.SetPixel(0, 0, System.Drawing.Color.White);
+                enabledBitmap.Save(Path.Combine(idsPath, $"enabled.png"), System.Drawing.Imaging.ImageFormat.Png);
             }
 
             // the manifest is primarily here to keep track of what files have been

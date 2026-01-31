@@ -122,8 +122,8 @@ namespace Bloxstrap.UI.Elements.Bootstrapper.Base
 
             if (Locale.RightToLeft)
             {
-                this.RightToLeft = RightToLeft.Yes;
-                this.RightToLeftLayout = true;
+                RightToLeft = RightToLeft.Yes;
+                RightToLeftLayout = true;
             }
         }
 

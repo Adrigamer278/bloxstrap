@@ -7,6 +7,7 @@ using Windows.Win32.Foundation;
 using Windows.Win32.UI.WindowsAndMessaging;
 
 using Bloxstrap.Integrations;
+using Bloxstrap.UI.Elements.Dialogs;
 
 namespace Bloxstrap.UI.Elements.ContextMenu
 {
@@ -22,6 +23,8 @@ namespace Bloxstrap.UI.Elements.ContextMenu
         private ActivityWatcher? _activityWatcher => _watcher.ActivityWatcher;
 
         private ServerInformation? _serverInformationWindow;
+        
+        private WindowControlPermission? _windowPermissionWindow;
 
         private ServerHistory? _gameHistoryWindow;
 
@@ -61,6 +64,25 @@ namespace Bloxstrap.UI.Elements.ContextMenu
                 _serverInformationWindow.Activate();
         }
 
+         public void ShowWindowPermissionWindow()
+        {
+            if (_windowPermissionWindow is null)
+            {
+                _windowPermissionWindow = new(_watcher.ActivityWatcher!);
+                _windowPermissionWindow.Closed += (_, _) => _windowPermissionWindow = null;
+            }
+
+            if (!_windowPermissionWindow.IsVisible) {
+                _windowPermissionWindow.Show();
+                _windowPermissionWindow.Topmost = true;
+                _windowPermissionWindow.Activate();
+                _windowPermissionWindow.Topmost = false;
+                _windowPermissionWindow.Focus();
+            }
+            else
+                _windowPermissionWindow.Activate();
+        }
+
         public void ActivityWatcher_OnLogOpen(object? sender, EventArgs e) => 
             Dispatcher.Invoke(() => LogTracerMenuItem.Visibility = Visibility.Visible);
 
@@ -79,11 +101,13 @@ namespace Bloxstrap.UI.Elements.ContextMenu
 
         public void ActivityWatcher_OnGameLeave(object? sender, EventArgs e)
         {
-            Dispatcher.Invoke(() => {
+            Dispatcher.Invoke(() =>
+            {
                 InviteDeeplinkMenuItem.Visibility = Visibility.Collapsed;
                 ServerDetailsMenuItem.Visibility = Visibility.Collapsed;
 
                 _serverInformationWindow?.Close();
+                _windowPermissionWindow?.Close();
             });
         }
 

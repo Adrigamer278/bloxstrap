@@ -36,7 +36,9 @@
         public event EventHandler? OnAppClose;
         public event EventHandler<Message>? OnRPCMessage;
 
-        private DateTime LastRPCRequest;
+        private readonly Dictionary<string, string> GeolocationCache = new();
+
+        public Watcher watcher = null!;
 
         public string LogLocation = null!;
 
@@ -51,8 +53,15 @@
 
         public bool IsDisposed = false;
 
-        public ActivityWatcher(string? logFile = null)
+        public int defaultDelay = 1000;
+        public int windowLogDelay = 250;
+        public int delay = 1000;
+       
+
+        public ActivityWatcher(Watcher watch, string? logFile = null)
         {
+            watcher = watch;
+
             if (!String.IsNullOrEmpty(logFile))
                 LogLocation = logFile;
         }
@@ -71,7 +80,10 @@
             // - check for leaves/disconnects with 'Time to disconnect replication data: {{TIME}}' entry
             //
             // we'll tail the log file continuously, monitoring for any log entries that we need to determine the current game activity
-            
+
+            delay = defaultDelay;
+            windowLogDelay = 1000/(App.Settings.Prop.WindowReadFPS<1 ? 1 : App.Settings.Prop.WindowReadFPS); // maybe remove this one since it can be changed in runtime now
+
             FileInfo logFileInfo;
 
             if (String.IsNullOrEmpty(LogLocation))
@@ -122,7 +134,7 @@
                 string? log = await streamReader.ReadLineAsync();
 
                 if (log is null)
-                    await Task.Delay(1000);
+                    await Task.Delay(delay);
                 else
                     ReadLogEntry(log);
             }
@@ -136,12 +148,14 @@
 
             _logEntriesRead += 1;
 
+#if DEBUG
             // debug stats to ensure that the log reader is working correctly
             // if more than 1000 log entries have been read, only log per 100 to save on spam
             if (_logEntriesRead <= 1000 && _logEntriesRead % 50 == 0)
                 App.Logger.WriteLine(LOG_IDENT, $"Read {_logEntriesRead} log entries");
             else if (_logEntriesRead % 100 == 0)
                 App.Logger.WriteLine(LOG_IDENT, $"Read {_logEntriesRead} log entries");
+#endif
 
             // get the log message from the read line
             int logMessageIdx = entry.IndexOf(' ');
@@ -326,14 +340,6 @@
                     string messagePlain = match.Groups[1].Value;
                     Message? message;
 
-                    App.Logger.WriteLine(LOG_IDENT, $"Received message: '{messagePlain}'");
-
-                    if ((DateTime.Now - LastRPCRequest).TotalSeconds <= 1)
-                    {
-                        App.Logger.WriteLine(LOG_IDENT, "Dropping message as ratelimit has been hit");
-                        return;
-                    }
-
                     try
                     {
                         message = JsonSerializer.Deserialize<Message>(messagePlain);
@@ -386,8 +392,6 @@
                     }
 
                     OnRPCMessage?.Invoke(this, message);
-
-                    LastRPCRequest = DateTime.Now;
                 }
             }
         }

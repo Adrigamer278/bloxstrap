@@ -1,8 +1,5 @@
 > [!CAUTION]
-> The only official places to download Bloxstrap are this GitHub repository and [bloxstraplabs.com](https://bloxstraplabs.com). Any other websites offering downloads or claiming to be us are not owned by us.
-
-> [!IMPORTANT]
-> Bloxstrap is not under active development anymore. Any issues or pull requests opened may take a while to get a response.
+> The only official places to download base Bloxstrap are [the official GitHub repository](https://github.com/bloxstraplabs/bloxstrap) and [bloxstraplabs.com](https://bloxstraplabs.com), the only place to download this fork is this GitHub repository. This fork is not controlled by the Bloxstrap Devs.
 
 <p align="center">
     <img src="https://github.com/bloxstraplabs/bloxstrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="380">
@@ -20,6 +17,26 @@
 [![lol][shield-tenor-meme]][tenor-gif]
 
 </div>
+
+----
+
+# !! BUILD DOWNLOAD
+[Stable Release (compiled by us)](https://github.com/Adrigamer278/bloxstrap/releases/latest)  
+[Latest Commit [aka a Dev Build] (compiled by github automatically) (use .exe from latest workflow artifact that requires you to have a github account)](https://github.com/Adrigamer278/bloxstrap/actions/workflows/ci-release.yml?query=is%3Asuccess+branch%3Amain)
+
+## How to install
+Running the exe or replacing it with bloxstap's exe should install/update the fork
+If it doesnt work, try installing normal bloxstrap and then repeating the step before should work  
+Bloxstrap installation path (where bloxstrap's exe file is) is <i>%localappdata%/Bloxstrap</i> (use Win+R or the file explorer address path to go there)
+
+# <b>[Dawndreamer Studios](https://www.roblox.com/communities/17371285/Dawndreamer-Studios)'s Fork</b>  
+Features:  
+    - [Window Movement](https://youtu.be/MgWMiGAx68g?si=1SOBrE3CMPgg8lhC&t=96)  
+    - [Changing Window's Title and Chroma color](https://youtu.be/i03Aiic6DbI?si=XzGEkdJkqdEbOu-C&t=112)
+
+Note: On smaller screens (includes DPI zoomed screens), roblox may force a minimum size for the window, to remove it you can enable fullscreen, which also removes the window border but everytime you click the window it will fullscreen until the game sends a window update (we can't do anything about it afaik)
+
+[BLOXSTRAP SDK](https://github.com/Adrigamer278/bloxstrap/blob/main/BloxstrapSDK.luau)
 
 ----
 

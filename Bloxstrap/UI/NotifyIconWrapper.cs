@@ -12,11 +12,11 @@ namespace Bloxstrap.UI
 
         private readonly System.Windows.Forms.NotifyIcon _notifyIcon;
         
-        private readonly MenuContainer _menuContainer;
+        public readonly MenuContainer _menuContainer;
         
-        private readonly Watcher _watcher;
+        public readonly Watcher _watcher;
 
-        private ActivityWatcher? _activityWatcher => _watcher.ActivityWatcher;
+        public ActivityWatcher? _activityWatcher => _watcher.ActivityWatcher;
 
         EventHandler? _alertClickHandler;
 

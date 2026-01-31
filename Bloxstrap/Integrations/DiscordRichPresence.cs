@@ -20,6 +20,7 @@ namespace Bloxstrap.Integrations
         private CancellationTokenSource? _fetchThumbnailsToken;
 
         private bool _visible = true;
+        private DateTime LastRPCRequest;
 
         public DiscordRichPresence(ActivityWatcher activityWatcher)
         {
@@ -60,6 +61,12 @@ namespace Bloxstrap.Integrations
             if (message.Command != "SetRichPresence" && message.Command != "SetLaunchData")
                 return;
 
+            if ((DateTime.Now - LastRPCRequest).TotalSeconds <= 1)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "Dropping message as ratelimit has been hit");
+                    return;
+                }
+
             if (_currentPresence is null || _originalPresence is null)
             {
                 App.Logger.WriteLine(LOG_IDENT, "Presence is not set, enqueuing message");
@@ -67,6 +74,8 @@ namespace Bloxstrap.Integrations
                 return;
             }
 
+            LastRPCRequest = DateTime.Now;
+            
             // a lot of repeated code here, could this somehow be cleaned up?
 
             if (message.Command == "SetLaunchData")

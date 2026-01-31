@@ -35,8 +35,8 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         protected override bool _cancelEnabled
         {
-            get => this.buttonCancel.Enabled;
-            set => this.buttonCancel.Enabled = this.buttonCancel.Visible = value;
+            get => buttonCancel.Enabled;
+            set => buttonCancel.Enabled = buttonCancel.Visible = value;
         }
 
         public ProgressDialog()
@@ -45,32 +45,32 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             if (App.Settings.Prop.Theme.GetFinal() == Theme.Dark)
             {
-                this.labelMessage.ForeColor = SystemColors.Window;
-                this.buttonCancel.ForeColor = Color.FromArgb(196, 197, 196);
-                this.buttonCancel.Image = Properties.Resources.DarkCancelButton;
-                this.panel1.BackColor = Color.FromArgb(35, 37, 39);
-                this.BackColor = Color.FromArgb(25, 27, 29);
+                labelMessage.ForeColor = SystemColors.Window;
+                buttonCancel.ForeColor = Color.FromArgb(196, 197, 196);
+                buttonCancel.Image = Properties.Resources.DarkCancelButton;
+                panel1.BackColor = Color.FromArgb(35, 37, 39);
+                BackColor = Color.FromArgb(25, 27, 29);
             }
 
-            this.labelMessage.Text = Strings.Bootstrapper_StylePreview_TextCancel;
-            this.buttonCancel.Text = Strings.Common_Cancel;
-            this.IconBox.BackgroundImage = App.Settings.Prop.BootstrapperIcon.GetIcon().GetSized(128, 128).ToBitmap();
+            labelMessage.Text = Strings.Bootstrapper_StylePreview_TextCancel;
+            buttonCancel.Text = Strings.Common_Cancel;
+            IconBox.BackgroundImage = App.Settings.Prop.BootstrapperIcon.GetIcon().GetSized(128, 128).ToBitmap();
 
             SetupDialog();
 
-            this.ProgressBar.RightToLeft = this.RightToLeft;
-            this.ProgressBar.RightToLeftLayout = this.RightToLeftLayout;
+            ProgressBar.RightToLeft = RightToLeft;
+            ProgressBar.RightToLeftLayout = RightToLeftLayout;
         }
 
         private void ButtonCancel_MouseEnter(object sender, EventArgs e)
         {
             if (App.Settings.Prop.Theme.GetFinal() == Theme.Dark)
             {
-                this.buttonCancel.Image = Properties.Resources.DarkCancelButtonHover;
+                buttonCancel.Image = Properties.Resources.DarkCancelButtonHover;
             }
             else
             {
-                this.buttonCancel.Image = Properties.Resources.CancelButtonHover;
+                buttonCancel.Image = Properties.Resources.CancelButtonHover;
             }
         }
 
@@ -78,17 +78,17 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         {
             if (App.Settings.Prop.Theme.GetFinal() == Theme.Dark)
             {
-                this.buttonCancel.Image = Properties.Resources.DarkCancelButton;
+                buttonCancel.Image = Properties.Resources.DarkCancelButton;
             }
             else
             {
-                this.buttonCancel.Image = Properties.Resources.CancelButton;
+                buttonCancel.Image = Properties.Resources.CancelButton;
             }
         }
 
         private void ProgressDialog_Load(object sender, EventArgs e)
         {
-            this.Activate();
+            Activate();
         }
     }
 }
