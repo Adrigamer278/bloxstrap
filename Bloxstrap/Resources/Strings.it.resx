@@ -1099,15 +1099,6 @@ Assicurati che non ci sia nulla che possa limitare le operazioni di Bloxstrap.</
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Configura le opzioni a riguardo del comportamento di Bloxstrap.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Abilita l'invio delle statistiche</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>È anonimo e non è niente di male, promesso. Per informazioni su che cosa collezioniamo e perché, guarda la nostra [informativa sulla privacy]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Statistiche</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Ripristina tutto ai valori predefiniti</value>
   </data>

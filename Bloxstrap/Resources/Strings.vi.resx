@@ -1100,15 +1100,6 @@ Vui lòng xóa thủ công Bloxstrap.exe khỏi vị trí cài đặt hoặc th�
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Tùy chỉnh những lựa chọn liên quan tới cách hoạt động của Bloxstrap.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Bật gửi dữ liệu phân tích</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Mọi thứ đều ẩn danh và không có gì xấu xa cả, thật đấy. Để biết chúng tôi thu thập những gì và lý do, hãy xem [chính sách quyền riêng tư]({0}) của chúng tôi.</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Phân tích</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Đặt tất cả cài đặt về mặc định</value>
   </data>

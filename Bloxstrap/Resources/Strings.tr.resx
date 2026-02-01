@@ -1095,15 +1095,6 @@ Lütfen manuel olarak yükleme yolundan Bloxstrap.exe'yi silin veya sisteminizi 
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Bloxstrap'ın davranışı ile ilgili ayarları yapılandırın.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Analitikleri göndermeyi etkinleştir</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Hepsi anonim ve kötü bir şey değil, söz. Ne topladığımız ve neden topladığımız hakkında bilgi için [gizlilik politikamıza]({0}) bakın.</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analitikler</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Her şeyi varsayılanlara sıfırla</value>
   </data>

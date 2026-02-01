@@ -1092,15 +1092,6 @@ Bloxstrap จะติดตั้งไว้ที่ "{1}"</value>
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>กำหนดค่าเกี่ยวกับตัวเลือกที่เกี่ยวข้องกับพฤติกรรมของ Bloxstrap เอง</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>เปิดใช้งานการส่งข้อมูลวิเคราะห์</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>มันเป็นข้อมูลที่ไม่ระบุชื่อและไม่มีอะไรที่ไม่ดีแน่นอน สําหรับข้อมูลเกี่ยวกับสิ่งที่เรารวบรวมและเหตุผล โปรดดูที่ [นโยบายความเป็นส่วนตัวของเรา]({0})</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>วิเคราะห์</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>รีเซ็ตทุกอย่างเป็นค่าเริ่มต้น</value>
   </data>

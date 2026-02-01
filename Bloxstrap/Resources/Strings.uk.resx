@@ -1095,15 +1095,6 @@ Bloxstrap встановлено на "{1}".</value>
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Налаштуйте параметри, пов'язані з поведінкою самого Bloxstrap.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Увімкнути надсилання аналітики</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Це анонімно і нічого злого, обіцяємо. Щоб дізнатися, що ми збираємо і чому, ознайомтеся з нашою [політикою конфіденційності]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Аналітика</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Скинути все до стандартних значень</value>
   </data>

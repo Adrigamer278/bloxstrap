@@ -1096,15 +1096,6 @@ Bloxstrap был установлен по адресу "{1}".</value>
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Настройка параметров, связанных с поведением Bloxstrap.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Включить отправку аналитики</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Это анонимно и ничего плохого, обещаем. О том, что мы собираем и зачем, читайте в нашей [политике конфиденциальности]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Аналитика</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Сбросить все по умолчанию</value>
   </data>

@@ -298,6 +298,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shutting down {product}.
+        /// </summary>
+        public static string Bootstrapper_Status_ShuttingDown {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Status.ShuttingDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Starting {product}....
         /// </summary>
         public static string Bootstrapper_Status_Starting {
@@ -393,15 +402,6 @@ namespace Bloxstrap.Resources {
         public static string Common_AddSingle {
             get {
                 return ResourceManager.GetString("Common.AddSingle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Analytics.
-        /// </summary>
-        public static string Common_Analytics {
-            get {
-                return ResourceManager.GetString("Common.Analytics", resourceCulture);
             }
         }
         
@@ -2116,7 +2116,7 @@ namespace Bloxstrap.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Thank you for downloading Bloxstrap. 
         ///
-        ///The only official websites to download Bloxstrap from are {0} and {1}, so please verify that you got it from an official source.
+        ///The only official websites to download Bloxstrap from are {0}, so please verify that you got it from an official source.
         ///
         ///This installation process will be quick and simple, and you will be able to configure any of Bloxstrap&apos;s settings after installation..
         /// </summary>
@@ -2170,6 +2170,15 @@ namespace Bloxstrap.Resources {
                 return ResourceManager.GetString("JsonManager.SettingsLoadFailed", resourceCulture);
             }
         }
+
+         /// <summary>
+        ///   Looks up a localized string similar to Bloxstrap Wiki.
+        /// </summary>
+        public static string LaunchMenu_BloxstrapWiki {
+            get {
+                return ResourceManager.GetString("LaunchMenu.BloxstrapWiki", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Configure settings.
@@ -2195,6 +2204,15 @@ namespace Bloxstrap.Resources {
         public static string LaunchMenu_LaunchRobloxStudio {
             get {
                 return ResourceManager.GetString("LaunchMenu.LaunchRobloxStudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox Community.
+        /// </summary>
+        public static string LaunchMenu_RobloxCommunity {
+            get {
+                return ResourceManager.GetString("LaunchMenu.RobloxCommunity", resourceCulture);
             }
         }
         
@@ -2267,6 +2285,24 @@ namespace Bloxstrap.Resources {
         public static string Menu_About_Contributors_SpecialThanks {
             get {
                 return ResourceManager.GetString("Menu.About.Contributors.SpecialThanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contributors (Funkstrap).
+        /// </summary>
+        public static string Menu_About_ContributorsFork {
+            get {
+                return ResourceManager.GetString("Menu.About.ContributorsFork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These are the people who have made notable contributions to Bloxstrap, helping make it what it is..
+        /// </summary>
+        public static string Menu_About_Contributors_DescriptionFork {
+            get {
+                return ResourceManager.GetString("Menu.About.Contributors.DescriptionFork", resourceCulture);
             }
         }
         
@@ -2366,6 +2402,15 @@ namespace Bloxstrap.Resources {
         public static string Menu_About_Version {
             get {
                 return ResourceManager.GetString("Menu.About.Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extending Bloxstrap {0}.
+        /// </summary>
+        public static string Menu_About_Version_Extend {
+            get {
+                return ResourceManager.GetString("Menu.About.VersionExtend", resourceCulture);
             }
         }
         
@@ -2676,24 +2721,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It&apos;s anonymous and nothing evil, promise. For insight on what we collect and why, see our [privacy policy]({0})..
-        /// </summary>
-        public static string Menu_Bloxstrap_Analytics_Description {
-            get {
-                return ResourceManager.GetString("Menu.Bloxstrap.Analytics.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable sending of analytics.
-        /// </summary>
-        public static string Menu_Bloxstrap_Analytics_Title {
-            get {
-                return ResourceManager.GetString("Menu.Bloxstrap.Analytics.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Configure options related to Bloxstrap&apos;s behaviour itself..
         /// </summary>
         public static string Menu_Bloxstrap_Description {
@@ -2744,6 +2771,15 @@ namespace Bloxstrap.Resources {
         public static string Menu_FastFlagEditor_AddNew {
             get {
                 return ResourceManager.GetString("Menu.FastFlagEditor.AddNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Due to the [Fast Flag allowlist update]({0}), most custom Fast Flags will have no effect on the Roblox player..
+        /// </summary>
+        public static string Menu_FastFlagEditor_AllowlistInformation {
+            get {
+                return ResourceManager.GetString("Menu.FastFlagEditor.AllowlistInformation", resourceCulture);
             }
         }
         

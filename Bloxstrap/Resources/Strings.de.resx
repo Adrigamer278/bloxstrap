@@ -1098,15 +1098,6 @@ Bitte lösche Bloxstrap.exe manuell aus dem Installationsverzeichnis oder versuc
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Konfiguriere Optionen, welche sich auf das Verhalten von Bloxstrap auswirken.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Aktiviere das Senden von analytischen Daten</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Es ist anonym und nichts Böses, versprochen. Für mehr Klarheit über welche Daten wir sammeln und warum, schaue dir unsere [Datenschutzrichtlinien]({0}) an.</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analytische Daten</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Alles auf Standardwerte zurücksetzen</value>
   </data>

@@ -1097,15 +1097,6 @@ Bloxstrap е инсталиран на „{1}“.</value>
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Конфигурирайте опции, свързани с поведението на Bloxstrap.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Активирайте изпращането на аналитика</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Те са напълно анонимни. За информация върху какво събираме и защо. Вижте нашата [политика за поверителност]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Анализи</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Нулирайте всичко до настройките по подразбиране</value>
   </data>

@@ -1098,15 +1098,6 @@ Prosím manuálně smažte Bloxstrap.exe z instalačního místa nebo zkuste res
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Konfigurace možností souvisejících se samotným chováním Bloxstrapu.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Povolit odesílání analytiky</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Je to anonymní a nic zlého, přísaháme. Pokud vás zajímá co sbíráme a proč, podívejte se na naše [zásady ochrany osobních údajů]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analytika</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Obnovit vše na výchozí</value>
   </data>

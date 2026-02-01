@@ -1098,15 +1098,6 @@ Tolong hapus Bloxstrap.exe secara manual dari lokasi pemasangan atau coba untuk 
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Atur opsi yang terkait dengan perilaku Bloxstrap itu sendiri.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Aktifkan pengiriman analisa</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Ini anonim dan tidak digunakan untuk hal yang jahat, janji. Untuk wawasan tentang apa yang kami kumpulkan dan mengapa, lihat [kebijakan privasi]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analitik</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Ubah semuanya ke bawaan</value>
   </data>

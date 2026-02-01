@@ -196,6 +196,8 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             if (resourceName == "Version")
                 return App.Version;
+            else if (resourceName == "BLOX_Version")
+                return App.BLOX_Version;
 
             return Strings.ResourceManager.GetStringSafe(resourceName);
         }

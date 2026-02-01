@@ -1097,15 +1097,6 @@ Elimine manualmente Bloxstrap.exe de la ubicación de instalación o reinicie el
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Configurar opciones relacionadas con el propio comportamiento de Bloxstrap.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Habilitar el envío de analíticas</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Son anónimas y nada malas, promesa. Para saber qué recopilamos y por qué, consulta nuestra [política de privacidad]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analíticas</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Restablecer todo a los valores por defecto</value>
   </data>

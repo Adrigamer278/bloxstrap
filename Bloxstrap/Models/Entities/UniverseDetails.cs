@@ -28,11 +28,6 @@
 
         public static async Task FetchBulk(string ids)
         {
-            var gameDetailResponse = await Http.GetJson<ApiArrayResponse<GameDetailResponse>>($"https://games.roblox.com/v1/games?universeIds={ids}");
-
-            if (!gameDetailResponse.Data.Any())
-                throw new InvalidHTTPResponseException("Roblox API for Game Details returned invalid data");
-
             var universeThumbnailResponse = await Http.GetJson<ApiArrayResponse<ThumbnailResponse>>($"https://thumbnails.roblox.com/v1/games/icons?universeIds={ids}&returnPolicy=PlaceHolder&size=128x128&format=Png&isCircular=false");
 
             if (!universeThumbnailResponse.Data.Any())
@@ -41,10 +36,15 @@
             foreach (string strId in ids.Split(','))
             {
                 long id = long.Parse(strId);
+                
+                var gameDetailResponse = await Http.GetJson<GameDetailResponse>($"https://develop.roblox.com/v1/universes/{id}");
+
+                if (gameDetailResponse == null)
+                    throw new InvalidHTTPResponseException("Roblox API for Game Details returned invalid data");
 
                 _cache.Add(new UniverseDetails
                 {
-                    Data = gameDetailResponse.Data.Where(x => x.Id == id).First(),
+                    Data = gameDetailResponse,
                     Thumbnail = universeThumbnailResponse.Data.Where(x => x.TargetId == id).First(),
                 });
             }

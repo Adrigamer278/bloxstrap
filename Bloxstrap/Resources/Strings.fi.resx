@@ -1098,15 +1098,6 @@ Ole hyvä ja poista Bloxstrap.exe manuaalisesti asennussijainnista tai käynnist
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Määritä Bloxstrapin käyttäytymiseen liittyviä asetuksia.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Ota analytiikan lähetys käyttöön</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Se on anonyymiä eikä mitään pahaa, lupaamme. Lisätietoja siitä, mitä me keräämme ja miksi löytyy [yksityisyyskäytännöstämme]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analytiikka</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Palauta kaikki oletuksiin</value>
   </data>

@@ -1099,15 +1099,6 @@ Por favor, exclua manualmente o arquivo Bloxstrap.exe do local de instalação o
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Configure opções relacionadas ao comportamento do Bloxstrap.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Habilitar o envio de análises</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>É anônimo e nada mau, eu prometo. Para saber o que coletamos e o porquê, veja nossa [política de privacidade]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Análises</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Redefinir tudo para os padrões</value>
   </data>

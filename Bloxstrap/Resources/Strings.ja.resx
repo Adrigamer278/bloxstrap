@@ -1105,15 +1105,6 @@ Bloxstrapのインストール場所: {1}</value>
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Bloxstrapの動作に関する設定を変更できます。</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>使用状況と診断情報を送信</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>匿名かつ悪意のない用途で使用されます。収集する内容とその理由は、[プライバシーポリシー]({0})を確認してください。</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>使用状況と診断情報</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>すべてをデフォルトにリセットする</value>
   </data>

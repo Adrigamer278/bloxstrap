@@ -1097,15 +1097,6 @@ Verwijder handmatig Bloxstrap.EXE van de installatielocatie of probeer je systee
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Configureer opties gerelateerd aan het gedrag van Bloxstrap zelf.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Het verzenden van analytics inschakelen</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Het is anoniem en niets slecht, beloofd. Voor inzicht in wat we verzamelen en waarom, zie ons ({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Statistieken</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Alle standaard instellingen herstellen</value>
   </data>

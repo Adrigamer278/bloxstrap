@@ -157,4 +157,7 @@
   <data name="IconBloxstrapClassic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconBloxstrapClassic.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IconFunkstrap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconFunkstrap.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

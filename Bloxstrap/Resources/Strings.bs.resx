@@ -1095,15 +1095,6 @@ Molimo ručno izbrišite Bloxstrap.exe sa lokacije za instalaciju ili pokušajte
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Konfiguiraj opcije povezane sa samim ponašanjem Bloxstrapa.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Omogućite slanje analitike</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Anonimno je i ništa loše, obećavam. Za uvid u to šta prikupljamo i zašto, pogledajte našu [politiku privatnosti]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analitika</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Vrati sve na zadane postavke</value>
   </data>

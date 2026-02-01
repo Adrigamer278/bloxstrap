@@ -1095,15 +1095,6 @@ Pakialisin mismo ang Bloxstrap.exe sa install location o subukan mong i-restart 
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>I-configure ang mga option na nanuugnay sa pag-uugali ng Bloxstrap mismo.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>I-enable ang pag-send ng analitiko</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Ito ay anonima lang at walang masama, promise. Para sa insight na anong kinokolekta namin at bakit, tignan mo ang aming [privacy policy]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analitika</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>I-balik lahat sa default</value>
   </data>

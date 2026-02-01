@@ -371,9 +371,6 @@ namespace Bloxstrap
                 App.Logger.WriteLine(LOG_IDENT, $"Got channel as {channel}");
 
                 Deployment.Channel = channel;
-
-                if (!Deployment.IsDefaultChannel)
-                    App.SendStat("robloxChannel", channel);
             }
             else
             {
@@ -1576,8 +1573,6 @@ namespace Bloxstrap
 
                     if (ex.GetType() == typeof(ChecksumFailedException))
                     {
-                        App.SendStat("packageDownloadState", "httpFail");
-
                         Frontend.ShowConnectivityDialog(
                             Strings.Dialog_Connectivity_UnableToDownload,
                             String.Format(Strings.Dialog_Connectivity_UnableToDownloadReason, "[https://bloxstraplabs.com/wiki/help/bloxstrap-cannot-download-roblox/](https://bloxstraplabs.com/wiki/help/bloxstrap-cannot-download-roblox/)"),

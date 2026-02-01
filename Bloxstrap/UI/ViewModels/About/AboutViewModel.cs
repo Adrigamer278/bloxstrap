@@ -5,6 +5,7 @@ namespace Bloxstrap.UI.ViewModels.About
     public class AboutViewModel : NotifyPropertyChangedViewModel
     {
         public string Version => string.Format(Strings.Menu_About_Version, App.Version);
+        public string Blox_Version => string.Format(Strings.Menu_About_Version_Extend, App.BLOX_Version);
 
         public BuildMetadataAttribute BuildMetadata => App.BuildMetadata;
 

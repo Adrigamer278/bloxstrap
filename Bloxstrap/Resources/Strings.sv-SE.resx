@@ -1098,15 +1098,6 @@ Ta manuellt bort Bloxstrap.exe från installationsplatsen eller försök starta 
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Konfigurera alternativ relaterade till Bloxstraps beteende i sig.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Skicka telemetri</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Det är anonymt och inget ont. För att se vad vi samlar in och varför, se vår [integritetspolicy]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Telemetri</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Återställ allt till standard</value>
   </data>

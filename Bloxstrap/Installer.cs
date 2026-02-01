@@ -23,8 +23,6 @@ namespace Bloxstrap
 
         public bool CreateStartMenuShortcuts = true;
 
-        public bool EnableAnalytics = true;
-
         public bool IsImplicitInstall = false;
 
         public string InstallLocationError { get; set; } = "";
@@ -63,7 +61,7 @@ namespace Bloxstrap
                 uninstallKey.SetValueSafe("DisplayIcon", $"{Paths.Application},0");
                 uninstallKey.SetValueSafe("DisplayName", App.ProjectName);
 
-                uninstallKey.SetValueSafe("DisplayVersion", App.Version);
+                uninstallKey.SetValueSafe("DisplayVersion", $"{App.Version} ({App.BLOX_Version})");
 
                 if (uninstallKey.GetValue("InstallDate") is null)
                     uninstallKey.SetValueSafe("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
@@ -98,14 +96,9 @@ namespace Bloxstrap
             App.State.Load(false);
             App.FastFlags.Load(false);
 
-            App.Settings.Prop.EnableAnalytics = EnableAnalytics;
-
             App.Settings.Save();
 
             App.Logger.WriteLine(LOG_IDENT, "Installation finished");
-
-            if (!IsImplicitInstall)
-                App.SendStat("installAction", "install");
         }
 
         private bool ValidateLocation()
@@ -352,8 +345,6 @@ namespace Bloxstrap
                     WindowStyle = ProcessWindowStyle.Hidden
                 });
             }
-
-            App.SendStat("installAction", "uninstall");
         }
 
         public static void HandleUpgrade()
@@ -441,7 +432,7 @@ namespace Bloxstrap
 
             using (var uninstallKey = Registry.CurrentUser.CreateSubKey(App.UninstallKey))
             {
-                uninstallKey.SetValueSafe("DisplayVersion", App.Version);
+                uninstallKey.SetValueSafe("DisplayVersion", $"{App.Version} ({App.BLOX_Version})");
 
                 uninstallKey.SetValueSafe("Publisher", App.ProjectOwner);
                 uninstallKey.SetValueSafe("HelpLink", App.ProjectHelpLink);
@@ -449,159 +440,8 @@ namespace Bloxstrap
                 uninstallKey.SetValueSafe("URLUpdateInfo", App.ProjectDownloadLink);
             }
 
-            // update migrations
-
-            if (existingVer is not null)
-            {
-                if (Utilities.CompareVersions(existingVer, "2.2.0") == VersionComparison.LessThan)
-                {
-                    string path = Path.Combine(Paths.Integrations, "rbxfpsunlocker");
-
-                    try
-                    {
-                        if (Directory.Exists(path))
-                            Directory.Delete(path, true);
-                    }
-                    catch (Exception ex)
-                    {
-                        App.Logger.WriteException(LOG_IDENT, ex);
-                    }
-                }
-
-                if (Utilities.CompareVersions(existingVer, "2.3.0") == VersionComparison.LessThan)
-                {
-                    string injectorLocation = Path.Combine(Paths.Modifications, "dxgi.dll");
-                    string configLocation = Path.Combine(Paths.Modifications, "ReShade.ini");
-
-                    if (File.Exists(injectorLocation))
-                        File.Delete(injectorLocation);
-
-                    if (File.Exists(configLocation))
-                        File.Delete(configLocation);
-                }
-
-                if (Utilities.CompareVersions(existingVer, "2.6.0") == VersionComparison.LessThan)
-                {
-                    if (App.Settings.Prop.UseDisableAppPatch)
-                    {
-                        try
-                        {
-                            File.Delete(Path.Combine(Paths.Modifications, "ExtraContent\\places\\Mobile.rbxl"));
-                        }
-                        catch (Exception ex)
-                        {
-                            App.Logger.WriteException(LOG_IDENT, ex);
-                        }
-
-                        App.Settings.Prop.EnableActivityTracking = true;
-                    }
-
-                    if (App.Settings.Prop.BootstrapperStyle == BootstrapperStyle.ClassicFluentDialog)
-                        App.Settings.Prop.BootstrapperStyle = BootstrapperStyle.FluentDialog;
-                }
-
-                if (Utilities.CompareVersions(existingVer, "2.8.0") == VersionComparison.LessThan)
-                {
-                    if (isAutoUpgrade)
-                    {
-                        if (App.LaunchSettings.Args.Length == 0)
-                            App.LaunchSettings.RobloxLaunchMode = LaunchMode.Player;
-
-                        string? query = App.LaunchSettings.Args.FirstOrDefault(x => x.Contains("roblox"));
-
-                        if (query is not null)
-                        {
-                            App.LaunchSettings.RobloxLaunchMode = LaunchMode.Player;
-                            App.LaunchSettings.RobloxLaunchArgs = query;
-                        }
-                    }
-
-                    string oldDesktopPath = Path.Combine(Paths.Desktop, "Play Roblox.lnk");
-                    string oldStartPath = Path.Combine(Paths.WindowsStartMenu, "Bloxstrap");
-
-                    if (File.Exists(oldDesktopPath))
-                        File.Move(oldDesktopPath, DesktopShortcut, true);
-
-                    if (Directory.Exists(oldStartPath))
-                    {
-                        try
-                        {
-                            Directory.Delete(oldStartPath, true);
-                        }
-                        catch (Exception ex)
-                        {
-                            App.Logger.WriteException(LOG_IDENT, ex);
-                        }
-
-                        Shortcut.Create(Paths.Application, "", StartMenuShortcut);
-                    }
-
-                    Registry.CurrentUser.DeleteSubKeyTree("Software\\Bloxstrap", false);
-
-                    WindowsRegistry.RegisterPlayer();
-                }
-
-                if (Utilities.CompareVersions(existingVer, "2.8.2") == VersionComparison.LessThan)
-                {
-                    string robloxDirectory = Path.Combine(Paths.Base, "Roblox");
-
-                    if (Directory.Exists(robloxDirectory))
-                    {
-                        try
-                        {
-                            Directory.Delete(robloxDirectory, true);
-                        }
-                        catch (Exception ex)
-                        {
-                            App.Logger.WriteLine(LOG_IDENT, "Failed to delete the Roblox directory");
-                            App.Logger.WriteException(LOG_IDENT, ex);
-                        }
-                    }
-                }
-
-                if (Utilities.CompareVersions(existingVer, "2.11.0") == VersionComparison.LessThan)
-                {
-                    JsonManager<RobloxState> legacyRobloxState = new();
-
-                    if (legacyRobloxState.IsSaved)
-                    {
-                        if (legacyRobloxState.Load(false))
-                        {
-                            App.PlayerState.Prop.VersionGuid = legacyRobloxState.Prop.Player.VersionGuid;
-                            App.PlayerState.Prop.PackageHashes = legacyRobloxState.Prop.Player.PackageHashes;
-                            App.PlayerState.Prop.Size = legacyRobloxState.Prop.Player.Size;
-                            App.PlayerState.Prop.ModManifest = legacyRobloxState.Prop.ModManifest;
-
-                            App.StudioState.Prop.VersionGuid = legacyRobloxState.Prop.Studio.VersionGuid;
-                            App.StudioState.Prop.PackageHashes = legacyRobloxState.Prop.Studio.PackageHashes;
-                            App.StudioState.Prop.Size = legacyRobloxState.Prop.Studio.Size;
-                        }
-
-                        legacyRobloxState.Delete();
-                    }
-                }
-
-                 if (Utilities.CompareVersions(existingVer, "2.8.6") == VersionComparison.LessThan)
-                {
-                    App.FastFlags.SetValue("FFlagUserIsBloxstrap", null);
-                    App.FastFlags.SetValue("FFlagUserAllowsWindowMovement", null);
-                }
-
-                App.Settings.Save();
-                App.FastFlags.Save();
-                App.State.Save();
-
-                if (App.PlayerState.Loaded)
-                    App.PlayerState.Save();
-
-                if (App.StudioState.Loaded)
-                    App.StudioState.Save();
-            }
-
             if (currentVer is null)
                 return;
-
-            App.SendStat("installAction", "upgrade");
 
             if (isAutoUpgrade)
             {

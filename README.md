@@ -2,8 +2,8 @@
 > The only official places to download base Bloxstrap are [the official GitHub repository](https://github.com/bloxstraplabs/bloxstrap) and [bloxstraplabs.com](https://bloxstraplabs.com), the only place to download this fork is this GitHub repository. This fork is not controlled by the Bloxstrap Devs.
 
 <p align="center">
-    <img src="https://github.com/bloxstraplabs/bloxstrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="380">
-    <img src="https://github.com/bloxstraplabs/bloxstrap/raw/main/Images/Bloxstrap-full-light.png#gh-light-mode-only" width="380">
+    <img src="https://github.com/Adrigamer278/bloxstrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="380">
+    <img src="https://github.com/Adrigamer278/bloxstrap/raw/main/Images/Bloxstrap-full-light.png#gh-light-mode-only" width="380">
 </p>
 
 <div align="center">
@@ -27,7 +27,7 @@
 ## How to install
 Running the exe or replacing it with bloxstap's exe should install/update the fork
 If it doesnt work, try installing normal bloxstrap and then repeating the step before should work  
-Bloxstrap installation path (where bloxstrap's exe file is) is <i>%localappdata%/Bloxstrap</i> (use Win+R or the file explorer address path to go there)
+Funkstrap installation path (where funkstrap's exe file is) is <i>%localappdata%/Funkstrap</i> (use Win+R or the file explorer address path to go there)
 
 # <b>[Dawndreamer Studios](https://www.roblox.com/communities/17371285/Dawndreamer-Studios)'s Fork</b>  
 Features:  

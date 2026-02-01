@@ -1096,15 +1096,6 @@
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>تكوين الخيارات المتعلقة بسلوك Bloxstrap.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>تمكين إرسال التحليلات</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>إنه مجهول وما فيه شر، أوعدكم! للحصول على نظرة ثاقبة حول ما نجمعه و لماذا, راجع [الPrivacy Policy]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>تحليلات</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>إعادة تعيين كل شيء إلى الإعدادات الأصلية</value>
   </data>

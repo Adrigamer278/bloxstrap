@@ -1097,15 +1097,6 @@ Lūdzu manuāli dzēsiet Bloxstrap.exe no instalēšanas vietas, vai pamēģinie
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Konfigurē opcijas saistītas ar paša Bloxstrap uzvedību.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Iespējo analītiku sūtīšanu</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Tas ir anonīmi un nav ļauni, apsolam. Priekš ieskata, ko mēs vācam un kāpēc, skatiet mūsu [privātuma politiku]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analītikas</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Atiestatīt visu uz noklusējumu</value>
   </data>

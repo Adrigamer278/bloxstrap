@@ -1115,15 +1115,6 @@ Bloxstrap 的安装路径是：
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>您可以在此处配置 Bloxstrap 本身行为相关的选项。</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>允许发送分析数据</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Bloxstrap 承诺所有收集的数据都是匿名无害的。若要了解我们为什么而收集；请参阅我们的 [隐私政策]({0})。</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>分析数据</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>重置所有设置为默认值</value>
   </data>

@@ -1098,15 +1098,6 @@ Kérjük, manuálisan törölje a Bloxstrap.exe fájlt a telepítési helyről, 
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>A Bloxstrap viselkedésével kapcsolatos beállítások konfigurálása.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Az analitika küldésének engedélyezése</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Névtelen és semmi rossz, ígérjük. Ha többet szeretne megtudni arról, hogy mit és miért gyűjtünk, olvassa el az [adatvédelmi szabályzatunkat]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analitika</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Minden visszaállítása alapértelmezettbe</value>
   </data>

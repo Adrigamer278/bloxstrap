@@ -1090,15 +1090,6 @@ Sila buang fail Bloxstrap.exe secara manual dari lokasi pemasangan atau cuba mul
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Konfigurasi opsyen yang berkaitan dengan tingkah laku Bloxstrap itu sendiri.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Benarkan penghantaran analitik</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Untuk maklumat tentang apa yang kami kumpulkan dan sebabnya, rujuk dasar [privasi kami.]({0}). Ia adalah secara anonim dan tidak berniat jahat, kami janji.</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analitik</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Set semula semua kepada tetapan asal</value>
   </data>

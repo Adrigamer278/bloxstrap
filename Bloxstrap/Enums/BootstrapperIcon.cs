@@ -19,6 +19,8 @@
         [EnumName(FromTranslation = "Common.Custom")]
         IconCustom,
         [EnumName(FromTranslation = "Enums.BootstrapperStyle.ClassicFluentDialog")]
-        IconBloxstrapClassic
+        IconBloxstrapClassic,
+        [EnumName(StaticName = "Funkstrap")]
+        IconFunkstrap,
     }
 }

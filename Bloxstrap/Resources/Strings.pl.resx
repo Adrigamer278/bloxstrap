@@ -1098,15 +1098,6 @@ Prosimy ręcznie usunąć Bloxstrap.exe z folderu instalacji lub spróbować pon
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Skonfiguruj ustawienia związane z zachowaniem Bloxstrap.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Włącz anonimowe wysyłanie danych analitycznych</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Jest to anonimowe i w pełni bezpieczne, obiecujemy! Jest to nawet do sprawdzenia w naszym kodzie źródłowym. By poznać, jakie dane zbieramy i dlaczego, zobacz naszą [politykę prywatności]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analityka</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Zresetuj wszystko do ustawień domyślnych</value>
   </data>

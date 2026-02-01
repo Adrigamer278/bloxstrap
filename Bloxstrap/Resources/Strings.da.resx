@@ -1098,15 +1098,6 @@ Slet venligst Bloxstrap.exe manuelt fra installationsplaceringen eller prøv at 
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
     <value>Konfigurer indstillinger relateret til Bloxstraps opførsel.</value>
   </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Aktiver afsendelse af analyser</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Det er anonymt, og der er intet ondt, vi lover. For indsigt i, hvad vi indsamler og hvorfor, se vores [privatlivspolitik]({0}).</value>
-  </data>
-  <data name="Common.Analytics" xml:space="preserve">
-    <value>Analyse</value>
-  </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
     <value>Nulstil alt til standardindstillinger</value>
   </data>
