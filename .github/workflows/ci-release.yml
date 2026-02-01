@@ -1,5 +1,8 @@
 name: CI (Release)
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   build:
