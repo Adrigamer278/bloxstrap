@@ -1,3 +1,10 @@
+> [!NOTE]
+> ## This version is outdated and is recommended that you switch to using [Funkstrap](https://github.com/DawndreamerStudios/funkstrap). Which acts as a complete replacement of bloxstrap rather than replacing your current install with a modified version
+
+---
+---
+---
+
 > [!CAUTION]
 > The only official places to download base Bloxstrap are [the official GitHub repository](https://github.com/bloxstraplabs/bloxstrap) and [bloxstraplabs.com](https://bloxstraplabs.com), the only place to download this fork is this GitHub repository. This fork is not controlled by the Bloxstrap Devs.
 
