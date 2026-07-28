@@ -1,11 +1,9 @@
-using System.Text.Json.Serialization;
-
 namespace Bloxstrap.Models.BloxstrapRPC;
 
 public class WallpaperMessage
 {
     [JsonPropertyName("asset")]
-    public string? Asset { get; set; }
+    public ulong? AssetId { get; set; }
 
     [JsonPropertyName("style")]
     public string? Style { get; set; }

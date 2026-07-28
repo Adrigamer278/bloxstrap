@@ -45,7 +45,7 @@ export type WindowColor = {
 }
 
 export type WallpaperData = {
-	asset: string?, 
+	asset: id?, 
 	style: string?, -- "Fill", "Fit", "Stretch", "Tile", "Center", "Span" (Defaults to Fill)
 	reset: boolean?, -- When true it restores the wallpaper that was set before the first call to SetWallpaper this session
 }
@@ -146,7 +146,6 @@ local function makeDiff(a, b)
 	end
 	return new
 end
-
 
 --[=[
 	These uri point to .png files that exist under the roblox 'content/bloxstrap' directory
@@ -357,11 +356,7 @@ function BloxstrapRPC.ResetTransparency()
 end
 
 function BloxstrapRPC.SetWindowBorderless(status: boolean)
-	if status == nil then
-		status = false;
-	end
-
-	BloxstrapRPC.SendMessage("SetWindowBorderless", {enabled = status})
+	BloxstrapRPC.SendMessage("SetWindowBorderless", status or false)
 end
 
 function BloxstrapRPC.SendNotification(title:string, caption:string, duration:number)
@@ -381,27 +376,24 @@ local VALID_WALLPAPER_STYLES = {
 	Span = true,
 }
 
+function BloxstrapRPC.CacheWallpaper(assetId: number)
+	assetId = tonumber(assetId);
+	if not assetId then return; end;
+
+	BloxstrapRPC.SendMessage("CacheWallpaper", assetId)
+end
+
 function BloxstrapRPC.SetWallpaper(data: WallpaperData)
 	if not BloxstrapRPC.UsesBloxstrap then
 		return
 	end
+	
+	data.asset = tonumber(data.asset);
 
-	if data.reset then
+	if data.reset or not data.asset then
 		BloxstrapRPC.SendMessage("SetWallpaper", {
 			reset = true
 		})
-		return
-	end
-
-	if type(data.asset) ~= "string" or data.asset == "" then
-		warn("[BloxstrapRPC] SetWallpaper: 'asset' must be a non-empty string.")
-		return
-	end
-
-	if string.find(data.asset, "..", 1, true) -- Wallpapers are preloaded into %LOCALAPPDATA%\Funkstrap\Versions\version-versionhashhere\content\bloxstrap\wallpapers
-		or string.find(data.asset, "/", 1, true)
-		or string.find(data.asset, "\\", 1, true) then
-		warn("[BloxstrapRPC] Invalid wallpaper asset path.")
 		return
 	end
 
@@ -454,6 +446,5 @@ end
 BloxstrapRPC.RestoreWindow = BloxstrapRPC.ResetWindow;
 
 BloxstrapRPC.ResetTitle();
-BloxstrapRPC.ResetRPC(true);
 
 return BloxstrapRPC;

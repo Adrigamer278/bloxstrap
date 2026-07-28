@@ -1,7 +1,5 @@
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
-using Bloxstrap.Models.BloxstrapRPC;
 
 namespace Bloxstrap.Integrations;
 
@@ -25,65 +23,77 @@ public static class WallpaperController
         "Livelywpf",
     };
 
-    public static void SetWallpaper(WallpaperMessage data)
+    private static readonly List<string> VALID_STYLES = new()
     {
+        "fill",
+        "fit",
+        "stretch",
+        "tile",
+        "center",
+        "span",
+    };
+
+    public static void SetWallpaper(string wallpaperPath, string? style)
+    {
+        const string LOG_IDENT = "WallpaperController::SetWallpaper";
         try
         {
-            // Original wallpaper so we can reset it later
-            if (_originalWallpaper == null)
-                _originalWallpaper = GetCurrentWallpaper();
-
-            if (data.Reset == true)
-            {
-                if (!string.IsNullOrEmpty(_originalWallpaper))
-                    ApplyWallpaper(_originalWallpaper, "Fill");
-
-                RestoreWallpaperApps();
-
-                _originalWallpaper = null;
-                return;
-            }
-
             CloseWallpaperApps();
-
-            if (string.IsNullOrWhiteSpace(data.Asset))
-                return;
-
-            string wallpapersPath = Path.Combine(
-                Watcher.robloxPath!,
-                "content",
-                "bloxstrap",
-                "wallpapers"
-            );
-
-            string fileName = Path.GetFileName(data.Asset);
-            string fullPath = Path.Combine(wallpapersPath, fileName);
-
-            if (!File.Exists(fullPath))
-            {
-                App.Logger.WriteLine(
-                    "WallpaperController",
-                    $"Wallpaper does not exist: {fullPath}"
-                );
-
-                return;
-            }
-
-            ApplyWallpaper(fullPath, data.Style ?? "Fill");
+            ApplyWallpaper(wallpaperPath, style ?? "Fill");
         }
         catch (Exception ex)
         {
             App.Logger.WriteLine(
-                "WallpaperController",
+                LOG_IDENT,
                 $"Failed to set wallpaper: {ex}"
+            );
+            RestoreWallpaperApps();
+        }
+    }
+
+    public static void ResetWallpaper()
+    {
+        const string LOG_IDENT = "WallpaperController::ResetWallpaper";
+        try
+        {
+            if (!string.IsNullOrEmpty(_originalWallpaper))
+                ApplyWallpaper(_originalWallpaper, "Fill");
+
+            RestoreWallpaperApps();
+
+            _originalWallpaper = null;
+        } catch (Exception ex)
+        {
+            App.Logger.WriteLine(
+                LOG_IDENT,
+                $"Failed to reset wallpaper: {ex}"
             );
         }
     }
 
-    private static void ApplyWallpaper(string path, string style)
+    private static void ApplyWallpaper(string path, string style = "fill")
     {
+        const string LOG_IDENT = "WallpaperController::ApplyWallpaper";
+
+        if (string.IsNullOrEmpty(_originalWallpaper))
+        {
+            _originalWallpaper = GetCurrentWallpaper();
+            if (string.IsNullOrEmpty(_originalWallpaper))
+            {
+                App.Logger.WriteLine(
+                    LOG_IDENT,
+                    "Failed to get current wallpaper, aborting change"
+                );
+
+                return;
+            }
+        }
+
+        if (!VALID_STYLES.Contains(style.ToLower()))
+            style = "Fill";
+
         App.Logger.WriteLine(
-            "WallpaperController",
+            LOG_IDENT,
             $"Applying wallpaper: {path} | style-{style}"
         );
 
@@ -99,7 +109,7 @@ public static class WallpaperController
         if (!result)
         {
             App.Logger.WriteLine(
-                "WallpaperController",
+                LOG_IDENT,
                 $"SystemParametersInfo failed: {Marshal.GetLastWin32Error()} | path={path}"
             );
         }
@@ -109,7 +119,7 @@ public static class WallpaperController
     {
         const int MAX_PATH = 260;
 
-        var buffer = new System.Text.StringBuilder(MAX_PATH);
+        var buffer = new StringBuilder(MAX_PATH);
 
         SystemParametersInfo(
             SPI_GETDESKWALLPAPER,
@@ -128,34 +138,34 @@ public static class WallpaperController
             true
         );
 
-        switch (style)
+        switch (style.ToLower())
         {
-            case "Fill":
+            case "fill":
                 key?.SetValue("WallpaperStyle", "10");
                 key?.SetValue("TileWallpaper", "0");
                 break;
 
-            case "Fit":
+            case "fit":
                 key?.SetValue("WallpaperStyle", "6");
                 key?.SetValue("TileWallpaper", "0");
                 break;
 
-            case "Stretch":
+            case "stretch":
                 key?.SetValue("WallpaperStyle", "2");
                 key?.SetValue("TileWallpaper", "0");
                 break;
 
-            case "Tile":
+            case "tile":
                 key?.SetValue("WallpaperStyle", "0");
                 key?.SetValue("TileWallpaper", "1");
                 break;
 
-            case "Center":
+            case "center":
                 key?.SetValue("WallpaperStyle", "0");
                 key?.SetValue("TileWallpaper", "0");
                 break;
 
-            case "Span":
+            case "span":
                 key?.SetValue("WallpaperStyle", "22");
                 key?.SetValue("TileWallpaper", "0");
                 break;
@@ -164,6 +174,8 @@ public static class WallpaperController
 
     private static void CloseWallpaperApps()
     {
+        const string LOG_IDENT = "WallpaperController::CloseWallpaperApps";
+
         if (_wallpaperApps)
             return;
 
@@ -187,7 +199,7 @@ public static class WallpaperController
                         _closedWallpaperApps.Add(exe);
 
                     App.Logger.WriteLine(
-                        "WallpaperController",
+                        LOG_IDENT,
                         $"Closing wallpaper app: {proc.ProcessName}"
                     );
 
@@ -199,7 +211,7 @@ public static class WallpaperController
                 catch (Exception ex)
                 {
                     App.Logger.WriteLine(
-                        "WallpaperController",
+                        LOG_IDENT,
                         $"Failed to close wallpaper app: {ex}"
                     );
                 }
@@ -209,6 +221,7 @@ public static class WallpaperController
 
     private static void RestoreWallpaperApps()
     {
+        const string LOG_IDENT = "WallpaperController::RestoreWallpaperApps";
         foreach (string exe in _closedWallpaperApps)
         {
             try
@@ -218,7 +231,7 @@ public static class WallpaperController
                     Process.Start(exe);
 
                     App.Logger.WriteLine(
-                        "WallpaperController",
+                        LOG_IDENT,
                         $"Restarted wallpaper app: {exe}"
                     );
                 }
@@ -226,7 +239,7 @@ public static class WallpaperController
             catch (Exception ex)
             {
                 App.Logger.WriteLine(
-                    "WallpaperController",
+                    LOG_IDENT,
                     $"Failed to restart wallpaper app: {ex}"
                 );
             }
